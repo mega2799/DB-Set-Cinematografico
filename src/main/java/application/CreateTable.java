@@ -14,8 +14,8 @@ public class CreateTable {
 
     private static final String DEFAULT_DELIMITER = ";";
 
-    private Connection connection;
-    private boolean fullLineDelimiter = true;
+    private boolean fullLineDelimiter = false;
+
 
     public static String getDelimiter() {
         return DEFAULT_DELIMITER;
@@ -24,6 +24,8 @@ public class CreateTable {
     public void runScript(Connection conn, Reader reader) throws IOException,
             SQLException {
         StringBuffer command = null;
+        conn.setAutoCommit(false);
+
         try {
             LineNumberReader lineReader = new LineNumberReader(reader);
             String line = null;
@@ -33,7 +35,7 @@ public class CreateTable {
                 }
                 String trimmedLine = line.trim();
                 if (trimmedLine.startsWith("--")) {
-                    System.out.println(trimmedLine);
+                    System.out.println("commented: " + trimmedLine);
                 } else if (trimmedLine.length() < 1
                         || trimmedLine.startsWith("//")) {
                     // Do nothing
@@ -43,7 +45,7 @@ public class CreateTable {
                 } else if (!fullLineDelimiter
                         && trimmedLine.endsWith(getDelimiter())
                         || fullLineDelimiter
-                        && trimmedLine.equals(getDelimiter())) {
+                        && trimmedLine.equals(getDelimiter())){
                     command.append(line.substring(0, line
                             .lastIndexOf(getDelimiter())));
                     command.append(" ");
@@ -110,14 +112,3 @@ public class CreateTable {
         }
     }
 }
-
-/*
-    public void readFile(String path){
-        try(BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/Creation/makeTables.txt"))) {
-            StringBuilder sb = new StringBuilder();
-            String line = br.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-}*/

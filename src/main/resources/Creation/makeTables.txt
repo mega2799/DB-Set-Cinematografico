@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS  Enti(
   FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
   ON DELETE CASCADE
   ON UPDATE NO ACTION,
-  PRIMARY KEY(`P_IVA`)
+  PRIMARY KEY(P_IVA)
 ) ;
    
 CREATE TABLE if not exists MembroTroupe(
@@ -157,24 +157,24 @@ CREATE TABLE if not exists Film_Membro_Troupe(
 
 -- CREATE TABLE if not exists Supervisione(
 -- supervisore INT NOT NULL,
--- FOREIGN KEY (supervisore) REFERENCES Supervisione(supervisore) 
+-- FOREIGN KEY (supervisore) REFERENCES Supervisione(supervisore)
 -- ON DELETE CASCADE
 -- ON UPDATE NO ACTION,
 -- subalterno INT NOT NULL,
 --  FOREIGN KEY (subalterno) REFERENCES Supervisione(subalterno)
 -- ON DELETE CASCADE
--- ON UPDATE NO ACTION, 
+-- ON UPDATE NO ACTION,
 -- PRIMARY KEY(subalterno)
 -- );
 
 CREATE TABLE if not exists ScenaCiak(
-        codScena int(10) Primary Key, 
+        codScena int(10) Primary Key,
         noteDiProduzione varchar(255),
-        rullo int(4) NOT NULL, 
+        rullo int(4) NOT NULL,
         numRiprese int(4) NOT NULL,
         dataInizio date,
         dataFine date, -- CHECK(dataFine >= dataInizio),
-        costoAffittoGiornaliero float(5), 
+        costoAffittoGiornaliero float(5),
         codInd INT NOT NULL,
         FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
         ON DELETE CASCADE

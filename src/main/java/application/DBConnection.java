@@ -13,11 +13,18 @@ public class DBConnection {
     public DBConnection(){
             try {
                 Class.forName("com.mysql.jdbc.Driver");
+                /*
                 Connection con=DriverManager.getConnection(
                         "jdbc:mysql://localhost:3306/cinema",USER ,PASS);
                 System.out.println("CONNESSO");
                 this.connection = DriverManager.getConnection(DB_URL, USER, PASS);
                 System.out.println("OUT:" + this.connection.toString());
+*/
+                this.connection = DriverManager.getConnection(
+                        "jdbc:mysql://localhost:3306/cinema",USER ,PASS);
+                System.out.println("CONNESSO");
+                System.out.println("OUT:" + this.connection.toString());
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
