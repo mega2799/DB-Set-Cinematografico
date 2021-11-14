@@ -56,3 +56,4 @@ INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
 	-- Leila Skywalker
 	VALUES ('CRRFSH21NS56','Carrie', 'Fisher', 'GB20BARC20031835638431',
 				'1956-12-21', '231-687-4750', 19447, NULL, 'attore', NULL);
+

@@ -7,6 +7,9 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 public class Main extends Application{
@@ -38,8 +41,12 @@ public class Main extends Application{
             fe.printStackTrace();
         }
 
-        //File f = new File(this.getClass().getResource("/Creation/makeTables.txt").toString());
-        //Reader br = new FileReader(f);
+        /* executing queries */
+        TellMe tellMe = new TellMe(DbC);
+        System.out.println(tellMe.tellTitle());
+        System.out.println(tellMe.tellActors());
+
+
         System.exit(0);
     }
 
