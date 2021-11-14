@@ -1,6 +1,15 @@
 Set Cinematografico
 ===================
 
+creare il file .sql 
+
+```bash
+mysqldump -u studente -p cinema > cinema.sql
+```
+
+
+
+
 ## Struttura del progetto
 
 La presente documentazione tratta nel dettaglio la progettazione e l’implementazione dell’elaborato "Set cinematografico" di Michele Nardini ()  Santoro Matteo(881608)
