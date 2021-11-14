@@ -1,0 +1,58 @@
+INSERT IGNORE INTO Film(codF, titolo, genere, durata, dataUscita, idSerie)
+	VALUES(00001, 'Star Wars: Episodio VI - Il ritorno dello Jedi',
+				'fantascienza', 134, '1983/05/25'  , NULL) ;
+
+INSERT IGNORE INTO Indirizzo(codInd, città, via, civico, CAP) VALUES(24673, 'nicasio',
+						'lucas valley rid', 5858, 94946);
+	-- casa di george lucas
+
+INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
+							codInd, percentualeContributo,
+							ruolo, tipoOperatore)
+	-- produttore esecutivo George Lucas
+	VALUES ('GRGLCS14ES44', 'George', 'Lucas', 'GB98BARC20040156884556',
+				'1944/05/14', '516-527-8719', 24673,1.5, 'Produttore Esecutivo', NULL);
+
+INSERT IGNORE INTO Indirizzo(codInd, città, via, civico, CAP) VALUES(38734, 'cardiff',
+						'st angel str', 89, 15234);
+	-- casa regista
+
+INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
+							codInd, percentualeContributo,
+							ruolo, tipoOperatore)
+	-- regista
+	VALUES ('RCHMRQ22IS37', 'Richard', 'Marquand', 'GB98BARC20035361814589',
+				'1937/12/22', '205-802-5689', 38734, 1.5, 'regista', NULL);
+
+INSERT IGNORE INTO Indirizzo(codInd, città, via, civico, CAP) VALUES(37065, 'north malvinafurt',
+						'ryan turnpike', 198, 56893);
+	-- Mark Hamill
+
+INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
+							codInd, percentualeContributo,
+							ruolo, tipoOperatore)
+	-- Luke Skywalker
+	VALUES ('MRKHML25IS51', 'Mark', 'Hamill', 'GB56BARC20038438638758',
+				'1951/09/25', '214-989-5138', 37065, NULL, 'attore', NULL);
+
+INSERT IGNORE INTO Indirizzo(codInd, città, via, civico, CAP) VALUES(19639, 'lake khalidside',
+						'heidenreich ways', 338, 81079);
+	-- Harry Ford
+
+INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
+							codInd, percentualeContributo,
+							ruolo, tipoOperatore)
+	-- Ian solo
+	VALUES ('HRSFRD13GS42', 'Harrison', 'Ford', 'GB25BARC20039569987273',
+				'1942-07-13', '205-944-3057', 19639, NULL, 'attore', NULL);
+
+INSERT IGNORE INTO Indirizzo(codInd, città, via, civico, CAP) VALUES(19447, 'south erictown',
+						'dereck hill', 473, 89559);
+	-- Carrie Fisher
+
+INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
+							codInd, percentualeContributo,
+							ruolo, tipoOperatore)
+	-- Leila Skywalker
+	VALUES ('CRRFSH21NS56','Carrie', 'Fisher', 'GB20BARC20031835638431',
+				'1956-12-21', '231-687-4750', 19447, NULL, 'attore', NULL);

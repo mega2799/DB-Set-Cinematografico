@@ -16,6 +16,9 @@ public class Main extends Application{
         //myStage.show();
 
         DBConnection DbC = new DBConnection();
+
+
+        /* Create tables, decommentare per creare le tabelle ma abbiamo errore sintassi a cui la franco deve rispondere
         CreateTable createTable = new CreateTable();
 //        List<String> lines = Files.readAllLines(Paths.get(this.getClass().getResource("/Creation/makeTables.txt").toString()));
 //        System.out.println(lines.get(2));
@@ -25,7 +28,15 @@ public class Main extends Application{
         } catch (FileNotFoundException fe){
             fe.printStackTrace();
         }
-
+*/
+        /* Funziona tutto ma dobbiamo produrre nuovi dati */
+        InsertValues insertValues = new InsertValues();
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/Insert/insertion.txt")));
+            insertValues.runScript(DbC.getConnection(), br);
+        } catch (FileNotFoundException fe){
+            fe.printStackTrace();
+        }
 
         //File f = new File(this.getClass().getResource("/Creation/makeTables.txt").toString());
         //Reader br = new FileReader(f);
