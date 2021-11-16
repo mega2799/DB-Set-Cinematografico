@@ -57,3 +57,21 @@ INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
 	VALUES ('CRRFSH21NS56','Carrie', 'Fisher', 'GB20BARC20031835638431',
 				'1956-12-21', '231-687-4750', 19447, NULL, 'attore', NULL);
 
+INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
+    VALUES (1, 'GRGLCS14ES44');
+    -- George lucas
+
+INSERT IGNORE INTO Indirizzo(codInd, città, via, civico, CAP) VALUES(18302, 'san francisco',
+					 'gorgas ave', 1, 94129);
+	--sede della twenty century
+
+
+INSERT IGNORE INTO Indirizzo(codInd, città, via, civico, CAP) VALUES(16395, 'roma',
+						'Cantalupo in Sabina', 29, 19100);
+	--sede territoriale della twenty century
+
+INSERT IGNORE INTO Enti(P_IVA,nome,codInd) VALUES (40365320379, "Twenty Century", 16395);
+
+INSERT IGNORE INTO SediTerritoriali(P_IVA, codInd) VALUES (40365320379, 16395);
+
+CONTINURE DA QUI......
