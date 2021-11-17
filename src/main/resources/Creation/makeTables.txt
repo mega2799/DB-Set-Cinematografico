@@ -102,7 +102,7 @@ CREATE TABLE if not exists Incasso(
 
 CREATE TABLE if not exists Sponsor(
         P_IVA_SPONSOR varchar(11) primary key,
-    nome varchar(41) NOT NULL
+        nome varchar(41) NOT NULL
     );
 
 
