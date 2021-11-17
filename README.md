@@ -569,13 +569,13 @@ CREATE TABLE if not exists AcquistoCostume(
 # Special thanks 
 -------
 
-![generatore di indirizzi random](https://randommer.io/random-address)
+[generatore di indirizzi random](https://randommer.io/random-address)
 
-![generatore di IBAN random](http://randomiban.com/?country=UK)
+[generatore di IBAN random](http://randomiban.com/?country=UK)
 
-![generatore di numeri telefono random](https://randommer.io/Phone)
+[generatore di numeri telefono random](https://randommer.io/Phone)
 
-![generatore di P.IVA random](https://strumentidev.it/partita-iva/random/result)
+[generatore di P.IVA random](https://strumentidev.it/partita-iva/random/result)
 
 ## possibili query per noi
  - query sullo stipendio per i membri della troupe 
