@@ -1,7 +1,7 @@
 package application;
 
 /*
-  try(BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/Creation/makeTables.txt"))) {
+  try(BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/Creation/makeTables.sql"))) {
                 StringBuilder sb = new StringBuilder();
                 String line = br.readLine();
 

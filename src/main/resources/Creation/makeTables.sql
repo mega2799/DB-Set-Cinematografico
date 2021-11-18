@@ -168,7 +168,7 @@ CREATE TABLE if not exists Film_Membro_Troupe(
 -- );
 
 CREATE TABLE if not exists ScenaCiak(
-        codScena int(10) Primary Key,
+        codScena int(10) primary key NOT NULL,
         noteDiProduzione varchar(255),
         rullo int(4) NOT NULL,
         numRiprese int(4) NOT NULL,
