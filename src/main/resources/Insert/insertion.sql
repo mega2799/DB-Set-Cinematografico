@@ -201,3 +201,23 @@ INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
 INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- operatore fotografico
     VALUES (1, 'DVDCLLOE03S18');
+
+INSERT IGNORE INTO Indirizzo(codInd, città, via, civico, CAP)
+	    -- indirizzo Magazzino
+        VALUES(19341, 'South Veronafurt', 'Alejandra Ports', 658, 28270);
+
+INSERT IGNORE INTO Magazzino(numMagazzino, codInd)
+    -- magazzino principale
+    VALUES(1,19341);
+
+INSERT IGNORE INTO PosizioneMagazzino(codP, numMagazzino, scaffale, percorso)
+    -- Posizione costume luke skywalker
+VALUES(25588, 1, 2, 'S');
+
+INSERT IGNORE INTO PosizioneMagazzino(codP, numMagazzino, scaffale, percorso)
+    -- Posizione costume leila
+VALUES(25252, 1, 41, 'S');
+
+INSERT IGNORE INTO PosizioneMagazzino(codP, numMagazzino, scaffale, percorso)
+    -- Posizione costume han solo
+VALUES(84425, 1, 7, 'N');

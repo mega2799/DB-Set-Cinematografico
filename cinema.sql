@@ -1,8 +1,8 @@
--- MariaDB dump 10.19  Distrib 10.6.4-MariaDB, for Linux (x86_64)
+-- MariaDB dump 10.19  Distrib 10.6.5-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: cinema
 -- ------------------------------------------------------
--- Server version	10.6.4-MariaDB
+-- Server version	10.6.5-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -683,4 +683,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-14 17:33:39
+-- Dump completed on 2021-11-18 22:08:04
