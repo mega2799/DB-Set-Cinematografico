@@ -16,8 +16,8 @@ La presente documentazione tratta nel dettaglio la progettazione e l’implement
 
 ## Struttura:
 * [1 Introduzione](#Introduzione)
-* [2 Analisi requisiti](#Intervista)
-* [2.11 Intervista]
+* [2 Analisi requisiti]
+* [2.11 Intervista](#Intervista)
 * [2.2 Estrazione Concetti Fondamentali]
 * [3 Progetto dello schema Concettuale](#Progetto-Dello-Schema-Concettuale)
 * [3.1 Distribuzione e Incasso](#distribuzione-e-incasso)
@@ -39,9 +39,7 @@ la gesione delle scene e dei ciak quindi gli stipendi e gli incassi.
 
 2.11 Intervista
 ----
-
 /* SERVE AGGIUNGERE LE QUERY IN QUESTA ROBA */
-
 Netflix Italia possiede un sistema software da per la gestione delle persone e  
 cose coinvolte della realizzazione di serie Tv e film, tale sistema necessità  
 di una nuova versione. Si richiede quindi la progettazione di una database che  
