@@ -17,9 +17,9 @@ La presente documentazione tratta nel dettaglio la progettazione e l’implement
 ## Struttura:
 * [1 Introduzione](#Introduzione)
 * [2 Analisi requisiti]
-* [2.11 Intervista](#Intervista)
+* [2.11 Intervista](#211-intervista)
 * [2.2 Estrazione Concetti Fondamentali]
-* [3 Progetto dello schema Concettuale](#Progetto-Dello-Schema-Concettuale)
+* [3 Progetto dello schema Concettuale](#3-progetto-dello-schema-concettuale)
 * [3.1 Distribuzione e Incasso](#distribuzione-e-incasso)
 * [3.2 Inspirazione e Sceneggiatura](#inspirazione-e-sceneggiatura)
 * [3.3 Gestione Fondi](#gestione-fondi)
