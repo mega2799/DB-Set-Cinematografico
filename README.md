@@ -7,7 +7,9 @@ creare il file .sql
 mysqldump -u studente -p cinema > cinema.sql
 ```
 
-
+#### Note personali
+Ma siamo sicuri di voler rendere l'indirizzo obbligatorio per tutti ?
+Risolvere i TODO in giro
 
 
 ## Struttura del progetto
@@ -615,7 +617,7 @@ CREATE TABLE if not exists AcquistoCostume(
 ## possibili query per noi
  - query sullo stipendio per i membri della troupe 
  - query di aggiornamento del fondo con nuovi finanziatori/sponsor
- - selezionare tutti i lavoratori che hanno contribuito ad un film
+ - selezionare tutti i lavoratori che hanno contribuito ad un film (DONE)
  - calcolo percentuale contribuito caporegista e regista
  - calcolo trattenute sede territoriale 
  - query che elenca oggetti acquistati "in magazzino" 
