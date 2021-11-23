@@ -13,6 +13,19 @@ INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
 	VALUES ('GRGLCS14ES44', 'George', 'Lucas', 'GB98BARC20040156884556',
 				'1944/05/14', '516-527-8719', 24673,1.5, 'Produttore Esecutivo', NULL);
 
+INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
+							codInd, percentualeContributo,
+							ruolo, tipoOperatore)
+	-- sceneggiatore George Lucas
+	VALUES ('GRGLCS14ES44', 'George', 'Lucas', 'GB98BARC20040156884556',
+				'1944/05/14', '516-527-8719', 24673,1.5, 'Sceneggiatore', NULL);
+
+INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
+							codInd, percentualeContributo,
+							ruolo, tipoOperatore)
+	-- sceneggiatore George Lucas
+	VALUES ('GRGLCS14ES44', 'George', 'Lucas', 'GB98BARC20040156884556',
+				'1944/05/14', '516-527-8719', 24673,1.5, 'Produttore', NULL);
 
 INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- George lucas

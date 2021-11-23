@@ -16,7 +16,7 @@ public class Main extends Application{
 
 
         /* Create tables, ma abbiamo errore sintassi */
-        CreateTable createTable = new CreateTable();
+//        CreateTable createTable = new CreateTable();
 //        List<String> lines = Files.readAllLines(Paths.get(this.getClass().getResource("/Creation/makeTables.sql").toString()));
 //        System.out.println(lines.get(2));
      /*
@@ -38,8 +38,17 @@ public class Main extends Application{
 
         /* executing queries */
         TellMe tellMe = new TellMe(DbC);
-        System.out.println(tellMe.tellTitle());
-        System.out.println(tellMe.tellActors());
+        System.out.println(tellMe.actors());
+        //TODO
+        // Per come abbiamo modellato il DB george lucas non puo essere sia produttore che sceneggiatore
+        System.out.println(tellMe.troupeMembers());
+
+        InsertNew insertNew = new InsertNew(DbC);
+        insertNew.sponsor("29218600223", "BHo SPA");
+        //TODO
+        // Aggiungo le row ad DB ma non mi risulta nulla sul mio DB in
+        // "locale" dove si connette ??
+        System.out.println(tellMe.sponsors());
 
 
         System.exit(0);
