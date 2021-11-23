@@ -2,3 +2,5 @@
 *.jar
 *.bin
 *.zip
+.idea/* 
+.gradle/*
