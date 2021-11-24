@@ -1,6 +1,6 @@
 CREATE TABLE if not exists Indirizzo(
         codInd int primary key,
-        città varchar(21) NOT NULL,
+        citta varchar(21) NOT NULL,
     via varchar(40) NOT NULL,
     civico int(4) NOT NULL,
     CAP int(5) NOT NULL check(length(CAP) = 5)

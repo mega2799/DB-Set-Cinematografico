@@ -2,7 +2,7 @@ INSERT IGNORE INTO Film(codF, titolo, genere, durata, dataUscita, idSerie)
 	VALUES(00001, 'Star Wars: Episodio VI - Il ritorno dello Jedi',
 				'fantascienza', 134, '1983/05/25'  , NULL) ;
 
-INSERT IGNORE INTO Indirizzo(codInd, città, via, civico, CAP) VALUES(24673, 'nicasio',
+INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP) VALUES(24673, 'nicasio',
 						'lucas valley rid', 5858, 94946);
 	-- casa di george lucas
 
@@ -31,7 +31,7 @@ INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- George lucas
     VALUES (1, 'GRGLCS14ES44');
 
-INSERT IGNORE INTO Indirizzo(codInd, città, via, civico, CAP) VALUES(38734, 'cardiff',
+INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP) VALUES(38734, 'cardiff',
 						'st angel str', 89, 15234);
 	-- casa regista
 
@@ -46,7 +46,7 @@ INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- regista
     VALUES (1, 'RCHMRQ22IS37');
 
-INSERT IGNORE INTO Indirizzo(codInd, città, via, civico, CAP) VALUES(37065, 'north malvinafurt',
+INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP) VALUES(37065, 'north malvinafurt',
 						'ryan turnpike', 198, 56893);
 	-- Mark Hamill
 
@@ -61,7 +61,7 @@ INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- luke
     VALUES (1, 'MRKHML25IS51');
 
-INSERT IGNORE INTO Indirizzo(codInd, città, via, civico, CAP) VALUES(19639, 'lake khalidside',
+INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP) VALUES(19639, 'lake khalidside',
 						'heidenreich ways', 338, 81079);
 	-- Harry Ford
 
@@ -76,7 +76,7 @@ INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- ian
     VALUES (1, 'HRSFRD13GS42');
 
-INSERT IGNORE INTO Indirizzo(codInd, città, via, civico, CAP) VALUES(19447, 'south erictown',
+INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP) VALUES(19447, 'south erictown',
 						'dereck hill', 473, 89559);
 	-- Carrie Fisher
 
@@ -91,11 +91,11 @@ INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     VALUES (1, 'CRRFSH21NS56');
 
 
-INSERT IGNORE INTO Indirizzo(codInd, città, via, civico, CAP)
+INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
 	--sede della twenty century
     VALUES(18302, 'san francisco', 'gorgas ave', 1, 94129);
 
-INSERT IGNORE INTO Indirizzo(codInd, città, via, civico, CAP)
+INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
 	--sede territoriale della twenty century
     VALUES(16395, 'roma', 'Cantalupo in Sabina', 29, 19100);
 
@@ -126,7 +126,7 @@ INSERT IGNORE INTO Sponsor(P_IVA_SPONSOR, nome)
     -- Samsung
     VALUES('53179880082', 'Samsung Galaxy');
 
-INSERT IGNORE INTO Indirizzo(codInd, città, via, civico, CAP)
+INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
 	-- indirizzo michel barnaby
     VALUES(49429, 'New Henderson', 'Gislason Ridge', 605, 47614);
 
@@ -134,7 +134,7 @@ INSERT IGNORE INTO Finanziatore(P_IVA_FINANZIATORE, nome,codInd ,percentualeGuad
     -- Finanziatore 1
     VALUES('31562270996', 'Micheal Barnaby', 49429, 3.2);
 
-INSERT IGNORE INTO Indirizzo(codInd, città, via, civico, CAP)
+INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
 	-- indirizzo starbucks
     VALUES(15293, 'Vermont', 'Jayden Villages', 3444, 54808 );
 
@@ -142,7 +142,7 @@ INSERT IGNORE INTO Finanziatore(P_IVA_FINANZIATORE, nome,codInd ,percentualeGuad
     -- La starbucks che investe in starWars !
     VALUES('40211260761', 'Starbucks',  15293 , 0.19);
 
-INSERT IGNORE INTO Indirizzo(codInd, città, via, civico, CAP)
+INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
 	    -- indirizzo aiuto regista
         VALUES(17349, 'Arielleport', 'Ashton Tunnel', 645, 48937);
 
@@ -157,7 +157,7 @@ INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- Aiuto regista
     VALUES (1, 'GLBTLY12DS14');
 
-INSERT IGNORE INTO Indirizzo(codInd, città, via, civico, CAP)
+INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
 	    -- indirizzo capo regista
         VALUES(19834, 'North Christellemouth', 'Keagan Circles', 6, 35637);
 
@@ -172,7 +172,7 @@ INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- capo regista
     VALUES (1, 'ANWJRGA24S33');
 
-INSERT IGNORE INTO Indirizzo(codInd, città, via, civico, CAP)
+INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
 	    -- indirizzo Stilista
         VALUES(17439, 'Maine', 'McDermott Manors', 339, 33812);
 
@@ -187,7 +187,7 @@ INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- stilista
     VALUES (1, 'JNTSTYD27S39');
 
-INSERT IGNORE INTO Indirizzo(codInd, città, via, civico, CAP)
+INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
 	    -- indirizzo Operatore fonico
         VALUES(19900, 'Indiana', 'Brayan Square', 672, 14329);
 
@@ -201,7 +201,7 @@ INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- operatore fonico
     VALUES (1, 'KVNMCGE03S18');
 
-INSERT IGNORE INTO Indirizzo(codInd, città, via, civico, CAP)
+INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
 	    -- indirizzo Operatore fotografico
         VALUES(12346, 'Lake Nyahmouth', 'McGlynn Brooks', 418, 70444);
 
@@ -215,7 +215,7 @@ INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- operatore fotografico
     VALUES (1, 'DVDCLLOE03S18');
 
-INSERT IGNORE INTO Indirizzo(codInd, città, via, civico, CAP)
+INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
 	    -- indirizzo Magazzino
         VALUES(19341, 'South Veronafurt', 'Alejandra Ports', 658, 28270);
 
