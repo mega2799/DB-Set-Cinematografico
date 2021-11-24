@@ -11,20 +11,21 @@ public class DBConnection {
     static final String OS = System.getProperty("os.name");
     static final String DB_URL = "jdbc:mysql://localhost:3306/cinema?characterEncoding=utf8";
 
-    private String user = "root";
-    private String passw = "password";
+    private String user;
+    private String passw;
 
     private Connection connection;
 
 
     public DBConnection(){
-            if(OS.contains("windows")){
-                this.user = "Matte";
-                this.passw = "DBPassword";
+        System.out.println(OS);
+            if(OS.contains("Windows")){
+                this.user = "root";
+                this.passw = "password";
             } else{
-                if(OS.contains("linux")){
-                    this.user = "root";
-                    this.passw = "password";
+                if(OS.contains("Linux")){
+                    this.user = "Matte";
+                    this.passw = "DBPassword";
                 }
             }
 

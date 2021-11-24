@@ -357,7 +357,7 @@ DROP TABLE IF EXISTS `Indirizzo`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Indirizzo` (
   `codInd` int(11) NOT NULL,
-  `città` varchar(21) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `citta` varchar(21) COLLATE utf8mb4_unicode_ci NOT NULL,
   `via` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   `civico` int(4) NOT NULL,
   `CAP` int(5) NOT NULL CHECK (octet_length(`CAP`) = 5),
@@ -683,4 +683,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-18 22:08:04
+-- Dump completed on 2021-11-24 19:52:38
