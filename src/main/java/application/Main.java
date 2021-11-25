@@ -5,6 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class Main extends Application{
     @Override
@@ -16,17 +19,16 @@ public class Main extends Application{
 
 
         /* Create tables, ma abbiamo errore sintassi */
-//        CreateTable createTable = new CreateTable();
-//        List<String> lines = Files.readAllLines(Paths.get(this.getClass().getResource("/Creation/makeTables.sql").toString()));
-//        System.out.println(lines.get(2));
-     /*
+        CreateTable createTable = new CreateTable();
+        //List<String> lines =  Files.readAllLines(Paths.get(this.getClass().getResource("/Creation/makeTables.sql").toString()));
+        System.out.println("CREATING DB.......");
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/Creation/makeTables.sql")));
             createTable.runScript(DbC.getConnection(), br);
         } catch (FileNotFoundException fe){
             fe.printStackTrace();
         }
-    */
+
         /* Funziona tutto ma dobbiamo produrre nuovi dati */
         InsertValues insertValues = new InsertValues();
         try {
@@ -47,7 +49,7 @@ public class Main extends Application{
         insertNew.sponsor("29218600223", "BHo SPA");
         //TODO
         // Aggiungo le row ad DB ma non mi risulta nulla sul mio DB in
-        // "locale" dove si connette ??
+        // "locale" aggiunge dei NULL......
         System.out.println(tellMe.sponsors());
 
 
