@@ -178,7 +178,7 @@ CREATE TABLE if not exists ScenaCiak(
         -- dataFine date, -- CHECK(dataFine >= dataInizio),
 
         -- sostituiro le date con il numero di ore
-        durata float NOT NULL,
+        durataOre float NOT NULL,
         costoAffittoGiornaliero float(5),
         codInd INT NOT NULL,
         FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)

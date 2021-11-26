@@ -211,6 +211,7 @@ INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
 	-- Operatore fotografico
 	VALUES ('DVDCLLOE03S18','David', 'Chiello', 'GB44BARC20031817137209',
 				'1918-05-03', '724-829-1163', 12346, NULL, 'operatore', 'fotografico');
+
 INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- operatore fotografico
     VALUES (1, 'DVDCLLOE03S18');
@@ -223,13 +224,26 @@ INSERT IGNORE INTO Magazzino(numMagazzino, codInd)
     -- magazzino principale
     VALUES(1,19341);
 
+INSERT IGNORE INTO Costume(codC, tipo, descrizione, CF, codP)
+    -- costume Luke
+    VALUES(49262 ,'fantasia','Costume di Luke Skywalker, kimono nero, stivali, spada Laser Verde','MRKHML25IS51', 25588);
+
 INSERT IGNORE INTO PosizioneMagazzino(codP, numMagazzino, scaffale, percorso)
     -- Posizione costume luke skywalker
 VALUES(25588, 1, 2, 'S');
 
+INSERT IGNORE INTO Costume(codC, tipo, descrizione, CF, codP)
+    -- costume Leila
+    VALUES(53921 ,'fantasia','Costume di Leila, bikini Jabba the Hat','CRRFSH21NS56', 25252);
+
 INSERT IGNORE INTO PosizioneMagazzino(codP, numMagazzino, scaffale, percorso)
     -- Posizione costume leila
 VALUES(25252, 1, 41, 'S');
+
+
+INSERT IGNORE INTO Costume(codC, tipo, descrizione, CF, codP)
+    -- costume Han Solo
+    VALUES(47429 ,'fantasia','Costume di Han Solo, piastra di metallo, pistola, giubboto','HRSFRD13GS42', 84425);
 
 INSERT IGNORE INTO PosizioneMagazzino(codP, numMagazzino, scaffale, percorso)
     -- Posizione costume han solo

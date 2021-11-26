@@ -28,7 +28,7 @@ La presente documentazione tratta nel dettaglio la progettazione e l’implement
 * [3.4 Membro della Troupe](#membro-troupe)
 * [3.6 Scena](#scena)
 
-* [5 Il progetto Logico](#Il-Progetto-Logico)
+* [5 Il progetto Logico](#5-il-progetto-logico)
 
 Introduzione
 -----------
@@ -41,7 +41,8 @@ la gesione delle scene e dei ciak quindi gli stipendi e gli incassi.
 
 2.11 Intervista
 ----
-/* SERVE AGGIUNGERE LE QUERY IN QUESTA ROBA */
+/* SERVE AGGIUNGERE LE QUERY IN QUESTA ROBA /
+
 Netflix Italia possiede un sistema software da per la gestione delle persone e  
 cose coinvolte della realizzazione di serie Tv e film, tale sistema necessità  
 di una nuova versione. Si richiede quindi la progettazione di una database che  
@@ -145,13 +146,15 @@ Il progetto Logico
 ---------------
 Qui riportati gli schemi di navigazione delle operazioni
 
-Aggiunta Film
-------
+# 5.x Traduzione delle operazioni in query
+
+## Aggiunta Film
 Aggiungere un film consiste nell'aggiungere un instanza dell' entità FILM
 ```sql 
-INSERT INTO Film(codF, titolo, genere, durata, dataUscita, idSerie) 
-	VALUES(00001, 'Star Wars: Episodio VI - Il ritorno dello Jedi',
-				'fantascienza', 134, 25/05/2983, 2551983);
+INSERT IGNORE INTO Film(codF, titolo, genere, durata, dataUscita, idSerie) 
+
+VALUES(00001, 'Star Wars: Episodio VI - Il ritorno dello Jedi',
+	'fantascienza', 134, 25/05/2983, 2551983);
 ```
 
 Aggiunta Membro-Troupe
@@ -159,23 +162,52 @@ Aggiunta Membro-Troupe
 Aggiungiamo prima al database un membro generico, il quale verra poi collegato al film  
 tramite la tupla Film_Membro_Troupe che rappresenta l'associazione _lavora_
 ```sql
-INSERT INTO Membro_Troupe(CF, nome, cognome, iban, data_nascita, telefono,
-							codInd, percentuale_contributo[0-1],
-							ruolo, tipoOperatore[0-1])
-	VALUES ('GRGLCS14ES44', 'George', 'Lucas', 'GB98BARC20040156884556', 
-				14/5/1944, '516-527-8719', 1.5, 'Produttore Esecutivo');
+INSERT IGNORE INTO Membro_Troupe(CF, nome, cognome, iban,
+ 	data_nascita, telefono,
+	codInd, percentuale_contributo[0-1],
+	ruolo, tipoOperatore[0-1])
 
-INSERT INTO Film_Membro_Troupe(00001, 'GRGLCS14ES44');
+VALUES ('GRGLCS14ES44', 'George', 'Lucas', 'GB98BARC20040156884556', 
+		'1944/05/14', '516-527-8719', 1.5, 'Produttore Esecutivo');
+
+INSERT IGNORE INTO Film_Membro_Troupe(00001, 'GRGLCS14ES44');
 ```
 
 Distribuzione (il codice IND va aggiornato)
 ---------
+Avendo precedentemente inserito un Indirizzo e usando quel codice, creiamo l'ente che
+si occuperà della distribuzione del film, rappresentando quindi l'associazione e l'entita ente.
 ```sql
-INSERT INTO Ente(P.IVA_ENTE,nome,codInd) VALUES (40365320379,
-												'20th Century Studios', 6666);
+INSERT IGNORE INTO Ente(P.IVA_ENTE,nome,codInd)
+ 			VALUES (40365320379,'20th Century Studios', ?);
 
-INSERT INTO Distribuzione(P.IVA, codF) VALUES (40365320379, 00001);
+INSERT IGNORE INTO Distribuzione(P.IVA, codF) VALUES (40365320379, 00001);
 ```
+Costumi e Magazzini
+----
+Per poter procedere a realizzare i concetti dell'utlizzo e storage dei costumi si può inserire  
+l'entita Magazzino, le associazioni riportate nell ER collocazioni_costumi e assegnamento  
+attore vengono formalizzate utilizzando un Entità Posizione Magazzino che utlizza la primary  
+key di Magazzino che viene legata a Costume con la foreign key codP e la seconda associazione  
+assegnando ad un costume una foreign key CF (codice fiscale) che viene importato da MembroTroupe.  
+```sql 
+INSERT IGNORE INTO Magazzino(numMagazzino, codInd)
+    -- magazzino principale
+    VALUES(1,19341);
+
+INSERT IGNORE INTO Costume(codC, tipo, descrizione, CF, codP)
+    -- costume Luke
+    VALUES(49262 ,'fantasia','Costume di Luke Skywalker, kimono nero,
+     stivali, spada Laser Verde','MRKHML25IS51', 25588);
+
+INSERT IGNORE INTO PosizioneMagazzino(codP,numMagazzino,scaffale, percorso)
+    -- Posizione costume luke skywalker
+VALUES(25588, 1, 2, 'S');
+```
+# 5 Il Progetto Logico
+
+
+
 
 # 5.X Traduzione delle entità 
 * Film(__*codF*__, titolo, genere ,durata, dataUscita, idSerie)
@@ -273,14 +305,14 @@ INSERT INTO Distribuzione(P.IVA, codF) VALUES (40365320379, 00001);
 * Ditta(__*P.IVA_DITTA*__, nome,codInd)
 	+ FK: codInd REFERENCES __Indirizzo__
 
-# Create table 
+# 5.X Creazione delle tables
 ```sql
 CREATE TABLE if not exists Indirizzo(
-	codInd int primary key,
-	città varchar(21) NOT NULL,
+        codInd int primary key,
+        citta varchar(21) NOT NULL,
     via varchar(40) NOT NULL,
-    civico int(4) NOT NULL,
-    CAP int(5) NOT NULL check(length(CAP) = 5)
+    civico int NOT NULL,
+    CAP int NOT NULL check(length(CAP) = 5)
     );
 
 CREATE TABLE IF NOT EXISTS  Enti(
@@ -290,11 +322,11 @@ CREATE TABLE IF NOT EXISTS  Enti(
   FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
   ON DELETE CASCADE
   ON UPDATE NO ACTION,
-  PRIMARY KEY(`P_IVA`)
+  PRIMARY KEY(P_IVA)
 ) ;
    
 CREATE TABLE if not exists MembroTroupe(
-	CF varchar(12) primary key,
+        CF varchar(12) primary key,
     nome varchar(20) NOT NULL, 
     cognome varchar(20) NOT NULL, 
     IBAN varchar(30) NOT NULL, 
@@ -302,8 +334,8 @@ CREATE TABLE if not exists MembroTroupe(
     telefono varchar(15) NOT NULL, 
     codInd INT NOT NULL,
     FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION,
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
     percentualeContributo float(3) check(percentualeContributo between 0  and 100),
     ruolo varchar(41) NOT NULL check (ruolo in ('sceneggiatore', 'produttore',
     'produttore esecutivo','aiuto regista', 'capo regista', 
@@ -317,16 +349,16 @@ CREATE TABLE IF NOT EXISTS SerieLetteraria(
     titolo varchar(51) NOT NULL,
     genere varchar(40) NOT NULL, 
     CF  varchar(12) NOT NULL,
-	FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION
-	);
+        FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION
+        );
 
 CREATE TABLE IF NOT EXISTS Film (
-  codF int(11) NOT NULL AUTO_INCREMENT,
+  codF int NOT NULL AUTO_INCREMENT,
   titolo varchar(51) NOT NULL,
   genere varchar(40) NOT NULL CHECK (genere = 'Animazione' or genere = 'Avventura' or genere = 'Azione' or genere = 'Biografico' or genere = 'Commedia' or genere = 'Documentario' or genere = 'Drammatico' or genere = 'Pornografico' or genere = 'Fantascienza' or genere = 'Fantasy' or genere = 'Guerra' or genere = 'Horror' or genere = 'Musical' or genere = 'Storico' or genere = 'Thriller' or genere = 'Western'),
-  durata int(3) NOT NULL CHECK (durata > 0),
+  durata int NOT NULL CHECK (durata > 0),
   dataUscita date DEFAULT NULL,
   idSerie varchar(11),
   FOREIGN KEY (idSerie) REFERENCES SerieLetteraria(idSerie)
@@ -335,7 +367,7 @@ CREATE TABLE IF NOT EXISTS Film (
   PRIMARY KEY (codF)
 );
 
-    
+
 CREATE TABLE IF NOT EXISTS SediTerritoriali (
   P_IVA varchar(11) NOT NULL,
   FOREIGN KEY (P_IVA) REFERENCES Enti (P_IVA)
@@ -350,46 +382,46 @@ CREATE TABLE IF NOT EXISTS SediTerritoriali (
 
 
 CREATE TABLE if not exists Distribuzione(
-	P_IVA varchar(11) , 
-	FOREIGN KEY (P_IVA) REFERENCES Enti(P_IVA)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION,
-	codF INT NOT NULL,
-	FOREIGN KEY (codF) REFERENCES Film(codF)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION,
+        P_IVA varchar(11) ,
+        FOREIGN KEY (P_IVA) REFERENCES Enti(P_IVA)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
+        codF INT NOT NULL,
+        FOREIGN KEY (codF) REFERENCES Film(codF)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
     PRIMARY KEY(P_IVA, codF)
     );
-    
+
 
 CREATE TABLE if not exists Incasso(
-	percentualeTrattenute float(3) NOT NULL,
+        percentualeTrattenute float(3) NOT NULL,
     codF INT NOT NULL,
-	FOREIGN KEY (codF) REFERENCES Film(codF)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION,
+        FOREIGN KEY (codF) REFERENCES Film(codF)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
     codInd INT NOT NULL,
     FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION, 
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
     primary key(codF, codInd)
     );
-    
+
 -- incasso settimanale non ci piace....
 
 CREATE TABLE if not exists Sponsor(
-	P_IVA_SPONSOR varchar(11) primary key,
-    nome varchar(41) NOT NULL
+        P_IVA_SPONSOR varchar(11) primary key,
+        nome varchar(41) NOT NULL
     );
 
 
 CREATE TABLE if not exists Finanziatore(
-	P_IVA_FINANZIATORE varchar(11) primary key,
+        P_IVA_FINANZIATORE varchar(11) primary key,
     nome varchar(41) NOT NULL,
      codInd INT NOT NULL,
     FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION, 
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
     percentualeGuadagno float(3) NOT NULL CHECK(percentualeGuadagno between 0 and 100)
     );
 
@@ -397,211 +429,205 @@ CREATE TABLE if not exists Finanziatore(
 
 
 CREATE TABLE if not exists Fondo(
-	codFondo varchar(13) primary key,
+        codFondo varchar(13) primary key,
     dataAccredito date NOT NULL,
     patrimonio float(14) NOT NULL CHECK(patrimonio >= 0),
     P_IVA_SPONSOR varchar(11) NOT NULL,
     FOREIGN KEY (P_IVA_SPONSOR) REFERENCES Sponsor(P_IVA_SPONSOR)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION,
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
     P_IVA_FINANZIATORE varchar(11) NOT NULL,
     FOREIGN KEY (P_IVA_FINANZIATORE) REFERENCES Finanziatore(P_IVA_FINANZIATORE)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION,
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
     CF varchar(12) NOT NULL,
-	FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION,
+        FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
     codF INT NOT NULL,
-	FOREIGN KEY (codF) REFERENCES Film(codF)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION
+        FOREIGN KEY (codF) REFERENCES Film(codF)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION
     );
 
 
 
 CREATE TABLE if not exists Film_Membro_Troupe(
-	codF INT NOT NULL,
-	FOREIGN KEY (codF) REFERENCES Film(codF)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION, 
-	CF varchar(12) NOT NULL,
-	FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION,
-	PRIMARY KEY(codF, CF)
-	);
+        codF INT NOT NULL,
+        FOREIGN KEY (codF) REFERENCES Film(codF)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
+        CF varchar(12) NOT NULL,
+        FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
+        PRIMARY KEY(codF, CF)
+        );
 
 -- CREATE TABLE if not exists Supervisione(
 -- supervisore INT NOT NULL,
--- FOREIGN KEY (supervisore) REFERENCES Supervisione(supervisore) 
+-- FOREIGN KEY (supervisore) REFERENCES Supervisione(supervisore)
 -- ON DELETE CASCADE
 -- ON UPDATE NO ACTION,
 -- subalterno INT NOT NULL,
 --  FOREIGN KEY (subalterno) REFERENCES Supervisione(subalterno)
 -- ON DELETE CASCADE
--- ON UPDATE NO ACTION, 
+-- ON UPDATE NO ACTION,
 -- PRIMARY KEY(subalterno)
 -- );
 
 CREATE TABLE if not exists ScenaCiak(
-	codScena int(10) Primary Key, 
-	noteDiProduzione varchar(255),
-	rullo int(4) NOT NULL, 
-	numRiprese int(4) NOT NULL,
-	dataInizio date,
-	dataFine date, -- CHECK(dataFine >= dataInizio),
-	costoAffittoGiornaliero float(5), 
-	codInd INT NOT NULL,
-	FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION,
-	codF INT NOT NULL,
-	FOREIGN KEY (codF) REFERENCES Film(codF)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION
-	);
+        -- TODO HO CAMBIATO GLI ATTRIBUTI dataInizio e Fine, trovare un sostituto valido e cambiare il resto nell ER e relazione....
+        --scommentando le date non da errore la query, mahhh .....
+        codScena int primary key,
+        noteDiProduzione varchar(255),
+        rullo int NOT NULL,
+        numRiprese int NOT NULL,
+        -- dataInizio date,
+        -- dataFine date, -- CHECK(dataFine >= dataInizio),
+
+        -- sostituiro le date con il numero di ore
+        durataOre float NOT NULL,
+        costoAffittoGiornaliero float(5),
+        codInd INT NOT NULL,
+        FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
+        codF INT NOT NULL,
+        FOREIGN KEY (codF) REFERENCES Film(codF)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION
+        );
 
 CREATE TABLE if not exists Membro_Troupe_Scena(
-	codScena INT NOT NULL,
-	FOREIGN KEY (codScena) REFERENCES ScenaCiak(codScena) 
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION ,
-	CF varchar(12) NOT NULL,
-	FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION,
-	PRIMARY KEY(codScena, CF)
-	); 
+        codScena INT NOT NULL,
+        FOREIGN KEY (codScena) REFERENCES ScenaCiak(codScena)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION ,
+        CF varchar(12) NOT NULL,
+        FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
+        PRIMARY KEY(codScena, CF)
+        );
 
 CREATE TABLE if not exists Magazzino(
-	numMagazzino int(8) Primary Key, 
-	codInd INT NOT NULL,
-	FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION
-	);
+        numMagazzino int Primary Key,
+        codInd INT NOT NULL,
+        FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION
+        );
 
 CREATE TABLE if not exists PosizioneMagazzino(
-	codP int(5), -- Primary Key,
-	numMagazzino INT NOT NULL,
-	FOREIGN KEY (numMagazzino) REFERENCES Magazzino(numMagazzino) 
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION, 
-	scaffale int(3) NOT NULL,
-	percorso varchar(1) NOT NULL,
-	PRIMARY KEY(codP, numMagazzino)
-	);
+        codP int,
+        numMagazzino INT NOT NULL,
+        scaffale int NOT NULL,
+        percorso varchar(1) NOT NULL,
+        PRIMARY KEY (codP, numMagazzino),
+        FOREIGN KEY (numMagazzino) REFERENCES Magazzino(numMagazzino)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION
+        );
 
 CREATE TABLE if not exists Costume(
-	codC int(6) Primary Key,
-	tipo varchar(12) NOT NULL CHECK(tipo='epoca' OR tipo='contemporaneo' OR tipo='fantasia'),
-	descrizione varchar(255) NOT NULL,
-	CF varchar(12) NOT NULL,
-	FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION,
-	codP INT NOT NULL,
-	FOREIGN KEY (codP) REFERENCES PosizioneMagazzino(codP)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION
-	);
+        codC int Primary Key,
+        tipo varchar(12) NOT NULL CHECK(tipo='epoca' OR tipo='contemporaneo' OR tipo='fantasia'),
+        descrizione varchar(255) NOT NULL,
+        CF varchar(12) NOT NULL,
+        FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
+        codP INT NOT NULL,
+--        FOREIGN KEY (codP) REFERENCES PosizioneMagazzino(codP)
+        FOREIGN KEY (codP) REFERENCES PosizioneMagazzino(codP)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION
+        );
 
 CREATE TABLE if not exists StilistaCostume(
-	CF varchar(12) NOT NULL,
-	FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION,
-	codC INT NOT NULL,
-	FOREIGN KEY (codC) REFERENCES Costume(codC)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION, 
-	PRIMARY KEY(CF, codC)
-	);
+        CF varchar(12) NOT NULL,
+        FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
+        codC INT NOT NULL,
+        FOREIGN KEY (codC) REFERENCES Costume(codC)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
+        PRIMARY KEY(CF, codC)
+        );
 
 
 CREATE TABLE if not exists CostumeScena(
-	codC INT NOT NULL,
-	FOREIGN KEY (codC) REFERENCES Costume(codC)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION,
-	codScena INT NOT NULL,
-	FOREIGN KEY (codScena) REFERENCES ScenaCiak(codScena) 
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION,
-	PRIMARY KEY(codC, codScena)
-	);
+        codC INT NOT NULL,
+        FOREIGN KEY (codC) REFERENCES Costume(codC)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
+        codScena INT NOT NULL,
+        FOREIGN KEY (codScena) REFERENCES ScenaCiak(codScena)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
+        PRIMARY KEY(codC, codScena)
+        );
 
 
 CREATE TABLE if not exists OggettiDiScena(
-	codO int(6) Primary key,
-	tipo varchar(21) CHECK (tipo in ('arredo','maschere','armi','mobili','strumentoMusicale','motori')),
-	descrizione varchar(255) NOT NULL,
-	codP INT NOT NULL,
-	FOREIGN KEY (codP) REFERENCES PosizioneMagazzino(codP)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION
-	);
+        codO int Primary key,
+        tipo varchar(21) CHECK (tipo in ('arredo','maschere','armi','mobili','strumentoMusicale','motori')),
+        descrizione varchar(255) NOT NULL,
+        codP INT NOT NULL,
+        FOREIGN KEY (codP) REFERENCES PosizioneMagazzino(codP)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION
+        );
 
 
 CREATE TABLE if not exists OggettoScena(
-	codO INT NOT NULL,
-	FOREIGN KEY (codO) REFERENCES OggettiDiScena(codO)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION,
-	codScena  INT NOT NULL,
-	FOREIGN KEY (codScena) REFERENCES ScenaCiak(codScena)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION,
-	PRIMARY KEY(codO, codScena)
-	);
+        codO INT NOT NULL,
+        FOREIGN KEY (codO) REFERENCES OggettiDiScena(codO)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
+        codScena  INT NOT NULL,
+        FOREIGN KEY (codScena) REFERENCES ScenaCiak(codScena)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
+        PRIMARY KEY(codO, codScena)
+        );
 
 CREATE TABLE if not exists Ditta(
-	P_IVA_DITTA varchar(11) Primary Key,
-	nome varchar(41) NOT NULL,
-	codInd INT NOT NULL,
-	FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION	
-	);
+        P_IVA_DITTA varchar(11) Primary Key,
+        nome varchar(41) NOT NULL,
+        codInd INT NOT NULL,
+        FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION
+        );
 
 CREATE TABLE if not exists Acquisto(
-	idAcquisto int(8) Primary Key,
-	data date NOT NULL,
-	prezzoTotale float(8) NOT NULL,
-	P_IVA_DITTA varchar(11) NOT NULL,
-	FOREIGN KEY (P_IVA_DITTA) REFERENCES Ditta(P_IVA_DITTA)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION
-	);
+        idAcquisto int Primary Key,
+        data date NOT NULL,
+        prezzoTotale float(8) NOT NULL,
+        P_IVA_DITTA varchar(11) NOT NULL,
+        FOREIGN KEY (P_IVA_DITTA) REFERENCES Ditta(P_IVA_DITTA)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION
+        );
 
 CREATE TABLE if not exists AcquistoCostume(
-	codC INT NOT NULL,
-	FOREIGN KEY (codC) REFERENCES Costume(codC)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION,
-	idAcquisto INT NOT NULL,
-	FOREIGN KEY (idAcquisto) REFERENCES Acquisto(idAcquisto) 
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION,
-	prezzo float(8) NOT NULL,
-	PRIMARY KEY(codC, idAcquisto)
-	);
-
-CREATE TABLE if not exists AcquistoCostume(
-	codO INT NOT NULL,
-	FOREIGN KEY (codO) REFERENCES OggettiDiScena(codO)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION,
-	idAcquisto INT NOT NULL,
-	FOREIGN KEY (idAcquisto) REFERENCES Acquisto(idAcquisto)
-	ON DELETE CASCADE
-	ON UPDATE NO ACTION,
-	prezzo float(8) NOT NULL,
-	PRIMARY KEY(codO, idAcquisto)
-	);
-
+        codC INT NOT NULL,
+        FOREIGN KEY (codC) REFERENCES Costume(codC)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
+        idAcquisto INT NOT NULL,
+        FOREIGN KEY (idAcquisto) REFERENCES Acquisto(idAcquisto)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION,
+        prezzo float(8) NOT NULL,
+        PRIMARY KEY(codC, idAcquisto)
+        );
 ```
+
+
 
 # Special thanks 
 -------
