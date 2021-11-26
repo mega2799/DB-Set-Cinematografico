@@ -20,13 +20,13 @@ La presente documentazione tratta nel dettaglio la progettazione e l’implement
 * [1 Introduzione](#Introduzione)
 * [2 Analisi requisiti]
 * [2.11 Intervista](#211-intervista)
-* [2.2 Estrazione Concetti Fondamentali]
+* [2.2 Estrazione Concetti Fondamentali](#22-estrazione-concetti-fondamentali)
 * [3 Progetto dello schema Concettuale](#3-progetto-dello-schema-concettuale)
-* [3.1 Distribuzione e Incasso](#distribuzione-e-incasso)
-* [3.2 Inspirazione e Sceneggiatura](#inspirazione-e-sceneggiatura)
-* [3.3 Gestione Fondi](#gestione-fondi)
-* [3.4 Membro della Troupe](#membro-troupe)
-* [3.6 Scena](#scena)
+* [3.1 Distribuzione e Incasso](#31-distribuzione-e-incasso)
+* [3.2 Inspirazione e Sceneggiatura](#32-inspirazione-e-sceneggiatura)
+* [3.3 Gestione Fondi](#33-gestione-fondi)
+* [3.4 Membro della Troupe](#34-membro-troupe)
+* [3.6 Scena](#36-scena)
 
 * [5 Il progetto Logico](#5-il-progetto-logico)
 
@@ -57,7 +57,7 @@ Come accade spesso in questo ambiente, per poter esistere acluni film vengono
 stanziati dei finanziamenti che possono provenire principalmente da sponsor o  
 finanziatori, ossia persone che possiedono un enorme capitale che effettuano  
 un investimento nella riuscita di un film e che dal quale ricaveranno un guadagno  
-che è calcolato in percentuale al gaudagno del film. Le figure professionali che  
+che è calcolato in percentuale al guadagno del film. Le figure professionali che  
 routano attorno la creazione di un girato sono fondamentali e vanno inserite all'  
 interno dell'applicativo tramite un'interfaccia di inserimento, ruoli come  
 sceneggiatore, produttore(con annessa percentuale guadagno), produttore esecutivo
@@ -73,6 +73,37 @@ film, nello specifico il rullo su cui è impresso, il numero del ciak, la locati
 nel quale viene girato e i costumi ed oggetti di scena presenti nel ciak.  
 /* l'applicativo deve quindi anche poter ordinare gli oggetti e i costumi temporalmente utilizzati nelle riprese*/   
 
+# 2.2 Estrazione Concetti Fondamentali (va cambiato se cambiamo il paragrafo sopra)
+
+Netflix Italia possiede un sistema software da per la gestione delle persone e  
+cose coinvolte della realizzazione di serie Tv e **film**, tale sistema necessità  
+di una nuova versione. Si richiede quindi la progettazione di una database che  
+possa gestire gli aspetti fondamentali per girare uno seceneggiato, il database  
+sarà utilizzato da persone che si occuperanno della gestione.  
+Saranno memorizzate tutte le informazioni sui **membri della troupe** che lavorano  
+alla realizzazione di un film, il quale sarà il fulcro attorno al quale gira l'  
+applicativo, di cui memorizzeremo le principali informazioni e al quale uniremo  
+un eventuale **serie letterarie** da cui è tratto. Sarà fondamentale anche l'**ente** che  
+si occuperà della **distribuzione** e gli **incassi** che verranno generati.
+Come accade spesso in questo ambiente, per poter esistere acluni film vengono  
+stanziati dei **finanziamenti** che possono provenire principalmente da **sponsor** o  
+**finanziatori**, ossia persone che possiedono un enorme capitale che effettuano  
+un investimento nella riuscita di un film e che dal quale ricaveranno un **guadagno  
+che è calcolato in percentuale** al guadagno del film. Le figure professionali che  
+routano attorno la creazione di un girato sono fondamentali e vanno inserite all'  
+interno dell'applicativo tramite un'interfaccia di inserimento, ruoli come  
+**sceneggiatore, produttore(con annessa percentuale guadagno), produttore esecutivo
+,aiuto regista, capo regista (con annessa percentuale guadagno),regista,
+attore, stilista, operatore fonico e operatore fotografico** e di loro  
+memorizzare l'anagrafica, telefono e IBAN che sarà poi utilizzato per l'accredito  
+della **paga mensile** calcolata nel software, che dovrà poi contenere uno storico  
+delle **buste paga**. Si dovrà poi indicare l'**indirizzo** di residenza dei vari membri  
+della troupe per il loro recapito, gli attori utilizzeranno **costumi** progrettati  
+da **stilisti** che vengono conservati in **magazzini** assieme agli **oggetti di scena**.  
+Saranno infine regsitrati nell'applicativo i **ciak** presi durante le riprese del  
+film, nello specifico il rullo su cui è impresso, il numero del ciak, la location  
+nel quale viene girato e i costumi ed oggetti di scena presenti nel ciak.  
+/* l'applicativo deve quindi anche poter ordinare gli oggetti e i costumi temporalmente utilizzati nelle riprese*/
 
 
 3 Progetto dello schema concettuale
