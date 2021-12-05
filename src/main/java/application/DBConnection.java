@@ -28,14 +28,6 @@ public class DBConnection {
             }
         }
 
-        try {
-            connection = DriverManager.getConnection(DB_URL,user , passw);
-            System.out.println("CONNESSO");
-            System.out.println("OUT:" + connection.toString());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private DBConnection(){
@@ -65,6 +57,16 @@ public class DBConnection {
 
 
     public static Connection getConnection() {
+        try {
+            if(connection==null || connection.isClosed()){
+
+                    connection = DriverManager.getConnection(DB_URL,user , passw);
+                    System.out.println("CONNESSO");
+                    System.out.println("OUT:" + connection.toString());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return connection;
     }
 }

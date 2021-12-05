@@ -12,7 +12,7 @@ import java.util.List;
 public class Main extends Application{
     @Override
     public void start(Stage myStage) throws FileNotFoundException, Exception {
-        myStage = FXMLLoader.load(this.getClass().getResource("/GUI/insert.fxml"));
+        //myStage = FXMLLoader.load(this.getClass().getResource("/GUI/insert.fxml"));
         //myStage.show();
 
         //non più necessario perchè DBConnection singleton style.
