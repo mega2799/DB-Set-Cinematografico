@@ -57,6 +57,7 @@ public class DBConnection {
 
 
     public static Connection getConnection() {
+
         try {
             if(connection==null || connection.isClosed()){
 

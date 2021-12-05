@@ -17,7 +17,7 @@
 <Stage minHeight="800.0" minWidth="1080.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.InsertTabController">
     <scene>
         <Scene>
-         <TabPane>
+         <TabPane fx:id="tabPane">
             <tabs>
                <Tab closable="false" text="Insert">
                   <content>

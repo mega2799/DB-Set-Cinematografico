@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class TellMe {
     private Connection connection;
@@ -62,18 +63,28 @@ public class TellMe {
      *
      * @return String
      */
-    public String sponsors(){
+//    public String sponsors(){
+//        String query = "select * from Sponsor;";
+//        List<List<String>> ll = new ArrayList<>();
+//        try(Statement statement = connection.createStatement()){
+//            ResultSet resultSet = statement.executeQuery(query);
+//            while(resultSet.next()) {
+//                ll.add(List.of(resultSet.getString("P_IVA_SPONSOR"),resultSet.getString("nome")));
+//            }
+//        }catch (SQLException e){
+//            e.printStackTrace();
+//        }
+//        return ll.toString();
+//    }
+    public ResultSet sponsors(){
         String query = "select * from Sponsor;";
-        List<List<String>> ll = new ArrayList<>();
-        try(Statement statement = connection.createStatement()){
-            ResultSet resultSet = statement.executeQuery(query);
-            while(resultSet.next()) {
-                ll.add(List.of(resultSet.getString("P_IVA_SPONSOR"),resultSet.getString("nome")));
-            }
-        }catch (SQLException e){
+        try {
+            ResultSet result = connection.createStatement().executeQuery(query);
+            return result;
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        return ll.toString();
+        return null;
     }
 
 }
