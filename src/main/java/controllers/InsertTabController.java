@@ -129,14 +129,16 @@ public class InsertTabController {
 
     private InsertNew insertNew;
 
-    private Tab visualization1 = new Tab();
+    private Tab visualization1;
 
 
 
     public void initialize(){
+        this.visualization1 = new Tab();
         this.insertNew = new InsertNew();
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/GUI/visualization1.fxml"));
         visualization1.setText("visualization");
+        visualization1.setClosable(false);
         this.tabPane.getTabs().add(visualization1);
         try {
             visualization1.setContent(loader.load());
