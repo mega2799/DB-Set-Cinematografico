@@ -15,7 +15,8 @@ public class Main extends Application{
         myStage = FXMLLoader.load(this.getClass().getResource("/GUI/insert.fxml"));
         //myStage.show();
 
-        DBConnection DbC = new DBConnection();
+        //non più necessario perchè DBConnection singleton style.
+        //DBConnection DbC = new DBConnection();
 
 
         /* Create tables, ma abbiamo errore sintassi */
@@ -24,7 +25,7 @@ public class Main extends Application{
         System.out.println("CREATING DB.......");
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/Creation/makeTables.sql")));
-            createTable.runScript(DbC.getConnection(), br);
+            createTable.runScript(DBConnection.getConnection(), br);
         } catch (FileNotFoundException fe){
             fe.printStackTrace();
         }
@@ -33,27 +34,27 @@ public class Main extends Application{
         InsertValues insertValues = new InsertValues();
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/Insert/insertion.sql")));
-            insertValues.runScript(DbC.getConnection(), br);
+            insertValues.runScript(DBConnection.getConnection(), br);
         } catch (FileNotFoundException fe){
             fe.printStackTrace();
         }
 
         /* executing queries */
-        TellMe tellMe = new TellMe(DbC);
+        TellMe tellMe = new TellMe();
         System.out.println(tellMe.actors());
         //TODO
         // Per come abbiamo modellato il DB george lucas non puo essere sia produttore che sceneggiatore
         System.out.println(tellMe.troupeMembers());
 
-        InsertNew insertNew = new InsertNew(DbC);
+        InsertNew insertNew = new InsertNew();
         insertNew.sponsor("29218600223", "BHo SPA");
-        //TODO
-        // Aggiungo le row ad DB ma non mi risulta nulla sul mio DB in
-        // "locale" aggiunge dei NULL......
+
         System.out.println(tellMe.sponsors());
-
-
-        System.exit(0);
+        //ci vuole il commit per realizzare le modifiche:
+        DBConnection.getConnection().commit();
+        Stage stage = new FXMLLoader(this.getClass().getResource("/GUI/insert.fxml")).load();
+        stage.show();
+        //System.exit(0);
     }
 
     public static void main(String[] args) {

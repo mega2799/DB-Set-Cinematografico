@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TellMe {
-    private DBConnection connection;
+    private Connection connection;
 
-    public TellMe(final DBConnection connection) {
-        this.connection = connection;
+    public TellMe() {
+        this.connection = DBConnection.getConnection();
     }
 
     /** Actors in the movie
@@ -21,7 +21,7 @@ public class TellMe {
     public String actors(){
         String query = "select * from MembroTroupe where ruolo=\'attore\';";
         List<List<String>> ll = new ArrayList<>();
-        try(Statement statement = connection.getConnection().createStatement()){
+        try(Statement statement = connection.createStatement()){
             ResultSet resultSet = statement.executeQuery(query);
             while(resultSet.next()) {
                 ll.add(List.of(resultSet.getString("nome"),resultSet.getString("cognome")));
@@ -44,7 +44,7 @@ public class TellMe {
         for (String role: roles ) {
             res += role.toUpperCase() + ":\n";
             String query = "select * from MembroTroupe where ruolo=" + role + ";";
-            try(Statement statement = connection.getConnection().createStatement()){
+            try(Statement statement = connection.createStatement()){
                 ResultSet resultSet = statement.executeQuery(query);
                 while(resultSet.next()) {
                     res += List.of(resultSet.getString("nome"),resultSet.getString("cognome")).toString() + "\n";
@@ -65,7 +65,7 @@ public class TellMe {
     public String sponsors(){
         String query = "select * from Sponsor;";
         List<List<String>> ll = new ArrayList<>();
-        try(Statement statement = connection.getConnection().createStatement()){
+        try(Statement statement = connection.createStatement()){
             ResultSet resultSet = statement.executeQuery(query);
             while(resultSet.next()) {
                 ll.add(List.of(resultSet.getString("P_IVA_SPONSOR"),resultSet.getString("nome")));
