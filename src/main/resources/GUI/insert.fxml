@@ -70,7 +70,7 @@
                                  <TextField fx:id="civicoIndirizzo_fielda" layoutX="10.0" layoutY="111.0" />
                                  <Label layoutX="10.0" layoutY="136.0" text="CAP" />
                                  <TextField fx:id="capIndirizzo_field" layoutX="10.0" layoutY="153.0" />
-                                 <Button fx:id="indirizzo_insertButton" mnemonicParsing="false" text="Insert" />
+                                 <Button fx:id="indirizzo_insertButton" mnemonicParsing="false" onMouseClicked="#indirizzo_insertButton_clicked" text="Insert" />
                               </children>
                            </VBox>
                            <VBox layoutX="780.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="493.0" prefWidth="252.0" AnchorPane.leftAnchor="780.0" AnchorPane.topAnchor="81.0">
@@ -102,7 +102,7 @@
                                  <TextField fx:id="ruoloOperatore_field" layoutX="10.0" layoutY="404.0" />
                                  <Label layoutX="10.0" layoutY="404.0" text="Tipo Oeratore" />
                                  <TextField fx:id="tipoOperatore_field" layoutX="10.0" layoutY="421.0" />
-                                 <Button fx:id="Operatore_insertButton" mnemonicParsing="false" text="Insert" />
+                                 <Button fx:id="operatore_insertButton" mnemonicParsing="false" onMouseClicked="#operatore_insertButton_clicked" text="Insert" />
                               </children>
                            </VBox>
                            <VBox layoutX="540.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="223.0" prefWidth="206.0" AnchorPane.leftAnchor="540.0" AnchorPane.topAnchor="81.0">
@@ -120,7 +120,7 @@
                                  <TextField fx:id="nomeEnti_field" />
                                  <Label text="Codice Indirizzo" />
                                  <TextField fx:id="codiceIndirizzoEnti_field" />
-                                 <Button fx:id="enti_insertButton" mnemonicParsing="false" text="Insert" />
+                                 <Button fx:id="enti_insertButton" mnemonicParsing="false" onMouseClicked="#enti_insertButton_clicked" text="Insert" />
                               </children>
                            </VBox>
                            <VBox layoutX="37.0" layoutY="450.0" maxHeight="180.0" maxWidth="206.0" prefHeight="180.0" prefWidth="206.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="37.0" AnchorPane.topAnchor="450.0">
@@ -136,7 +136,7 @@
                                  <TextField fx:id="pIvaSponsor_field" />
                                  <Label text="Nome" />
                                  <TextField fx:id="nomeSponsor_field" />
-                                 <Button fx:id="sponsor_insertButton" mnemonicParsing="false" onMouseClicked="#film_insertButton_clicked" text="Insert" />
+                                 <Button fx:id="sponsor_insertButton" mnemonicParsing="false" onMouseClicked="#sponsor_insertButton_clicked" text="Insert" />
                               </children>
                            </VBox>
                            <VBox layoutX="279.0" layoutY="453.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="243.0" prefWidth="206.0" AnchorPane.leftAnchor="279.0">
@@ -156,7 +156,7 @@
                                  <TextField fx:id="codIndirizzoFinanziatore_field" layoutX="10.0" layoutY="127.0" />
                                  <Label layoutX="10.0" layoutY="177.0" text="Percentuale Guadagno" />
                                  <TextField fx:id="percentualeGuadagnoFinanziatore_field" layoutX="10.0" layoutY="194.0" />
-                                 <Button fx:id="finanziatore_insertButton" mnemonicParsing="false" text="Insert" />
+                                 <Button fx:id="finanziatore_insertButton" mnemonicParsing="false" onMouseClicked="#finanziatore_insertButton_clicked" text="Insert" />
                               </children>
                            </VBox>
                         </children>

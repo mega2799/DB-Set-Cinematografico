@@ -1,9 +1,8 @@
 package application;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import com.mysql.jdbc.ResultSetImpl;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -85,6 +84,44 @@ public class TellMe {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public ResultSet film(){
+        String query = "select * from Film;";
+        try {
+            PreparedStatement stmt = DBConnection.getConnection().prepareStatement(query);
+            return stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ResultSet troupe(){
+        List<String> roles = List.of("\'sceneggiatore\'", "\'produttore\'",
+                "\'produttore esecutivo\'","\'aiuto regista\'", "\'capo regista\'",
+                "\'regista\'", "\'attore\'", "\'stilista\'", "\'operatore\'");
+        var res = "";
+        ResultSet result = null;
+        for (String role: roles ) {
+            res += role.toUpperCase() + ":\n";
+            String query = "select * from MembroTroupe where ruolo=" + role + ";";
+            try(Statement statement = connection.createStatement()){
+                ResultSet resultSet = statement.executeQuery(query);
+                if(result==null){
+                    result = resultSet;
+                } else {
+                    while(resultSet.next()) {
+                        result.updateString("nome",resultSet.getString("nome"));
+                        result.updateString("nome", resultSet.getString("cognome"));
+                    }
+                }
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+
+        }
+        return result;
     }
 
 }

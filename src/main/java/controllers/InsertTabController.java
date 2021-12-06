@@ -149,6 +149,33 @@ public class InsertTabController {
 
     @FXML
     void film_insertButton_clicked(MouseEvent event) {
+    }
+
+    @FXML
+    void enti_insertButton_clicked(MouseEvent event) {
+
+    }
+
+
+    @FXML
+    void finanziatore_insertButton_clicked(MouseEvent event) {
+
+    }
+
+    @FXML
+    void indirizzo_insertButton_clicked(MouseEvent event) {
+
+    }
+
+    @FXML
+    void operatore_insertButton_clicked(MouseEvent event) {
+
+    }
+
+    @FXML
+    void sponsor_insertButton_clicked(MouseEvent event) {
         this.insertNew.sponsor(pIvaSponsor_field.getText(),nomeSponsor_field.getText());
+        pIvaSponsor_field.clear();
+        nomeSponsor_field.clear();
     }
 }

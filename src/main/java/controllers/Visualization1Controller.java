@@ -1,5 +1,4 @@
 package controllers;
-import application.DBConnection;
 import application.TellMe;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -7,19 +6,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
-import javax.xml.transform.Result;
-import java.sql.PreparedStatement;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
+
 
 public class Visualization1Controller {
 
@@ -32,15 +29,28 @@ public class Visualization1Controller {
     @FXML
     private Button refreshButton;
 
+    @FXML
+    private Button sponsor_button;
+
     private ObservableList<ObservableList> data;
     private ResultSet rs;
     private TellMe tell;
+    private Method lastQuery;
+
     public void initialize(){
         tell = new TellMe();
-        rs = tell.sponsors();
         data = FXCollections.observableArrayList();
+        sponsor_buttonClicked(null);
 
         populateTable();
+    }
+
+    private void setLastQuery(String methodName){
+        try {
+            lastQuery = Class.forName("application.TellMe").getMethod(methodName,(Class<?>[])null);
+        } catch (NoSuchMethodException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void populateTable() {
@@ -77,10 +87,17 @@ public class Visualization1Controller {
             }
     }
 
-    public void refresh(){
-        //rifare query al posto di tell.sponsors
-        rs = tell.sponsors();
+    public void refreshQuery() {
+        try {
+            rs = (ResultSet) lastQuery.invoke(tell, (Object[]) null);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void refreshTable() {
         tableView.getItems().clear();
         tableView.getColumns().clear();
         try {
@@ -93,6 +110,28 @@ public class Visualization1Controller {
 
     @FXML
     void refreshButtonClicked(MouseEvent event) {
-        refresh();
+        refreshQuery();
+        refreshTable();
+    }
+
+    @FXML
+    void film_mouseClicked(MouseEvent event) {
+        rs = tell.film();
+        setLastQuery("film");
+        refreshTable();
+    }
+
+    @FXML
+    void sponsor_buttonClicked(MouseEvent event) {
+        rs = tell.sponsors();
+        setLastQuery("sponsors");
+        refreshTable();
+    }
+
+    @FXML
+    void troupe_mouseClicked(MouseEvent event) {
+        rs = tell.troupe();
+        setLastQuery("troupe");
+        refreshTable();
     }
 }
