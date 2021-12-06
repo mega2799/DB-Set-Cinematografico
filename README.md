@@ -672,21 +672,87 @@ CREATE TABLE if not exists AcquistoCostume(
 [generatore di P.IVA random](https://strumentidev.it/partita-iva/random/result)
 
 ## possibili query per noi
- - query sullo stipendio per i membri della troupe 
- - query di aggiornamento del fondo con nuovi finanziatori/sponsor
- - selezionare tutti i lavoratori che hanno contribuito ad un film (DONE)
- - calcolo percentuale contribuito caporegista e regista
- - calcolo trattenute sede territoriale 
- - query che elenca oggetti acquistati "in magazzino" 
- - query che elenca i luoghi in cui sono state girate le scene
- - Verifica Costumi da usare per scena da un attore
- - Verifica oggetti da usare per scena
- - Incasso settimanale totale di un film
- - Spese mensili totali
- - Fatturato Annuo
- - Miglior film per incassi annuo
- - Stipendio netto percepito da un dipendente
- - Controllo scena da riprendere in giornata
- - Controllo dipendenti da richiamare per scena
- - /* l'applicativo deve quindi anche poter ordinare gli oggetti e i costumi temporalmente utilizzati nelle riprese*/ 
+- query sullo stipendio per i membri della troupe
+- query di aggiornamento del fondo con nuovi finanziatori/sponsor
+    
+    ```sql
+    se finanziatore non presente quindi query di verifica:
+    select *
+    from finanziatore 
+    where P_IVA=?
+    
+    veririco che esista l'indirizzo con query di verifica:
+    select *
+    from indirizzo
+    where codInd=?
+    
+    se non esiste inserisco:
+    insert into indirizzo(codInd,citta,via,civico,CAP)
+    values (?,?,?,?,?)
+    
+    se non esiste inserisco finanziatore:
+    insert into finanziatore(P_iva,nome,codInd,percentualeGuadagno)
+    values (?,?,?,?)
+    
+    equivalente con sponsor.
+    ```
+    
+- selezionare tutti i lavoratori che hanno contribuito ad un film (DONE)
+- calcolo percentuale contribuito caporegista e regista
+- calcolo trattenute sede territoriale
+- query che elenca oggetti acquistati "in magazzino"
+    
+    ```sql
+    select oggettoscena.*
+    from oggettoscena o join oggettidiscena os on (o.codO=os.codO)
+    join posizionemagazzino pm on (pm.codP=os.codP)
+    where pm.numMagazzino = ?
+    ```
+    
+- query che elenca i luoghi in cui sono state girate le scene
+    
+    ```sql
+    select i.*
+    from scenaciak sc join film f on (sc.codF=f.codF)
+    join indirizzo i on (i.codInd=sc.codInd)
+    where f.titolo=?
+    ```
+    
+- Verifica Costumi da usare per scena da un attore
+    
+    ```sql
+    select i.*
+    from scenaciak sc join costumescena cs on (cs.codScena=sc.codScena)
+    join membro_troupe_scena mts on (mts.codScena=sc.codScena)
+    join membrotroupe mt on (mt.CF=mts.CF)
+    where sc.codScena=? 
+    and mt.nome = ?
+    and mt.cognome = ?
+    ```
+    
+- Verifica oggetti da usare per scena
+    
+    ```sql
+    select ods.*
+    from scenaciak sc join oggettoscena os on (sc.codScena=os.codScena)
+    join oggettidiscena ods on (ods.codO=ods.codO)
+    where sc.codScena=?
+    ```
+    
+- Incasso settimanale totale di un film
+- Spese mensili totali
+- Fatturato Annuo
+- Miglior film per incassi annuo
+- Stipendio netto percepito da un dipendente
+- Controllo scena da riprendere in giornata
+- Controllo dipendenti da richiamare per scena
+    
+    ```sql
+    select mt.*
+    from scenaciak sc join membro_troupe_scena mts on (sc.codScena = mts.codScena)
+    join memtrotroupe mt on (mts.CF = mt.CF)
+    where sc.codScena = ?
+    ```
+    
+- /* l'applicativo deve quindi anche poter ordinare gli oggetti e i costumi temporalmente utilizzati nelle riprese*/
 
