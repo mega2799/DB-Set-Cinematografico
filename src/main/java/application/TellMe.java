@@ -18,19 +18,19 @@ public class TellMe {
      *
      * @return String
      */
-    public String actors(){
-        String query = "select * from MembroTroupe where ruolo=\'attore\';";
-        List<List<String>> ll = new ArrayList<>();
-        try(Statement statement = connection.createStatement()){
-            ResultSet resultSet = statement.executeQuery(query);
-            while(resultSet.next()) {
-                ll.add(List.of(resultSet.getString("nome"),resultSet.getString("cognome")));
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        return ll.toString();
-    }
+//    public String actors(){
+//        String query = "select * from MembroTroupe where ruolo=\'attore\';";
+//        List<List<String>> ll = new ArrayList<>();
+//        try(Statement statement = connection.createStatement()){
+//            ResultSet resultSet = statement.executeQuery(query);
+//            while(resultSet.next()) {
+//                ll.add(List.of(resultSet.getString("nome"),resultSet.getString("cognome")));
+//            }
+//        }catch (SQLException e){
+//            e.printStackTrace();
+//        }
+//        return ll.toString();
+//    }
 
     /** Troupe Members list ordered
      *
@@ -75,6 +75,8 @@ public class TellMe {
 //        }
 //        return ll.toString();
 //    }
+
+//DA QUI INIZIANO QUERY CHE RESTITUISCONO RESULTSETS
     public ResultSet sponsors(){
         String query = "select * from Sponsor;";
         try {
@@ -96,6 +98,7 @@ public class TellMe {
         }
         return null;
     }
+
 
     public ResultSet troupe(){
         List<String> roles = List.of("\'sceneggiatore\'", "\'produttore\'",
@@ -122,6 +125,66 @@ public class TellMe {
 
         }
         return result;
+    }
+
+    public ResultSet actors(){
+        String query = "select * from MembroTroupe where ruolo='attore';";
+        ResultSet result = null;
+        try {
+            PreparedStatement stmt = DBConnection.getConnection().prepareStatement(query);
+            result = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private ResultSet getTable(String tableName){
+        String query = "select * from " + tableName;
+        ResultSet result = null;
+        try {
+            PreparedStatement stmt = DBConnection.getConnection().prepareStatement(query);
+            result = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public ResultSet ditte(){
+        return getTable("ditta");
+    }
+
+    public ResultSet costumi() {
+        return getTable("costume");
+    }
+
+    public ResultSet finanziatori() {
+        return getTable("finanziatore");
+    }
+
+    public ResultSet fondi() {
+        return getTable("fondo");
+    }
+
+    public ResultSet incassi() {
+        return getTable("finanziatore");
+    }
+
+    public ResultSet indirizzi() {
+        return getTable("indirizzo");
+    }
+
+    public ResultSet magazzini() {
+        return getTable("magazzino");
+    }
+
+    public ResultSet oggettiDiScena() {
+        return getTable("oggettoscena");
+    }
+
+    public ResultSet scene() {
+        return getTable("scenaciak");
     }
 
 }

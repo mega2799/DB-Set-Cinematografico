@@ -53,6 +53,7 @@ public class Visualization1Controller {
         }
     }
 
+
     private void populateTable() {
         try{
             for(int i=0 ; i<rs.getMetaData().getColumnCount(); i++){
@@ -134,4 +135,77 @@ public class Visualization1Controller {
         setLastQuery("troupe");
         refreshTable();
     }
+
+
+    @FXML
+    void actors_mouseClicked(MouseEvent event) {
+        rs = tell.actors();
+        setLastQuery("actors");
+        refreshTable();
+    }
+
+    @FXML
+    void ditte_mouseClicked(MouseEvent event) {
+        rs = tell.ditte();
+        setLastQuery("ditte");
+        refreshTable();
+    }
+
+    @FXML
+    void costumi_mouseClicked(MouseEvent event) {
+        rs = tell.costumi();
+        setLastQuery("costumi");
+        refreshTable();
+    }
+
+    @FXML
+    void finanziatori_mouseClicked(MouseEvent event) {
+        rs = tell.finanziatori();
+        setLastQuery("finanziatori");
+        refreshTable();
+    }
+
+    @FXML
+    void fondi_mouseClicked(MouseEvent event) {
+        rs = tell.fondi();
+        setLastQuery("fondi");
+        refreshTable();
+    }
+
+    @FXML
+    void incassi_mouseClicked(MouseEvent event) {
+        rs = tell.incassi();
+        setLastQuery("incassi");
+        refreshTable();
+    }
+
+    @FXML
+    void indirizzi_mouseClicked(MouseEvent event) {
+        rs = tell.indirizzi();
+        setLastQuery("indirizzi");
+        refreshTable();
+    }
+
+    @FXML
+    void magazzini_mouseClicked(MouseEvent event) {
+        rs = tell.magazzini();
+        setLastQuery("magazzini");
+        refreshTable();
+    }
+
+    @FXML
+    void oggettiScena_mouseClicked(MouseEvent event) {
+        rs = tell.oggettiDiScena();
+        setLastQuery("oggettiDiScena");
+        refreshTable();
+    }
+
+    @FXML
+    void scene_mouseClicked(MouseEvent event) {
+        rs = tell.scene();
+        setLastQuery("scene");
+        refreshTable();
+    }
+
+
 }
