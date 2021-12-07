@@ -94,7 +94,7 @@
                   <Button fx:id="refreshButton" layoutY="686.0" mnemonicParsing="false" onMouseClicked="#refreshButtonClicked" prefHeight="32.0" prefWidth="106.0" text="Refresh" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                </children>
             </AnchorPane>
-            <TableView fx:id="tableView" prefHeight="719.0" prefWidth="710.0" />
+            <TableView fx:id="tableView" editable="true" prefHeight="719.0" prefWidth="710.0" />
          </items>
       </SplitPane>
    </children>

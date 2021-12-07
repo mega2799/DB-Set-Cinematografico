@@ -77,6 +77,7 @@ public class TellMe {
 //    }
 
 //DA QUI INIZIANO QUERY CHE RESTITUISCONO RESULTSETS
+ //TODO: 07/12/2021 rendere coerente metodi get di tabelle usando getTable come sotto
     public ResultSet sponsors(){
         String query = "select * from Sponsor;";
         try {
@@ -131,7 +132,7 @@ public class TellMe {
         String query = "select * from MembroTroupe where ruolo='attore';";
         ResultSet result = null;
         try {
-            PreparedStatement stmt = DBConnection.getConnection().prepareStatement(query);
+            PreparedStatement stmt = this.connection.prepareStatement(query);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -143,7 +144,7 @@ public class TellMe {
         String query = "select * from " + tableName;
         ResultSet result = null;
         try {
-            PreparedStatement stmt = DBConnection.getConnection().prepareStatement(query);
+            PreparedStatement stmt = this.connection.prepareStatement(query);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();

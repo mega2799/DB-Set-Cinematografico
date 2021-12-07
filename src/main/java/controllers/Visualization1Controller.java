@@ -41,8 +41,6 @@ public class Visualization1Controller {
         tell = new TellMe();
         data = FXCollections.observableArrayList();
         sponsor_buttonClicked(null);
-
-        populateTable();
     }
 
     private void setLastQuery(String methodName){
