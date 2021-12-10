@@ -18,7 +18,7 @@ La presente documentazione tratta nel dettaglio la progettazione e l’implement
 
 ## Struttura:
 * [1 Introduzione](#Introduzione)
-* [2 Analisi requisiti]
+* [2 Analisi requisiti](#2-analisi-requisiti)
 * [2.11 Intervista](#211-intervista)
 * [2.2 Estrazione Concetti Fondamentali](#22-estrazione-concetti-fondamentali)
 * [3 Progetto dello schema Concettuale](#3-progetto-dello-schema-concettuale)
@@ -38,12 +38,13 @@ Saranno memorizzate all'interno del database le varie figure che partecipano
 alle realizzazione di un girato, gli enti che si occuperanno della distribuzione  
 la gesione delle scene e dei ciak quindi gli stipendi e gli incassi.  
 
+# 2 Analisi requisiti
 
 2.11 Intervista
 ----
 /* SERVE AGGIUNGERE LE QUERY IN QUESTA ROBA /
 
-Netflix Italia possiede un sistema software da per la gestione delle persone e  
+Netflix Italia possiede un sistema software da per la gestione delle persone e 
 cose coinvolte della realizzazione di serie Tv e film, tale sistema necessità  
 di una nuova versione. Si richiede quindi la progettazione di una database che  
 possa gestire gli aspetti fondamentali per girare uno seceneggiato, il database  
