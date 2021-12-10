@@ -1,5 +1,7 @@
 package application;
 
+import javafx.scene.control.Label;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,4 +24,10 @@ public class InsertNew {
             e.printStackTrace();
         }
     }
+
+    public void operatore(final Label tabellaOperatore){
+        System.out.println(tabellaOperatore.getId().toString());
+    }
+
+
 }

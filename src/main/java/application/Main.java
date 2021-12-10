@@ -55,6 +55,9 @@ public class Main extends Application{
         Stage stage = new FXMLLoader(this.getClass().getResource("/GUI/insert.fxml")).load();
         stage.show();
         //System.exit(0);
+
+
+
     }
 
     public static void main(String[] args) {
