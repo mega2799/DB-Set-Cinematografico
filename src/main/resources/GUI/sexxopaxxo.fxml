@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.stage.Stage?>
+
+<Stage minHeight="800.0" minWidth="1080.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.InsertTabController">
+    <scene>
+        <Scene>
+         <TabPane fx:id="tabPane">
+            <tabs>
+               <Tab closable="false" text="Insert">
+                  <content>
+                        <AnchorPane prefHeight="720.0" prefWidth="1080.0">
+                        <children>
+                           <VBox layoutX="37.0" layoutY="81.0" maxHeight="346.0" maxWidth="205.0" prefHeight="346.0" prefWidth="205.0" AnchorPane.bottomAnchor="354.0" AnchorPane.leftAnchor="37.0" AnchorPane.topAnchor="81.0">
+                              <children>
+                                 <Group />
+                                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="208.0" text="FILM" textAlignment="CENTER">
+                                    <font>
+                                       <Font size="26.0" />
+                                    </font>
+                                 </Label>
+                                 <Separator prefHeight="0.0" prefWidth="206.0" />
+                                 <Label text="Codice FIlm" />
+                                 <TextField fx:id="codFilm_field" />
+                                 <Label text="Ttolo" />
+                                 <TextField fx:id="titolo_field" />
+                                 <Label text="Genere" />
+                                 <TextField fx:id="genere_field" />
+                                 <Label layoutX="10.0" layoutY="94.0" text="Durata" />
+                                 <TextField fx:id="durata_field" layoutX="10.0" layoutY="111.0" />
+                                 <Label layoutX="10.0" layoutY="136.0" text="Data Usicta" />
+                                 <TextField fx:id="dataUscita_field" layoutX="10.0" layoutY="153.0" />
+                                 <Label layoutX="10.0" layoutY="178.0" text="ID serie letteraria" />
+                                 <TextField fx:id="idSerieLetteraria_field" layoutX="10.0" layoutY="195.0" />
+                                 <Label />
+                                 <Button fx:id="film_insertButton" mnemonicParsing="false" onMouseClicked="#film_insertButton_clicked" text="Insert">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin>
+                                 </Button>
+                              </children>
+                           </VBox>
+                           <VBox layoutX="279.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="299.0" prefWidth="230.0" AnchorPane.topAnchor="81.0">
+                              <children>
+                                 <Group />
+                                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="208.0" text="INDIRIZZO" textAlignment="CENTER">
+                                    <font>
+                                       <Font size="26.0" />
+                                    </font>
+                                 </Label>
+                                 <Separator prefHeight="0.0" prefWidth="206.0" />
+                                 <Label text="Codice Indirizzo" />
+                                 <TextField fx:id="codIndirizzoIndirizzo_field" />
+                                 <Label text="Cttà" />
+                                 <TextField fx:id="cittaIndirizzo_field" />
+                                 <Label text="Via" />
+                                 <TextField fx:id="viaIndirizzo_field" />
+                                 <Label layoutX="10.0" layoutY="94.0" text="Civico" />
+                                 <TextField fx:id="civicoIndirizzo_fielda" layoutX="10.0" layoutY="111.0" />
+                                 <Label layoutX="10.0" layoutY="136.0" text="CAP" />
+                                 <TextField fx:id="capIndirizzo_field" layoutX="10.0" layoutY="153.0" />
+                                 <Label />
+                                 <Button fx:id="indirizzo_insertButton" mnemonicParsing="false" onMouseClicked="#indirizzo_insertButton_clicked" text="Insert" />
+                              </children>
+                           </VBox>
+                           <VBox layoutX="780.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="493.0" prefWidth="252.0" AnchorPane.leftAnchor="780.0" AnchorPane.topAnchor="81.0">
+                              <children>
+                                 <Group />
+                                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="208.0" text="Operatore Troupe" textAlignment="CENTER">
+                                    <font>
+                                       <Font size="24.0" />
+                                    </font>
+                                 </Label>
+                                 <Separator prefHeight="0.0" prefWidth="206.0" />
+                                 <Label text="CF" />
+                                 <TextField fx:id="cfOperatore_field" />
+                                 <Label text="Nome" />
+                                 <TextField fx:id="nomeOperatore_field" />
+                                 <Label text="Cognome" />
+                                 <TextField fx:id="cognomeOperatore_field" />
+                                 <Label layoutX="10.0" layoutY="94.0" text="IBAN" />
+                                 <TextField fx:id="ibanOperatore_field" layoutX="10.0" layoutY="111.0" />
+                                 <Label layoutX="10.0" layoutY="136.0" text="Data Nascita" />
+                                 <TextField fx:id="dataNascitaOperatore_field" layoutX="10.0" layoutY="153.0" />
+                                 <Label layoutX="10.0" layoutY="178.0" text="Telefono" />
+                                 <TextField fx:id="telefonoOperatore_field" layoutX="10.0" layoutY="195.0" />
+                                 <Label layoutX="10.0" layoutY="278.0" text="Codice Indirizzo " />
+                                 <TextField fx:id="codiceIndirizzoOperatore_field" layoutX="10.0" layoutY="295.0" />
+                                 <Label layoutX="10.0" layoutY="320.0" text="Percentuale Contributo" />
+                                 <TextField fx:id="percentualeContributoOperatore_field" layoutX="10.0" layoutY="337.0" />
+                                 <Label layoutX="10.0" layoutY="387.0" />
+                                 <SplitMenuButton id="checkMenuRoule" mnemonicParsing="false" prefHeight="26.0" prefWidth="256.0" text="Ruolo">
+                                   <items>
+                                       <CheckMenuItem mnemonicParsing="false" text="Sceneggiatore" />
+                                       <CheckMenuItem mnemonicParsing="false" text="Produttore" />
+                                       <CheckMenuItem mnemonicParsing="false" text="Produttore Esecutivo" />
+                                       <CheckMenuItem mnemonicParsing="false" text="Aiuto Regista" />
+                                       <CheckMenuItem mnemonicParsing="false" text="Capo Regista" />
+                                       <CheckMenuItem mnemonicParsing="false" text="Attore" />
+                                       <CheckMenuItem mnemonicParsing="false" text="stilista" />
+                                       <CheckMenuItem mnemonicParsing="false" text="Operatore Fonico" />
+                                       <CheckMenuItem mnemonicParsing="false" text="Operatore Fotografico" />
+                                   </items>
+                                 </SplitMenuButton>
+                                 <Button fx:id="operatore_insertButton" mnemonicParsing="false" onMouseClicked="#operatore_insertButton_clicked" text="Insert" />
+                              </children>
+                           </VBox>
+                           <VBox layoutX="540.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="223.0" prefWidth="206.0" AnchorPane.leftAnchor="540.0" AnchorPane.topAnchor="81.0">
+                              <children>
+                                 <Group />
+                                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="208.0" text="ENTI" textAlignment="CENTER">
+                                    <font>
+                                       <Font size="26.0" />
+                                    </font>
+                                 </Label>
+                                 <Separator prefHeight="0.0" prefWidth="206.0" />
+                                 <Label text="P.IVA" />
+                                 <TextField fx:id="pIvaEnti_field" />
+                                 <Label text="Nome" />
+                                 <TextField fx:id="nomeEnti_field" />
+                                 <Label text="Codice Indirizzo" />
+                                 <TextField fx:id="codiceIndirizzoEnti_field" />
+                                 <Label />
+                                 <Button fx:id="enti_insertButton" mnemonicParsing="false" onMouseClicked="#enti_insertButton_clicked" text="Insert" />
+                              </children>
+                           </VBox>
+                           <VBox layoutX="37.0" layoutY="450.0" maxHeight="180.0" maxWidth="206.0" prefHeight="180.0" prefWidth="206.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="37.0" AnchorPane.topAnchor="450.0">
+                              <children>
+                                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="208.0" text="SPONSOR" textAlignment="CENTER">
+                                    <font>
+                                       <Font size="26.0" />
+                                    </font>
+                                 </Label>
+                                 <Group />
+                                 <Separator prefHeight="0.0" prefWidth="206.0" />
+                                 <Label text="P.IVA" />
+                                 <TextField fx:id="pIvaSponsor_field" />
+                                 <Label text="Nome" />
+                                 <TextField fx:id="nomeSponsor_field" />
+                                 <Label />
+                                 <Button fx:id="sponsor_insertButton" mnemonicParsing="false" onMouseClicked="#sponsor_insertButton_clicked" text="Insert" />
+                              </children>
+                           </VBox>
+                           <VBox layoutX="279.0" layoutY="453.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="243.0" prefWidth="206.0" AnchorPane.leftAnchor="279.0">
+                              <children>
+                                 <Group />
+                                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="208.0" text="FINANZIATORE" textAlignment="CENTER">
+                                    <font>
+                                       <Font size="26.0" />
+                                    </font>
+                                 </Label>
+                                 <Separator prefHeight="0.0" prefWidth="206.0" />
+                                 <Label text="P.IVA" />
+                                 <TextField fx:id="pIvaFinanziatore_field" />
+                                 <Label text="Nome" />
+                                 <TextField fx:id="nomeFinanziatore_field" />
+                                 <Label layoutX="10.0" layoutY="110.0" text="Codice Indirizzo" />
+                                 <TextField fx:id="codIndirizzoFinanziatore_field" layoutX="10.0" layoutY="127.0" />
+                                 <Label layoutX="10.0" layoutY="177.0" text="Percentuale Guadagno" />
+                                 <TextField fx:id="percentualeGuadagnoFinanziatore_field" layoutX="10.0" layoutY="194.0" />
+                                 <Label />
+                                 <Button fx:id="finanziatore_insertButton" mnemonicParsing="false" onMouseClicked="#finanziatore_insertButton_clicked" text="Insert" />
+                              </children>
+                           </VBox>
+                        </children>
+                     </AnchorPane>
+                  </content>
+               </Tab>
+            </tabs>
+         </TabPane>
+        </Scene>
+    </scene>
+</Stage>
