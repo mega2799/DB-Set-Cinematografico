@@ -8,6 +8,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -131,6 +132,7 @@ public class InsertTabController {
 
     private Tab visualization1;
 
+    private Stage stage;
 
 
     public void initialize(){
@@ -152,12 +154,6 @@ public class InsertTabController {
     }
 
     @FXML
-    void enti_insertButton_clicked(MouseEvent event) {
-
-    }
-
-
-    @FXML
     void finanziatore_insertButton_clicked(MouseEvent event) {
 
     }
@@ -179,32 +175,14 @@ public class InsertTabController {
         nomeSponsor_field.clear();
     }
 
-    @FXML
-    void indirizzo_insertButton_clicked(MouseEvent event) {
-
-    }
 
     @FXML
     void enti_insertButton_clicked(MouseEvent event) {
-
+        this.insertNew.enti(pIvaEnti_field.getText(), nomeEnti_field.getText(), codiceIndirizzoEnti_field.getText());
+        pIvaEnti_field.clear();
+        nomeEnti_field.clear();
+        codiceIndirizzoEnti_field.clear();
     }
 
 
-    @FXML
-    void finanziatore_insertButton_clicked(MouseEvent event) {
-
-    }
-
-
-    @FXML
-    void operatore_insertButton_clicked(MouseEvent event) {
-
-    }
-
-    @FXML
-    void sponsor_insertButton_clicked(MouseEvent event) {
-        this.insertNew.sponsor(pIvaSponsor_field.getText(),nomeSponsor_field.getText());
-        pIvaSponsor_field.clear();
-        nomeSponsor_field.clear();
-    }
 }

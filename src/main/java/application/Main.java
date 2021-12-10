@@ -47,17 +47,16 @@ public class Main extends Application{
         // Per come abbiamo modellato il DB george lucas non puo essere sia produttore che sceneggiatore
         System.out.println(tellMe.troupeMembers());
 
-        InsertNew insertNew = new InsertNew();
-        insertNew.sponsor("29218600223", "BHo SPA");
+        Stage stage = new FXMLLoader(this.getClass().getResource("/GUI/insert.fxml")).load();
 
-        System.out.println(tellMe.sponsors());
+//        InsertNew insertNew = new InsertNew(stage);
+//        insertNew.sponsor("29218600223", "BHo SPA");
+
+//        System.out.println(tellMe.sponsors());
         //ci vuole il commit per realizzare le modifiche:
         DBConnection.getConnection().commit();
-        Stage stage = new FXMLLoader(this.getClass().getResource("/GUI/insert.fxml")).load();
         stage.show();
         //System.exit(0);
-
-
 
     }
 

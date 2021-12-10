@@ -104,7 +104,7 @@ public class TellMe {
     }
 
     public ResultSet actors(){
-        String query = "select * from MembroTroupe where ruolo='attore';";
+        String query = "select MembroTroupe.*, RuoloMembroTroupe.nomeRuolo from MembroTroupe INNER JOIN RuoloMembroTroupe ON MembroTroupe.CF = RuoloMembroTroupe.CF WHERE RuoloMembroTroupe.nomeRuolo = 'attore'";
         ResultSet result = null;
         try {
             PreparedStatement stmt = this.connection.prepareStatement(query);
