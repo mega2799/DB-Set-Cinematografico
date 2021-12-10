@@ -41,7 +41,6 @@ public class Main extends Application{
 
         /* executing queries */
         TellMe tellMe = new TellMe();
-        System.out.println(tellMe.actors());
         //TODO
         // Per come abbiamo modellato il DB george lucas non puo essere sia produttore che sceneggiatore
         System.out.println(tellMe.troupeMembers());
