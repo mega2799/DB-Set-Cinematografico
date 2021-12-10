@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS  Enti(
 ) ;
    
 CREATE TABLE if not exists MembroTroupe(
-        CF varchar(12) primary key,
+    CF varchar(12) primary key,
     nome varchar(20) NOT NULL, 
     cognome varchar(20) NOT NULL, 
     IBAN varchar(30) NOT NULL, 
@@ -27,13 +27,30 @@ CREATE TABLE if not exists MembroTroupe(
     FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,
-    percentualeContributo float(3) check(percentualeContributo between 0  and 100),
-    ruolo varchar(41) NOT NULL check (ruolo in ('sceneggiatore', 'produttore',
-    'produttore esecutivo','aiuto regista', 'capo regista', 
-    'regista', 'attore', 'stilista', 'operatore')),
-    tipoOperatore varchar(31) check (tipoOperatore in ('fonico', 'fotografico'))
+    percentualeContributo float(3) check(percentualeContributo between 0  and 100)
 );
 
+-- TODO aggiornare ER con le due tabelle qui sotto
+
+CREATE TABLE IF NOT EXISTS Ruolo(
+    nomeRuolo varchar(41) Primary KEY
+      -- NOT NULL check (ruolo in ('sceneggiatore', 'produttore',
+      --     'produttore esecutivo','aiuto regista', 'capo regista',
+      --     'regista', 'attore', 'stilista', 'operatore')),
+      --    tipoOperatore varchar(31)  check (tipoOperatore in ('fonico', 'fotografico')),
+);
+
+CREATE TABLE IF NOT EXISTS RuoloMembroTroupe(
+    CF varchar(12),
+    FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
+           ON DELETE CASCADE
+           ON UPDATE NO ACTION,
+    nomeRuolo varchar(41),
+    FOREIGN KEY (nomeRuolo) REFERENCES Ruolo(nomeRuolo)
+           ON DELETE CASCADE
+           ON UPDATE NO ACTION,
+     PRIMARY KEY(CF, nomeRuolo)
+);
 
 CREATE TABLE IF NOT EXISTS SerieLetteraria(
     idSerie varchar(11) primary key,

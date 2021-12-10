@@ -14,47 +14,23 @@ public class TellMe {
         this.connection = DBConnection.getConnection();
     }
 
-    /** Actors in the movie
-     *
-     * @return String
-     */
-    public String actors(){
-        String query = "select * from MembroTroupe where ruolo=\'attore\';";
-        List<List<String>> ll = new ArrayList<>();
-        try(Statement statement = connection.createStatement()){
-            ResultSet resultSet = statement.executeQuery(query);
-            while(resultSet.next()) {
-                ll.add(List.of(resultSet.getString("nome"),resultSet.getString("cognome")));
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        return ll.toString();
-    }
 
     /** Troupe Members list ordered
      *
      * @return String
      */
     public String troupeMembers(){
-        List<String> roles = List.of("\'sceneggiatore\'", "\'produttore\'",
-                "\'produttore esecutivo\'","\'aiuto regista\'", "\'capo regista\'",
-                "\'regista\'", "\'attore\'", "\'stilista\'", "\'operatore\'");
-        var res = "";
-        for (String role: roles ) {
-            res += role.toUpperCase() + ":\n";
-            String query = "select * from MembroTroupe where ruolo=" + role + ";";
+      var res = "";
+            String query = "select MembroTroupe.nome, MembroTroupe.cognome, RuoloMembroTroupe.nomeRuolo from MembroTroupe INNER JOIN RuoloMembroTroupe ON MembroTroupe.CF = RuoloMembroTroupe.CF";
             try(Statement statement = connection.createStatement()){
                 ResultSet resultSet = statement.executeQuery(query);
                 while(resultSet.next()) {
-                    res += List.of(resultSet.getString("nome"),resultSet.getString("cognome")).toString() + "\n";
+                    res += List.of(resultSet.getString("nome"),resultSet.getString("cognome"), resultSet.getString("nomeRuolo")).toString() + "\n";
                 }
 
             }catch (SQLException e){
                 e.printStackTrace();
             }
-
-        }
         return res;
     }
 

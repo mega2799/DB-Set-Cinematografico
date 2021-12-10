@@ -6,26 +6,39 @@ INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP) VALUES(24673, 'nic
 						'lucas valley rid', 5858, 94946);
 	-- casa di george lucas
 
+
+INSERT IGNORE INTO Ruolo(nomeRuolo) VALUES ('sceneggiatore'),  
+													('produttore'),
+                                                    ('produttore esecutivo'),
+													('aiuto regista'), 
+													('capo regista'),
+                                                    ('regista'), 
+													('attore'), 
+													('stilista'), 
+													('operatore fonico'),
+													('operatore fotografico');
+
 INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
-							codInd, percentualeContributo,
-							ruolo, tipoOperatore)
+							codInd, percentualeContributo)
 	-- produttore esecutivo George Lucas
 	VALUES ('GRGLCS14ES44', 'George', 'Lucas', 'GB98BARC20040156884556',
-				'1944/05/14', '516-527-8719', 24673,1.5, 'Produttore Esecutivo', NULL);
+				'1944/05/14', '516-527-8719', 24673,1.5);
+
+
+
+INSERT IGNORE INTO RuoloMembroTroupe(CF, nomeRuolo) VALUES ('GRGLCS14ES44', 'Produttore Esecutivo'), ('GRGLCS14ES44', 'Sceneggiatore') , ('GRGLCS14ES44', 'Produttore');
 
 INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
-							codInd, percentualeContributo,
-							ruolo, tipoOperatore)
+							codInd, percentualeContributo)
 	-- sceneggiatore George Lucas
 	VALUES ('GRGLCS14ES44', 'George', 'Lucas', 'GB98BARC20040156884556',
-				'1944/05/14', '516-527-8719', 24673,1.5, 'Sceneggiatore', NULL);
+				'1944/05/14', '516-527-8719', 24673,1.5);
 
 INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
-							codInd, percentualeContributo,
-							ruolo, tipoOperatore)
+							codInd, percentualeContributo)
 	-- sceneggiatore George Lucas
 	VALUES ('GRGLCS14ES44', 'George', 'Lucas', 'GB98BARC20040156884556',
-				'1944/05/14', '516-527-8719', 24673,1.5, 'Produttore', NULL);
+				'1944/05/14', '516-527-8719', 24673,1.5);
 
 INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- George lucas
@@ -36,11 +49,10 @@ INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP) VALUES(38734, 'car
 	-- casa regista
 
 INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
-							codInd, percentualeContributo,
-							ruolo, tipoOperatore)
+							codInd, percentualeContributo)
 	-- regista
 	VALUES ('RCHMRQ22IS37', 'Richard', 'Marquand', 'GB98BARC20035361814589',
-				'1937/12/22', '205-802-5689', 38734, 1.5, 'regista', NULL);
+				'1937/12/22', '205-802-5689', 38734, 1.5);
 
 INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- regista
@@ -51,11 +63,10 @@ INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP) VALUES(37065, 'nor
 	-- Mark Hamill
 
 INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
-							codInd, percentualeContributo,
-							ruolo, tipoOperatore)
+							codInd, percentualeContributo)
 	-- Luke Skywalker
 	VALUES ('MRKHML25IS51', 'Mark', 'Hamill', 'GB56BARC20038438638758',
-				'1951/09/25', '214-989-5138', 37065, NULL, 'attore', NULL);
+				'1951/09/25', '214-989-5138', 37065, NULL);
 
 INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- luke
@@ -66,11 +77,10 @@ INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP) VALUES(19639, 'lak
 	-- Harry Ford
 
 INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
-							codInd, percentualeContributo,
-							ruolo, tipoOperatore)
+							codInd, percentualeContributo)
 	-- Ian solo
 	VALUES ('HRSFRD13GS42', 'Harrison', 'Ford', 'GB25BARC20039569987273',
-				'1942-07-13', '205-944-3057', 19639, NULL, 'attore', NULL);
+				'1942-07-13', '205-944-3057', 19639, NULL);
 
 INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- ian
@@ -81,11 +91,10 @@ INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP) VALUES(19447, 'sou
 	-- Carrie Fisher
 
 INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
-							codInd, percentualeContributo,
-							ruolo, tipoOperatore)
+							codInd, percentualeContributo)
 	-- Leila Skywalker
 	VALUES ('CRRFSH21NS56','Carrie', 'Fisher', 'GB20BARC20031835638431',
-				'1956-12-21', '231-687-4750', 19447, NULL, 'attore', NULL);
+				'1956-12-21', '231-687-4750', 19447, NULL);
 INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- leila
     VALUES (1, 'CRRFSH21NS56');
@@ -147,11 +156,10 @@ INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
         VALUES(17349, 'Arielleport', 'Ashton Tunnel', 645, 48937);
 
 INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
-							codInd, percentualeContributo,
-							ruolo, tipoOperatore)
+							codInd, percentualeContributo)
 	-- Aiuto regista
 	VALUES ('GLBTLY12DS14','Gilbert', 'Taylor', 'GB77BARC20038424775819',
-				'1914-04-12', '582-583-2011', 17349, 3, 'aiuto regista', NULL);
+				'1914-04-12', '582-583-2011', 17349, 3);
 
 INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- Aiuto regista
@@ -162,11 +170,10 @@ INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
         VALUES(19834, 'North Christellemouth', 'Keagan Circles', 6, 35637);
 
 INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
-							codInd, percentualeContributo,
-							ruolo, tipoOperatore)
+							codInd, percentualeContributo)
 	-- Capo regista
 	VALUES ('ANWJRGA24S33','Andrew', 'Jorge', 'GB13BARC20038029125126',
-				'1933-01-24', '342-112-5431', 19834, NULL, 'capo regista', NULL);
+				'1933-01-24', '342-112-5431', 19834, NULL);
 
 INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- capo regista
@@ -177,11 +184,10 @@ INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
         VALUES(17439, 'Maine', 'McDermott Manors', 339, 33812);
 
 INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
-							codInd, percentualeContributo,
-							ruolo, tipoOperatore)
+							codInd, percentualeContributo)
 	-- Stilista
 	VALUES ('JNTSTYD27S39','Jonathan', 'Style', 'GB44BARC20031817174534',
-				'1939-04-27', '623-988-4632', 17439, NULL, 'stilista', NULL);
+				'1939-04-27', '623-988-4632', 17439, NULL);
 
 INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- stilista
@@ -192,11 +198,10 @@ INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
         VALUES(19900, 'Indiana', 'Brayan Square', 672, 14329);
 
 INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
-							codInd, percentualeContributo,
-							ruolo, tipoOperatore)
+							codInd, percentualeContributo)
 	-- Operatore Fonico
 	VALUES ('KVNMCGE03S18','Kevin', 'McGrail', 'GB44BARC20031817137209',
-				'1918-05-03', '724-829-1163', 19900, NULL, 'operatore', 'fonico');
+				'1918-05-03', '724-829-1163', 19900, NULL);
 INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- operatore fonico
     VALUES (1, 'KVNMCGE03S18');
@@ -206,11 +211,10 @@ INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
         VALUES(12346, 'Lake Nyahmouth', 'McGlynn Brooks', 418, 70444);
 
 INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
-							codInd, percentualeContributo,
-							ruolo, tipoOperatore)
+							codInd, percentualeContributo)
 	-- Operatore fotografico
 	VALUES ('DVDCLLOE03S18','David', 'Chiello', 'GB44BARC20031817137209',
-				'1918-05-03', '724-829-1163', 12346, NULL, 'operatore', 'fotografico');
+				'1918-05-03', '724-829-1163', 12346, NULL);
 
 INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- operatore fotografico
