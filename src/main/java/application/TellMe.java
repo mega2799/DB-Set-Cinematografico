@@ -141,7 +141,7 @@ public class TellMe {
     }
 
     private ResultSet getTable(String tableName){
-        String query = "select * from " + tableName;
+        String query = "select * from " + tableName + ";";
         ResultSet result = null;
         try {
             PreparedStatement stmt = this.connection.prepareStatement(query);
@@ -153,39 +153,39 @@ public class TellMe {
     }
 
     public ResultSet ditte(){
-        return getTable("ditta");
+        return getTable("Ditta");
     }
 
     public ResultSet costumi() {
-        return getTable("costume");
+        return getTable("Costume");
     }
 
     public ResultSet finanziatori() {
-        return getTable("finanziatore");
+        return getTable("Finanziatore");
     }
 
     public ResultSet fondi() {
-        return getTable("fondo");
+        return getTable("Fondo");
     }
 
     public ResultSet incassi() {
-        return getTable("finanziatore");
+        return getTable("Finanziatore");
     }
 
     public ResultSet indirizzi() {
-        return getTable("indirizzo");
+        return getTable("Indirizzo");
     }
 
     public ResultSet magazzini() {
-        return getTable("magazzino");
+        return getTable("Magazzino");
     }
 
     public ResultSet oggettiDiScena() {
-        return getTable("oggettoscena");
+        return getTable("OggettoScena");
     }
 
     public ResultSet scene() {
-        return getTable("scenaciak");
+        return getTable("ScenaCiak");
     }
 
 }
