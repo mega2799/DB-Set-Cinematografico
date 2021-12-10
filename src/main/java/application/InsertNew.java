@@ -1,21 +1,23 @@
 package application;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class InsertNew {
-    private DBConnection connection;
+    private Connection connection;
 
-    public InsertNew(final DBConnection connection) {
-        this.connection = connection;
+    public InsertNew() {
+        this.connection = DBConnection.getConnection();
     }
 
-    void sponsor(final String partitaIva, final String nome){
+    public void sponsor(final String partitaIva, final String nome){
         String query = "INSERT IGNORE INTO Sponsor(P_IVA_SPONSOR, nome) VALUES(" + "\'" + partitaIva + "\', " + "\'" + nome + "\');";
         System.out.println(query);
-        try(Statement statement = connection.getConnection().createStatement()) {
+        try(Statement statement = connection.createStatement()) {
             System.out.println("affected rows:" + statement.executeUpdate(query));
+            connection.commit();
         }catch (SQLException e){
             e.printStackTrace();
         }

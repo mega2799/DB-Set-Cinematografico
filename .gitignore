@@ -4,3 +4,6 @@
 *.zip
 .idea/* 
 .gradle/*
+build/*
+out/*
+
