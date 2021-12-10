@@ -1,5 +1,7 @@
 package application;
 
+import controllers.InsertTabController;
+import controllers.Visualization1Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;

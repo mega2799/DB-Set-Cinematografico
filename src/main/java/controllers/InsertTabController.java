@@ -2,10 +2,14 @@ package controllers;
 import application.DBConnection;
 import application.InsertNew;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class InsertTabController {
@@ -118,17 +122,61 @@ public class InsertTabController {
     @FXML
     private TextField viaIndirizzo_field;
 
+    @FXML
+    private TabPane tabPane;
+
     private DBConnection DbC;
 
     private InsertNew insertNew;
 
+    private Tab visualization1;
+
+
+
     public void initialize(){
+        this.visualization1 = new Tab();
         this.insertNew = new InsertNew();
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/GUI/visualization1.fxml"));
+        visualization1.setText("visualization");
+        visualization1.setClosable(false);
+        this.tabPane.getTabs().add(visualization1);
+        try {
+            visualization1.setContent(loader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     void film_insertButton_clicked(MouseEvent event) {
+    }
+
+    @FXML
+    void enti_insertButton_clicked(MouseEvent event) {
+
+    }
+
+
+    @FXML
+    void finanziatore_insertButton_clicked(MouseEvent event) {
+
+    }
+
+    @FXML
+    void indirizzo_insertButton_clicked(MouseEvent event) {
+
+    }
+
+    @FXML
+    void operatore_insertButton_clicked(MouseEvent event) {
+
+    }
+
+    @FXML
+    void sponsor_insertButton_clicked(MouseEvent event) {
         this.insertNew.sponsor(pIvaSponsor_field.getText(),nomeSponsor_field.getText());
+        pIvaSponsor_field.clear();
+        nomeSponsor_field.clear();
     }
 
     @FXML

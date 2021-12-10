@@ -25,9 +25,4 @@ public class InsertNew {
         }
     }
 
-    public void operatore(final Label tabellaOperatore){
-        System.out.println(tabellaOperatore.getId().toString());
-    }
-
-
 }

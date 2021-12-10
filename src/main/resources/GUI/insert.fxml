@@ -116,6 +116,10 @@
                                        <CheckMenuItem mnemonicParsing="false" text="Operatore Fotografico" />
                                    </items>
                                  </SplitMenuButton>
+                                 <Label layoutX="10.0" layoutY="387.0" text="Ruolo" />
+                                 <TextField fx:id="ruoloOperatore_field" layoutX="10.0" layoutY="404.0" />
+                                 <Label layoutX="10.0" layoutY="404.0" text="Tipo Oeratore" />
+                                 <TextField fx:id="tipoOperatore_field" layoutX="10.0" layoutY="421.0" />
                                  <Button fx:id="operatore_insertButton" mnemonicParsing="false" onMouseClicked="#operatore_insertButton_clicked" text="Insert" />
                               </children>
                            </VBox>
