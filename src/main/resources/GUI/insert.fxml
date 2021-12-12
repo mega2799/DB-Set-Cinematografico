@@ -5,9 +5,10 @@
 <?import javafx.scene.Scene?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
@@ -16,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.stage.Stage?>
 
-<Stage minHeight="800.0" minWidth="1080.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.InsertTabController">
+<Stage minHeight="800.0" minWidth="1080.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.InsertTabController">
     <scene>
         <Scene>
          <TabPane fx:id="tabPane">
@@ -95,7 +96,7 @@
                                  <Label layoutX="10.0" layoutY="94.0" text="IBAN" />
                                  <TextField fx:id="ibanOperatore_field" layoutX="10.0" layoutY="111.0" />
                                  <Label layoutX="10.0" layoutY="136.0" text="Data Nascita" />
-                                 <TextField fx:id="dataNascitaOperatore_field" layoutX="10.0" layoutY="153.0" />
+                                 <DatePicker fx:id="dataNascitaOperatore_field" />
                                  <Label layoutX="10.0" layoutY="178.0" text="Telefono" />
                                  <TextField fx:id="telefonoOperatore_field" layoutX="10.0" layoutY="195.0" />
                                  <Label layoutX="10.0" layoutY="278.0" text="Codice Indirizzo " />
@@ -103,19 +104,19 @@
                                  <Label layoutX="10.0" layoutY="320.0" text="Percentuale Contributo" />
                                  <TextField fx:id="percentualeContributoOperatore_field" layoutX="10.0" layoutY="337.0" />
                                  <Label layoutX="10.0" layoutY="387.0" />
-                                 <SplitMenuButton id="checkMenuRoule" mnemonicParsing="false" prefHeight="26.0" prefWidth="256.0" text="Ruolo">
-                                   <items>
-                                       <CheckMenuItem mnemonicParsing="false" text="Sceneggiatore" />
-                                       <CheckMenuItem mnemonicParsing="false" text="Produttore" />
-                                       <CheckMenuItem mnemonicParsing="false" text="Produttore Esecutivo" />
-                                       <CheckMenuItem mnemonicParsing="false" text="Aiuto Regista" />
-                                       <CheckMenuItem mnemonicParsing="false" text="Capo Regista" />
-                                       <CheckMenuItem mnemonicParsing="false" text="Attore" />
-                                       <CheckMenuItem mnemonicParsing="false" text="stilista" />
-                                       <CheckMenuItem mnemonicParsing="false" text="Operatore Fonico" />
-                                       <CheckMenuItem mnemonicParsing="false" text="Operatore Fotografico" />
-                                   </items>
-                                 </SplitMenuButton>
+                                 <MenuButton fx:id="ruoloOperatore_field" mnemonicParsing="false" prefHeight="25.0" prefWidth="282.0" text="Ruolo">
+                                    <items>
+                                       <CheckMenuItem fx:id="sceneggiatore_field" mnemonicParsing="false" text="Sceneggiatore" />
+                                       <CheckMenuItem fx:id="produttore_field" mnemonicParsing="false" text="Produttore" />
+                                       <CheckMenuItem fx:id="produttoreEsecutivo_field" mnemonicParsing="false" text="Produttore Esecutivo" />
+                                       <CheckMenuItem fx:id="aiutoRegista_field" mnemonicParsing="false" text="Aiuto Regista" />
+                                       <CheckMenuItem fx:id="capoRegista_field" mnemonicParsing="false" text="Capo Regista" />
+                                       <CheckMenuItem fx:id="attore_field" mnemonicParsing="false" text="Attore" />
+                                       <CheckMenuItem fx:id="stilista_field" mnemonicParsing="false" text="Stilista" />
+                                       <CheckMenuItem fx:id="operatoreFonico_field" mnemonicParsing="false" text="Operatore Fonico" />
+                                       <CheckMenuItem fx:id="operatoreFotografico_field" mnemonicParsing="false" text="Operatore Fotografico" />
+                                    </items>
+                                 </MenuButton>
                                  <Label />
                                  <Button fx:id="operatore_insertButton" mnemonicParsing="false" onMouseClicked="#operatore_insertButton_clicked" text="Insert" />
                               </children>

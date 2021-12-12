@@ -57,7 +57,7 @@ public class DBConnection {
 
 
     public static Connection getConnection() {
-
+        System.out.println("Entro");
         try {
             if(connection==null || connection.isClosed()){
 
