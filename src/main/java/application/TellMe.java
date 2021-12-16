@@ -129,7 +129,7 @@ public class TellMe {
     }
 
     public ResultSet incassi() {
-        return getTable("Finanziatore");
+        return getTable("Incasso");
     }
 
     public ResultSet indirizzi() {
