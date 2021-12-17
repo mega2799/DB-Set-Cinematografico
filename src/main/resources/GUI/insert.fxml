@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.stage.Stage?>
 
-<Stage minHeight="800.0" minWidth="1080.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.InsertTabController">
+<Stage minHeight="800.0" minWidth="1080.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.InsertTabController">
     <scene>
         <Scene>
          <TabPane fx:id="tabPane">
@@ -78,7 +78,7 @@
                                  <Button fx:id="indirizzo_insertButton" mnemonicParsing="false" onMouseClicked="#indirizzo_insertButton_clicked" text="Insert" />
                               </children>
                            </VBox>
-                           <VBox layoutX="780.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="493.0" prefWidth="252.0" AnchorPane.leftAnchor="780.0" AnchorPane.topAnchor="81.0">
+                           <VBox layoutX="814.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="493.0" prefWidth="252.0" AnchorPane.leftAnchor="814.0" AnchorPane.topAnchor="81.0">
                               <children>
                                  <Group />
                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="208.0" text="Operatore Troupe" textAlignment="CENTER">
@@ -121,7 +121,7 @@
                                  <Button fx:id="operatore_insertButton" mnemonicParsing="false" onMouseClicked="#operatore_insertButton_clicked" text="Insert" />
                               </children>
                            </VBox>
-                           <VBox layoutX="540.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="223.0" prefWidth="206.0" AnchorPane.leftAnchor="540.0" AnchorPane.topAnchor="81.0">
+                           <VBox layoutX="564.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="223.0" prefWidth="206.0" AnchorPane.leftAnchor="564.0" AnchorPane.topAnchor="81.0">
                               <children>
                                  <Group />
                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="208.0" text="ENTI" textAlignment="CENTER">
@@ -176,6 +176,29 @@
                                  <TextField fx:id="percentualeGuadagnoFinanziatore_field" layoutX="10.0" layoutY="194.0" />
                                  <Label />
                                  <Button fx:id="finanziatore_insertButton" mnemonicParsing="false" onMouseClicked="#finanziatore_insertButton_clicked" text="Insert" />
+                              </children>
+                           </VBox>
+                           <VBox layoutX="509.0" layoutY="449.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="303.0" prefWidth="290.0">
+                              <children>
+                                 <Group />
+                                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="279.0" text="INCASSO SETTIMANALE" textAlignment="CENTER">
+                                    <font>
+                                       <Font size="26.0" />
+                                    </font>
+                                 </Label>
+                                 <Separator prefHeight="0.0" prefWidth="206.0" />
+                                 <Label text="Data Inizio" />
+                                 <DatePicker fx:id="dataInizio_field" />
+                                 <Label text="Data Fine" />
+                                 <DatePicker fx:id="dataFine_field" />
+                                 <Label text="Incasso" />
+                                 <TextField fx:id="incasso_field" />
+                                 <Label layoutX="10.0" layoutY="94.0" text="Codice Film" />
+                                 <TextField fx:id="codFilmIncasso_field" layoutX="10.0" layoutY="111.0" />
+                                 <Label layoutX="10.0" layoutY="136.0" text="Codice Indirizzo" />
+                                 <TextField fx:id="codIndirizzoIncasso_field" layoutX="10.0" layoutY="153.0" />
+                                 <Label />
+                                 <Button fx:id="incasso_insertButton" mnemonicParsing="false" onMouseClicked="#incasso_insertButton_clicked" text="Insert" />
                               </children>
                            </VBox>
                         </children>

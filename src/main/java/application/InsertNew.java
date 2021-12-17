@@ -30,6 +30,20 @@ public class InsertNew {
         return partitaIva.length() == P_IVA_LENGHT;
     }
 
+    private boolean checkFilm(final String film) {
+        try {
+            ResultSet rs = tellMe.film();
+            List<Integer> films = new ArrayList<>();
+            while (rs.next()) {
+                films.add(Integer.parseInt(rs.getString("codF")));
+            }
+            return films.contains(film);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     private boolean checkAddress(final String codInd){
         try {
             ResultSet rs = tellMe.indirizzi();
@@ -61,6 +75,21 @@ public class InsertNew {
             }
         }else{
             showAlert(Alert.AlertType.ERROR,"Lunghezza P.IVA non corretta");
+        }
+    }
+
+    public void incasso(final String dataInizio, final String dataFine, final int incasso, final String codF, final String codInd){
+        if(checkFilm(codF) && checkAddress(codInd)) {
+            String query = "INSERT IGNORE INTO Incasso(dataInizio,dataFine,incasso, codF, codInd) " +
+                    "VALUES (\'" + dataInizio + "\', \'" + dataFine + "\', \'" + incasso + "\', \'" + codF + "\', \'" + codInd + "\');";
+            try (Statement statement = connection.createStatement()) {
+                System.out.println("affected rows:" + statement.executeUpdate(query));
+                connection.commit();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }else{
+            showAlert(Alert.AlertType.ERROR,"Inserimento errato");
         }
     }
 

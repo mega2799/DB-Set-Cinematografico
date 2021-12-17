@@ -144,6 +144,9 @@ guadagnare grazie ad una percentuale una volta ricevuti gli incassi del film _o
 o attraverso somme pattuite_ tramite un associazione che ha come attributo   
 la data di investimento e il Produttore esecutivo abbiamo modellato la gestione  
 dei fondi.
+A livello concettuale avremo una gerarchia con entità padre il fondo ed entità figlie  
+i corrispettivi fondo_sponsor e fondo_finanziatore che erediteranno gli attributi  
+di fondo con la chiave esterna di sponsor o finanziatore.
 
 ![](/res/fondo.png)
 
@@ -265,7 +268,7 @@ VALUES(25588, 1, 2, 'S');
 * Incasso_settimanale(__*idIncasso*__, inizio_settimana, fine_settimana, incasso, codF, indSede) !!!!!!!!!!!!!!!!
 	+ FK: codF, indSede REFERENCES __Incasso__
 
-* Fondo(__*codFondo*__, data, patrimonio, P_IVA_SPONSOR, P.IVA_FINANZIATORE, CF, codF)
+* Fondo(__*codFondo*__, data, patrimonio, P_IVA_SPONSOR[0, 1], P.IVA_FINANZIATORE[0, 1], CF, codF)
 	+ FK: P.IVA_SPONSOR REFERENCES __Sponsor__
 	+ FK: P.IVA_FINANZIATORE REFERENCES __Finanziatore__
 	+ FK: CF REFERENCES __Membro_troupe__

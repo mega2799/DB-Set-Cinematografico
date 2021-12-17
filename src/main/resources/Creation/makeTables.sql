@@ -165,14 +165,14 @@ CREATE TABLE if not exists Finanziatore(
 
 
 CREATE TABLE if not exists Fondo(
-        codFondo varchar(13) primary key,
+    codFondo INT primary key,
     dataAccredito date NOT NULL,
     patrimonio float(14) NOT NULL CHECK(patrimonio >= 0),
-    P_IVA_SPONSOR varchar(11) NOT NULL,
+    P_IVA_SPONSOR varchar(11),
     FOREIGN KEY (P_IVA_SPONSOR) REFERENCES Sponsor(P_IVA_SPONSOR)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,
-    P_IVA_FINANZIATORE varchar(11) NOT NULL,
+    P_IVA_FINANZIATORE varchar(11),
     FOREIGN KEY (P_IVA_FINANZIATORE) REFERENCES Finanziatore(P_IVA_FINANZIATORE)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,

@@ -64,17 +64,6 @@ public class TellMe {
         return null;
     }
 
-    public ResultSet film(){
-        String query = "select * from Film;";
-        try {
-            PreparedStatement stmt = DBConnection.getConnection().prepareStatement(query);
-            return stmt.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
 
     public ResultSet troupe(){
         String query = "select distinct * from MembroTroupe inner join RuoloMembroTroupe on MembroTroupe.CF = RuoloMembroTroupe.CF where RuoloMembroTroupe.nomeRuolo != 'attore'";
@@ -146,6 +135,9 @@ public class TellMe {
 
     public ResultSet scene() {
         return getTable("ScenaCiak");
+    }
+    public ResultSet film() {
+        return getTable("Film");
     }
 
 }

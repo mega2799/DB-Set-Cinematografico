@@ -92,6 +92,9 @@ public class InsertTabController {
     private Button film_insertButton;
 
     @FXML
+    private Button incasso_insertButton;
+
+    @FXML
     private Button finanziatore_insertButton;
 
     @FXML
@@ -152,6 +155,21 @@ public class InsertTabController {
     private TextField viaIndirizzo_field;
 
     @FXML
+    private DatePicker dataInizio_field;
+
+    @FXML
+    private DatePicker dataFine_field;
+
+    @FXML
+    private TextField incasso_field;
+
+    @FXML
+    private TextField codIndirizzoIncasso_field;
+
+    @FXML
+    private TextField codFilmIncasso_field;
+
+    @FXML
     private TabPane tabPane;
 
     private DBConnection DbC;
@@ -165,6 +183,12 @@ public class InsertTabController {
 
     public void initialize(){
         this.visualization1 = new Tab();
+        this.dataInizio_field.getEditor().setDisable(true);
+        this.dataFine_field.getEditor().setDisable(true);
+        this.dataInizio_field.getEditor().setOpacity(1);
+        this.dataFine_field.getEditor().setOpacity(1);
+        this.dataNascitaOperatore_field.getEditor().setDisable(true);
+        this.dataNascitaOperatore_field.getEditor().setOpacity(1);
         this.insertNew = new InsertNew();
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/GUI/visualization1.fxml"));
         visualization1.setText("visualization");
@@ -210,6 +234,17 @@ public class InsertTabController {
         codiceIndirizzoOperatore_field.clear();
         percentualeContributoOperatore_field.clear();
         items.stream().forEach(i -> i.setSelected(false));
+    }
+
+    @FXML
+    void incasso_insertButton_clicked(MouseEvent event){
+        this.insertNew.incasso(dataInizio_field.getValue().toString(), dataFine_field.getValue().toString(),
+                Integer.parseInt(incasso_field.getText()), codFilmIncasso_field.getText(), codIndirizzoIncasso_field.getText());
+        dataInizio_field.setValue(null);
+        dataFine_field.setValue(null);
+        incasso_field.clear();
+        codFilmIncasso_field.clear();
+        codIndirizzoIncasso_field.clear();
     }
 
     @FXML
