@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS Film (
   PRIMARY KEY (codF)
 );
 
-
+-- TODO il nome non coincide su gituhb
 CREATE TABLE IF NOT EXISTS SediTerritoriali (
   P_IVA varchar(11) NOT NULL,
   FOREIGN KEY (P_IVA) REFERENCES Enti (P_IVA)
@@ -102,18 +102,46 @@ CREATE TABLE if not exists Distribuzione(
     );
 
 
-CREATE TABLE if not exists Incasso(
-        percentualeTrattenute float(3) NOT NULL,
+
+--CREATE TABLE if NOT EXISTS IncassoSettimanale(
+--    dataInizio date,
+--    dataFine date,
+--    incasso int(11),
+--    FOREIGN KEY(idIncasso) REFERENCES Incasso(idIncasso)
+--        ON DELETE CASCADE
+--        ON UPDATE NO ACTION,
+--    PRIMARY KEY(dataInizio, dataFine, idIncasso)
+    -- PRIMARY KEY(dataInizio, dataFine)
+--);
+
+CREATE TABLE if NOT EXISTS Incasso(
+    dataInizio date NOT NULL,
+    dataFine date NOT NULL,
+    incasso int(11),
     codF INT NOT NULL,
-        FOREIGN KEY (codF) REFERENCES Film(codF)
-        ON DELETE CASCADE
-        ON UPDATE NO ACTION,
+    FOREIGN KEY (codF) REFERENCES Film(codF)
+       ON DELETE CASCADE
+       ON UPDATE NO ACTION,
     codInd INT NOT NULL,
-    FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
-        ON DELETE CASCADE
-        ON UPDATE NO ACTION,
-    primary key(codF, codInd)
-    );
+    FOREIGN KEY (codInd) REFERENCES SediTerritoriali(codInd)
+       ON DELETE CASCADE
+       ON UPDATE NO ACTION,
+    PRIMARY KEY(dataInizio, dataFine, incasso)
+);
+
+-- CREATE TABLE if not exists Incasso(
+--    percentualeTrattenute primary key float(3),
+  --  FOREIGN KEY (codF) REFERENCES Film(codF)
+    --        ON DELETE CASCADE
+      --      ON UPDATE NO ACTION,
+  --  FOREIGN KEY (codInd) REFERENCES Sede(codInd) -- sede !!!
+    --        ON DELETE CASCADE
+      --      ON UPDATE NO ACTION,
+    -- todo per calcolare incasso useremo una query (?)
+-- );
+
+
+
 
 -- incasso settimanale non ci piace....
 
@@ -137,14 +165,14 @@ CREATE TABLE if not exists Finanziatore(
 
 
 CREATE TABLE if not exists Fondo(
-        codFondo varchar(13) primary key,
+    codFondo INT primary key,
     dataAccredito date NOT NULL,
     patrimonio float(14) NOT NULL CHECK(patrimonio >= 0),
-    P_IVA_SPONSOR varchar(11) NOT NULL,
+    P_IVA_SPONSOR varchar(11),
     FOREIGN KEY (P_IVA_SPONSOR) REFERENCES Sponsor(P_IVA_SPONSOR)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,
-    P_IVA_FINANZIATORE varchar(11) NOT NULL,
+    P_IVA_FINANZIATORE varchar(11),
     FOREIGN KEY (P_IVA_FINANZIATORE) REFERENCES Finanziatore(P_IVA_FINANZIATORE)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,

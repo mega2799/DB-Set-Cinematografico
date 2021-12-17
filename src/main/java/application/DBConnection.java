@@ -9,7 +9,7 @@ import java.sql.*;
 */
 public class DBConnection {
     static final String OS = System.getProperty("os.name");
-    static final String DB_URL = "jdbc:mysql://localhost:3306/cinema?characterEncoding=utf8";
+    static final String DB_URL = "jdbc:mysql://localhost:3307/cinema?characterEncoding=utf8";
 
     private static String user;
     private static String passw;
@@ -57,7 +57,7 @@ public class DBConnection {
 
 
     public static Connection getConnection() {
-
+        System.out.println("Entro");
         try {
             if(connection==null || connection.isClosed()){
 

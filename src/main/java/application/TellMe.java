@@ -64,41 +64,15 @@ public class TellMe {
         return null;
     }
 
-    public ResultSet film(){
-        String query = "select * from Film;";
-        try {
-            PreparedStatement stmt = DBConnection.getConnection().prepareStatement(query);
-            return stmt.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
 
     public ResultSet troupe(){
-        List<String> roles = List.of("\'sceneggiatore\'", "\'produttore\'",
-                "\'produttore esecutivo\'","\'aiuto regista\'", "\'capo regista\'",
-                "\'regista\'", "\'attore\'", "\'stilista\'", "\'operatore\'");
-        var res = "";
+        String query = "select distinct * from MembroTroupe inner join RuoloMembroTroupe on MembroTroupe.CF = RuoloMembroTroupe.CF where RuoloMembroTroupe.nomeRuolo != 'attore'";
         ResultSet result = null;
-        for (String role: roles ) {
-            res += role.toUpperCase() + ":\n";
-            String query = "select * from MembroTroupe where ruolo=" + role + ";";
-            try(Statement statement = connection.createStatement()){
-                ResultSet resultSet = statement.executeQuery(query);
-                if(result==null){
-                    result = resultSet;
-                } else {
-                    while(resultSet.next()) {
-                        result.updateString("nome",resultSet.getString("nome"));
-                        result.updateString("nome", resultSet.getString("cognome"));
-                    }
-                }
-            }catch (SQLException e){
-                e.printStackTrace();
-            }
-
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(query);
+            result = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return result;
     }
@@ -144,7 +118,7 @@ public class TellMe {
     }
 
     public ResultSet incassi() {
-        return getTable("Finanziatore");
+        return getTable("Incasso");
     }
 
     public ResultSet indirizzi() {
@@ -161,6 +135,9 @@ public class TellMe {
 
     public ResultSet scene() {
         return getTable("ScenaCiak");
+    }
+    public ResultSet film() {
+        return getTable("Film");
     }
 
 }

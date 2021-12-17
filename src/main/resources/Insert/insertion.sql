@@ -109,18 +109,18 @@ INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- leila
     VALUES (1, 'CRRFSH21NS56');
 
-
+-- TODO cambiare enti-sediTerritoriali su README.md
 INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
-	--sede della twenty century
-    VALUES(18302, 'san francisco', 'gorgas ave', 1, 94129);
-
-INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
-	--sede territoriale della twenty century
-    VALUES(16395, 'roma', 'Cantalupo in Sabina', 29, 19100);
+	--sede dell UCI
+    VALUES(18302, 'Milano', 'Corso Semprione', 39, 20145);
 
 INSERT IGNORE INTO Enti(P_IVA,nome,codInd)
     -- ente di distribuizone
-    VALUES (40365320379, "Twenty Century", 16395);
+    VALUES (40365320379, "UCI Milano", 18302);
+
+INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
+	--sede territoriale uci savignano
+    VALUES(16395, 'savignano', 'Piazza Metropolis', 18, 47039);
 
 INSERT IGNORE INTO SediTerritoriali(P_IVA, codInd)
     VALUES (40365320379, 16395);
@@ -274,3 +274,17 @@ INSERT IGNORE INTO Costume(codC, tipo, descrizione, CF, codP)
 INSERT IGNORE INTO PosizioneMagazzino(codP, numMagazzino, scaffale, percorso)
     -- Posizione costume han solo
 VALUES(84425, 1, 7, 'N');
+
+INSERT IGNORE INTO Incasso(dataInizio, dataFine, incasso, codF, codInd)
+    -- incasssi savignano, primo mese
+VALUES ('1977-10-21', '1977-10-28', 53011203, 1, 16395),
+       ('1977-10-29', '1977-11-04', 46284614, 1, 16395),
+       ('1977-11-05', '1977-11-12', 27595582, 1, 16395),
+       ('1977-11-13', '1977-11-20', 36983558, 1, 16395);
+
+INSERT IGNORE INTO Fondo(codFondo, dataAccredito, patrimonio, P_IVA_SPONSOR, P_IVA_FINANZIATORE,CF, codF)
+    --
+VALUES (1, '1977-01-05', 2000000, '53179880082', null, 'GRGLCS14ES44', 1);
+
+
+
