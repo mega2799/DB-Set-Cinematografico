@@ -5,11 +5,15 @@ import java.sql.*;
         Per usarlo in windows su mysqlWorkbench dovete eseguire questa query:
             ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
             flush privileges;
+
+            stessi comandi qua sopra per poter risolvere errore
+            "jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: Client does not support authentication protocol requested by server; consider upgrading MySQL client"
         Ed avere importato il file cinema.sql su Workbench.
+
 */
 public class DBConnection {
     static final String OS = System.getProperty("os.name");
-    static final String DB_URL = "jdbc:mysql://localhost:3307/cinema?characterEncoding=utf8";
+    static final String DB_URL = "jdbc:mysql://localhost:3306/cinema?characterEncoding=utf8";
 
     private static String user;
     private static String passw;
