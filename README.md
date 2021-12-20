@@ -703,6 +703,31 @@ CREATE TABLE if not exists AcquistoCostume(
     
 - selezionare tutti i lavoratori che hanno contribuito ad un film (DONE)
 - calcolo percentuale contribuito caporegista e regista
+	```sql
+	select @Denaro := sum(incasso) as money FROM Incasso;
+	select distinct M.nome, M.cognome,M.percentualeContributo, (M.percentualeContributo / 100 * @Denaro ) as Guadagno
+	from Incasso I, MembroTroupe M
+	where M.percentualeContributo is not null;
+	```
+ TODO !!!!!!!!
+
+- la query sopra va bene, ma potrebbe essere meglio facendo vedere anche i ruoli  
+che si possono in teoria vedere cosi, ma george lucas appare 3 volte....   
+o mettiamo 1% per ogni ruolo -> 3% totale oppure non mettiamo i ruoli
+ 	```sql
+    select @Denaro := sum(incasso) as money FROM Incasso;
+    select distinct M.nome, M.cognome,M.percentualeContributo, (M.percentualeContributo / 100 * @Denaro ) as guadagno, Rm.nomeRuolo
+    from Incasso I, MembroTroupe M, RuoloMembroTroupe Rm
+    where (M.CF = Rm.CF) and M.percentualeContributo is not null;
+    ```
+
+- calcolo profitto finanziatori e sponsor 
+    ```sql
+    select @Denaro := sum(incasso) as money FROM Incasso;
+    select distinct F.nome, F.percentualeGuadagno, (F.percentualeGuadagno / 100 * @Denaro ) as guadagno
+    from Finanziatore F
+    where F.percentualeGuadagno is not null;
+    ```
 - calcolo trattenute sede territoriale
 - query che elenca oggetti acquistati "in magazzino"
     
@@ -742,11 +767,9 @@ CREATE TABLE if not exists AcquistoCostume(
     join oggettidiscena ods on (ods.codO=ods.codO)
     where sc.codScena=?
     ```
-    
-- Incasso settimanale totale di un film
+
 - Spese mensili totali
 - Fatturato Annuo
-- Miglior film per incassi annuo
 - Stipendio netto percepito da un dipendente
 - Controllo scena da riprendere in giornata
 - Controllo dipendenti da richiamare per scena

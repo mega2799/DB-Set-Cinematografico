@@ -152,9 +152,9 @@ CREATE TABLE if not exists Sponsor(
 
 
 CREATE TABLE if not exists Finanziatore(
-        P_IVA_FINANZIATORE varchar(11) primary key,
+    P_IVA_FINANZIATORE varchar(11) primary key,
     nome varchar(41) NOT NULL,
-     codInd INT NOT NULL,
+    codInd INT NOT NULL,
     FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,

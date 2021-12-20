@@ -22,7 +22,7 @@ INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
 							codInd, percentualeContributo)
 	-- produttore esecutivo George Lucas
 	VALUES ('GRGLCS14ES44', 'George', 'Lucas', 'GB98BARC20040156884556',
-				'1944/05/14', '516-527-8719', 24673,1.5);
+				'1944/05/14', '516-527-8719', 24673,3.0);
 
 
 
@@ -32,13 +32,8 @@ INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
 							codInd, percentualeContributo)
 	-- sceneggiatore George Lucas
 	VALUES ('GRGLCS14ES44', 'George', 'Lucas', 'GB98BARC20040156884556',
-				'1944/05/14', '516-527-8719', 24673,1.5);
+				'1944/05/14', '516-527-8719', 24673,3.0);
 
-INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
-							codInd, percentualeContributo)
-	-- sceneggiatore George Lucas
-	VALUES ('GRGLCS14ES44', 'George', 'Lucas', 'GB98BARC20040156884556',
-				'1944/05/14', '516-527-8719', 24673,1.5);
 
 INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- George lucas
@@ -52,7 +47,7 @@ INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
 							codInd, percentualeContributo)
 	-- regista
 	VALUES ('RCHMRQ22IS37', 'Richard', 'Marquand', 'GB98BARC20035361814589',
-				'1937/12/22', '205-802-5689', 38734, 1.5);
+				'1937/12/22', '205-802-5689', 38734, .47);
 
 INSERT IGNORE INTO RuoloMembroTroupe(CF, nomeRuolo) VALUES ('RCHMRQ22IS37', 'Regista');
 
@@ -169,7 +164,7 @@ INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
 							codInd, percentualeContributo)
 	-- Aiuto regista
 	VALUES ('GLBTLY12DS14','Gilbert', 'Taylor', 'GB77BARC20038424775819',
-				'1914-04-12', '582-583-2011', 17349, 3);
+				'1914-04-12', '582-583-2011', 17349, 0.8);
 
 INSERT IGNORE INTO RuoloMembroTroupe(CF, nomeRuolo) VALUES ('GLBTLY12DS14', 'Aiuto Regista');
 
@@ -266,7 +261,6 @@ INSERT IGNORE INTO PosizioneMagazzino(codP, numMagazzino, scaffale, percorso)
     -- Posizione costume leila
 VALUES(25252, 1, 41, 'S');
 
-
 INSERT IGNORE INTO Costume(codC, tipo, descrizione, CF, codP)
     -- costume Han Solo
     VALUES(47429 ,'fantasia','Costume di Han Solo, piastra di metallo, pistola, giubboto','HRSFRD13GS42', 84425);
@@ -283,7 +277,7 @@ VALUES ('1977-10-21', '1977-10-28', 53011203, 1, 16395),
        ('1977-11-13', '1977-11-20', 36983558, 1, 16395);
 
 INSERT IGNORE INTO Fondo(codFondo, dataAccredito, patrimonio, P_IVA_SPONSOR, P_IVA_FINANZIATORE,CF, codF)
-    --
+    -- george lucas ha contribuito al fondo
 VALUES (1, '1977-01-05', 2000000, '53179880082', null, 'GRGLCS14ES44', 1);
 
 
