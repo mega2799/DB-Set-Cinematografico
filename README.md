@@ -675,10 +675,11 @@ CREATE TABLE if not exists AcquistoCostume(
 
 [generatore di P.IVA random](https://strumentidev.it/partita-iva/random/result)
 
+[indirizzo e persona](https://anytexteditor.com/it/fake-address-generator)
 ## possibili query per noi
 - query sullo stipendio per i membri della troupe
 - query di aggiornamento del fondo con nuovi finanziatori/sponsor
-    
+  (ADDED in insertTab)
     ```sql
     se finanziatore non presente quindi query di verifica:
     select *
@@ -702,7 +703,7 @@ CREATE TABLE if not exists AcquistoCostume(
     ```
     
 - selezionare tutti i lavoratori che hanno contribuito ad un film (DONE)
-- calcolo percentuale contribuito caporegista e regista
+- calcolo percentuale contribuito caporegista e regista (ADDED)
 	```sql
 	select @Denaro := sum(incasso) as money FROM Incasso;
 	select distinct M.nome, M.cognome,M.percentualeContributo, (M.percentualeContributo / 100 * @Denaro ) as Guadagno
@@ -714,7 +715,7 @@ CREATE TABLE if not exists AcquistoCostume(
 - la query sopra va bene, ma potrebbe essere meglio facendo vedere anche i ruoli  
 che si possono in teoria vedere cosi, ma george lucas appare 3 volte....   
 o mettiamo 1% per ogni ruolo -> 3% totale oppure non mettiamo i ruoli
- 	```sql
+     ```sql
     select @Denaro := sum(incasso) as money FROM Incasso;
     select distinct M.nome, M.cognome,M.percentualeContributo, (M.percentualeContributo / 100 * @Denaro ) as guadagno, Rm.nomeRuolo
     from Incasso I, MembroTroupe M, RuoloMembroTroupe Rm
@@ -741,9 +742,9 @@ o mettiamo 1% per ogni ruolo -> 3% totale oppure non mettiamo i ruoli
 - query che elenca i luoghi in cui sono state girate le scene
     
     ```sql
-    select i.*
-    from scenaciak sc join film f on (sc.codF=f.codF)
-    join indirizzo i on (i.codInd=sc.codInd)
+    select distinct i.*
+    from ScenaCiak sc join Film f on (sc.codF=f.codF)
+    join Indirizzo i on (i.codInd=sc.codInd)
     where f.titolo=?
     ```
     
@@ -751,10 +752,10 @@ o mettiamo 1% per ogni ruolo -> 3% totale oppure non mettiamo i ruoli
     
     ```sql
     select i.*
-    from scenaciak sc join costumescena cs on (cs.codScena=sc.codScena)
-    join membro_troupe_scena mts on (mts.codScena=sc.codScena)
-    join membrotroupe mt on (mt.CF=mts.CF)
-    where sc.codScena=? 
+    from ScenaCiak sc join CostumeScena cs on (cs.codScena=sc.codScena)
+    join Membro_Troupe_Scena mts on (mts.codScena=sc.codScena)
+    join Membrotroupe mt on (mt.CF=mts.CF)
+    where sc.codScena= ? 
     and mt.nome = ?
     and mt.cognome = ?
     ```
@@ -769,7 +770,11 @@ o mettiamo 1% per ogni ruolo -> 3% totale oppure non mettiamo i ruoli
     ```
 
 - Spese mensili totali
-- Fatturato Annuo
+- Fatturato Annuo (qui vanno aggiunte tutte le spese, gli stipendi etc etc, mancano le query)
+    ```sql 
+    select @fatturato := sum(incasso)/count(incasso) as Fatturato from Incasso;
+    select (@fatturato * 12) as FatturatoAnnuoStimato;
+  ```
 - Stipendio netto percepito da un dipendente
 - Controllo scena da riprendere in giornata
 - Controllo dipendenti da richiamare per scena

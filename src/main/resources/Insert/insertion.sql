@@ -22,9 +22,7 @@ INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
 							codInd, percentualeContributo)
 	-- produttore esecutivo George Lucas
 	VALUES ('GRGLCS14ES44', 'George', 'Lucas', 'GB98BARC20040156884556',
-				'1944/05/14', '516-527-8719', 24673,3.0);
-
-
+				'1944/05/14', '516-527-8719', 24673, 1.0);
 
 INSERT IGNORE INTO RuoloMembroTroupe(CF, nomeRuolo) VALUES ('GRGLCS14ES44', 'Produttore Esecutivo'), ('GRGLCS14ES44', 'Sceneggiatore') , ('GRGLCS14ES44', 'Produttore');
 
@@ -32,8 +30,7 @@ INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
 							codInd, percentualeContributo)
 	-- sceneggiatore George Lucas
 	VALUES ('GRGLCS14ES44', 'George', 'Lucas', 'GB98BARC20040156884556',
-				'1944/05/14', '516-527-8719', 24673,3.0);
-
+				'1944/05/14', '516-527-8719', 24673,1.0);
 
 INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- George lucas
@@ -70,6 +67,38 @@ INSERT IGNORE INTO RuoloMembroTroupe(CF, nomeRuolo) VALUES ('MRKHML25IS51', 'Att
 INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- luke
     VALUES (1, 'MRKHML25IS51');
+
+INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
+	-- 	David Prowse aka Darth Vader
+VALUES(29438, 'Larsonside', 'Grimes Ferry', 4803, 70476);
+
+INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
+							codInd, percentualeContributo)
+	-- Darth Vader
+	VALUES ('DVDPRW01GS32', 'David', 'Prose', '49371118',
+				'1932/07/01', '469-918-8933', 29438, NULL);
+
+INSERT IGNORE INTO RuoloMembroTroupe(CF, nomeRuolo) VALUES ('DVDPRW01GS32', 'Attore');
+
+INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
+    -- Darth
+    VALUES (1, 'DVDPRW01GS32');
+
+INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
+	-- 	Alec Guinnes  aka Obi wan
+VALUES(18692, 'Felipeport', 'Nicolas Branch Suite 189', 78261, 97077);
+
+INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
+							codInd, percentualeContributo)
+	-- Obi wan
+	VALUES ('ALCGNS02DS14', 'Alec', 'Guinness', '49371118',
+				'1914/04/02', '449-6009-3795', 18692, NULL);
+
+INSERT IGNORE INTO RuoloMembroTroupe(CF, nomeRuolo) VALUES ('ALCGNS02DS14', 'Attore');
+
+INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
+    -- Darth
+    VALUES (1, 'ALCGNS02DS14');
 
 INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP) VALUES(19639, 'lake khalidside',
 						'heidenreich ways', 338, 81079);
@@ -146,7 +175,7 @@ INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
 
 INSERT IGNORE INTO Finanziatore(P_IVA_FINANZIATORE, nome,codInd ,percentualeGuadagno)
     -- Finanziatore 1
-    VALUES('31562270996', 'Micheal Barnaby', 49429, 3.2);
+    VALUES('31562270996', 'Micheal Barnaby', 49429, 1.8);
 
 INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
 	-- indirizzo starbucks
@@ -245,29 +274,54 @@ INSERT IGNORE INTO Magazzino(numMagazzino, codInd)
     -- magazzino principale
     VALUES(1,19341);
 
-INSERT IGNORE INTO Costume(codC, tipo, descrizione, CF, codP)
-    -- costume Luke
-    VALUES(49262 ,'fantasia','Costume di Luke Skywalker, kimono nero, stivali, spada Laser Verde','MRKHML25IS51', 25588);
-
 INSERT IGNORE INTO PosizioneMagazzino(codP, numMagazzino, scaffale, percorso)
     -- Posizione costume luke skywalker
 VALUES(25588, 1, 2, 'S');
 
+
 INSERT IGNORE INTO Costume(codC, tipo, descrizione, CF, codP)
-    -- costume Leila
-    VALUES(53921 ,'fantasia','Costume di Leila, bikini Jabba the Hat','CRRFSH21NS56', 25252);
+    -- costume Luke
+    VALUES(49262 ,'fantasia','Costume di Luke Skywalker, kimono nero, stivali, spada Laser Verde','MRKHML25IS51', 25588);
+
+
+INSERT IGNORE INTO PosizioneMagazzino(codP, numMagazzino, scaffale, percorso)
+    -- Posizione costume Darth
+VALUES(25298, 1, 6, 'D');
+
+
+INSERT IGNORE INTO Costume(codC, tipo, descrizione, CF, codP)
+    -- costume Darth vader
+    VALUES(55124 ,'fantasia','Costume di Darth Vader, Maschera, Spada Rossa, Mantello','DVDPRW01GS32', 25298);
 
 INSERT IGNORE INTO PosizioneMagazzino(codP, numMagazzino, scaffale, percorso)
     -- Posizione costume leila
 VALUES(25252, 1, 41, 'S');
 
 INSERT IGNORE INTO Costume(codC, tipo, descrizione, CF, codP)
-    -- costume Han Solo
-    VALUES(47429 ,'fantasia','Costume di Han Solo, piastra di metallo, pistola, giubboto','HRSFRD13GS42', 84425);
+    -- costume Leila
+    VALUES(53921 ,'fantasia','Costume di Leila, bikini Jabba the Hat','CRRFSH21NS56', 25252);
+
+
+
 
 INSERT IGNORE INTO PosizioneMagazzino(codP, numMagazzino, scaffale, percorso)
     -- Posizione costume han solo
 VALUES(84425, 1, 7, 'N');
+
+
+INSERT IGNORE INTO Costume(codC, tipo, descrizione, CF, codP)
+    -- costume   Han Solo
+    VALUES(47429 ,'fantasia','Costume di Han Solo, piastra di metallo, pistola, giubboto','HRSFRD13GS42', 84425);
+
+
+INSERT IGNORE INTO PosizioneMagazzino(codP, numMagazzino, scaffale, percorso)
+    -- Posizione costume obi wan
+    VALUES(74120, 1, 88, 'O');
+
+INSERT IGNORE INTO Costume(codC, tipo, descrizione, CF, codP)
+    -- costume Obi Wan
+    VALUES(41231 ,'fantasia','Costume di Obi Wan, Sudario Jedi,  spada blu','ALCGNS02DS14', 74120);
+
 
 INSERT IGNORE INTO Incasso(dataInizio, dataFine, incasso, codF, codInd)
     -- incasssi savignano, primo mese
@@ -280,5 +334,30 @@ INSERT IGNORE INTO Fondo(codFondo, dataAccredito, patrimonio, P_IVA_SPONSOR, P_I
     -- george lucas ha contribuito al fondo
 VALUES (1, '1977-01-05', 2000000, '53179880082', null, 'GRGLCS14ES44', 1);
 
+INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
+	    -- indirizzo Studio simulazione Navi spaziali
+        VALUES(74921, 'Devyn Tromp', ' Aditya Lakes Apt. 670', 742, 74921);
 
+INSERT IGNORE INTO ScenaCiak(codScena, noteDiProduzione, rullo, numRiprese, durataOre, costoAffittoGiornaliero, codInd,codF)
+-- scena
+VALUES (00456, 'Scena in cui luke skywalker salva la principessa leila dalle grinfie di Dart Vader', 4, 5, 2, 200, 74921, 1),
+    (04745, 'Scena in cui luke skywalker distrugge la morte nera', 15, 1, .5, 200, 74921, 1),
+    (03245, 'Scena in cui luke skywalker assiste alla morte di obi wan', 11, 7, 4, 200, 74921, 1),
+    (00789, 'Scena in cui luke skywalker guida il millenium falcon con Ian solo', 5, 5, 3, 200, 74921, 1);
 
+INSERT IGNORE INTO Membro_Troupe_Scena(codScena ,CF)
+    -- personaggi presenti in scena ???
+VALUES (00456,'CRRFSH21NS56'), (00456,'MRKHML25IS51'), (00456, 'DVDPRW01GS32'),
+       (00789,'MRKHML25IS51'), (00789, 'HRSFRD13GS42'),
+       (04745,'MRKHML25IS51'), (04745, 'DVDPRW01GS32'),
+       (03245,'MRKHML25IS51'), (03245, 'DVDPRW01GS32'), (03245, 'ALCGNS02DS14');
+
+INSERT IGNORE INTO CostumeScena(codC, codScena)
+    -- han solo 47429
+    -- luke 49262
+    -- leila 53921
+    -- darth 55124
+    VALUES (53921, 00456), (49262, 00456), (55124, 00456),
+           (49262, 00789), (47429, 00789),
+           (49262, 04745), (55124, 04745),
+           (49262, 03245), (55124, 03245), (41231, 03245);

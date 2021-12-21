@@ -102,18 +102,6 @@ CREATE TABLE if not exists Distribuzione(
     );
 
 
-
---CREATE TABLE if NOT EXISTS IncassoSettimanale(
---    dataInizio date,
---    dataFine date,
---    incasso int(11),
---    FOREIGN KEY(idIncasso) REFERENCES Incasso(idIncasso)
---        ON DELETE CASCADE
---        ON UPDATE NO ACTION,
---    PRIMARY KEY(dataInizio, dataFine, idIncasso)
-    -- PRIMARY KEY(dataInizio, dataFine)
---);
-
 CREATE TABLE if NOT EXISTS Incasso(
     dataInizio date NOT NULL,
     dataFine date NOT NULL,
@@ -160,8 +148,6 @@ CREATE TABLE if not exists Finanziatore(
         ON UPDATE NO ACTION,
     percentualeGuadagno float(3) NOT NULL CHECK(percentualeGuadagno between 0 and 100)
     );
-
-
 
 
 CREATE TABLE if not exists Fondo(
