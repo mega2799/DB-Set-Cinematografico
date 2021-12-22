@@ -765,16 +765,27 @@ o mettiamo 1% per ogni ruolo -> 3% totale oppure non mettiamo i ruoli
     ```sql
     select ods.*
     from ScenaCiak sc join OggettoScena os on (sc.codScena=os.codScena)
-    join OggettiDiScena ods on (ods.codO=ods.codO)
+    join OggettiDiScena ods on (os.codO=ods.codO)
     where sc.codScena=?
     ```
 
 - Spese mensili totali
-- Fatturato Annuo (qui vanno aggiunte tutte le spese, gli stipendi etc etc, mancano le query)
-    ```sql 
-    select @fatturato := sum(incasso)/count(incasso) as Fatturato from Incasso;
-    select (@fatturato * 12) as FatturatoAnnuoStimato;
-  ```
+
+- Fatturato Annuo (qui vanno aggiunte tutte le spese, gli stipendi etc etc, mancano le query) 
+lo componiamo di altre query utili a calcolare un eventuale fatturato
+    ```sql
+  	-- query sulle spese per location per ogni scena del film 
+  	select @spesa := sum(costoAffittoGiornaliero * durataOre) as Spesa from ScenaCiak;
+    -- query su stipendio 
+  	?????
+  	-- query su spesa acquisto oggetti 
+  	??????? 
+    ```
+	```sql 
+ 	-- query per stimare un fatturato annuo a cui poi sottrarre le varie spese
+      select @fatturato := sum(incasso)/count(incasso) as Fatturato from Incasso;
+      select (@fatturato * 12) as FatturatoAnnuoStimato;
+    ```
 - Stipendio netto percepito da un dipendente
 - Controllo scena da riprendere in giornata
 - Controllo dipendenti da richiamare per scena

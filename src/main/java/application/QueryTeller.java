@@ -13,7 +13,6 @@ public class QueryTeller {
     }
 
     public ResultSet guadagnoFinanziatoriProduttori(){
-        var res = "";
         String query = "select @Denaro := sum(incasso) as money FROM Incasso;\n" +
                 "    select distinct M.nome, M.cognome,M.percentualeContributo, (M.percentualeContributo / 100 * @Denaro ) as guadagno, Rm.nomeRuolo\n" +
                 "    from Incasso I, MembroTroupe M, RuoloMembroTroupe Rm\n" +
@@ -29,7 +28,6 @@ public class QueryTeller {
     }
 
     public ResultSet guadagnoProduttori(){
-        var res = "";
         String query = "select @Denaro := sum(incasso) as money FROM Incasso;\n" +
                 "    select distinct M.nome, M.cognome,M.percentualeContributo, (M.percentualeContributo / 100 * @Denaro ) as guadagno, Rm.nomeRuolo\n" +
                 "    from Incasso I, MembroTroupe M, RuoloMembroTroupe Rm\n" +
@@ -45,7 +43,6 @@ public class QueryTeller {
     }
 
     public ResultSet luoghiFilm(final String title){
-        var res = "";
         String query = "    select distinct i.*\n" +
                 "    from ScenaCiak sc join Film f on (sc.codF=f.codF)\n" +
                 "    join Indirizzo i on (i.codInd=sc.codInd)\n" +
@@ -63,7 +60,6 @@ public class QueryTeller {
     }
 
     public ResultSet costumiScenaAttore(final String codScena,final  String nomeMembroTroupe,final  String cognomeMembroTroupe ){
-        var res = "";
         String query = " select i.*\n" +
                 "    from ScenaCiak sc join CostumeScena cs on (cs.codScena=sc.codScena)\n" +
                 "    join Membro_Troupe_Scena mts on (mts.codScena=sc.codScena)\n" +
@@ -103,4 +99,20 @@ public class QueryTeller {
         return result;
     }
 
+    public ResultSet oggettiInScena(final String codScena){
+        String query = "    select ods.*\n" +
+                "    from ScenaCiak sc join OggettoScena os on (sc.codScena=os.codScena)\n" +
+                "    join OggettiDiScena ods on (os.codO=ods.codO)\n" +
+                "    where sc.codScena=?";
+
+        ResultSet result = null;
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(query);
+            stmt.setString(1, codScena);
+            result = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

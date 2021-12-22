@@ -188,7 +188,7 @@ INSERT IGNORE INTO PosizioneMagazzino(codP, numMagazzino, scaffale, percorso)
 
 INSERT IGNORE INTO Costume(codC, tipo, descrizione, CF, codP)
     -- costume Luke
-    VALUES(49262 ,'fantasia','Costume di Luke Skywalker, kimono nero, stivali, spada Laser Verde','MRKHML25IS51', 25588);
+    VALUES(49262 ,'fantasia','Costume di Luke Skywalker, kimono nero, stivali, spada Laser Verde','MRKHML25IS51', 25588),
 
     -- costume Darth vader
     (55124 ,'fantasia','Costume di Darth Vader, Maschera, Spada Rossa, Mantello','DVDPRW01GS32', 25298),
@@ -244,4 +244,4 @@ INSERT IGNORE INTO OggettiDiScena(codO, tipo, descrizione, codP)
 INSERT IGNORE INTO OggettoScena(codO,codScena)
 VALUES (402,00456), (66,00456), (402,03245), (66,03245);
  -- TODO la query oggetti di scena mi da oggetti duplicati
- -- ci mettiamo un distinct.
+ -- ci mettiamo un distinct ?

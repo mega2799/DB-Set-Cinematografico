@@ -30,6 +30,26 @@ CREATE TABLE if not exists MembroTroupe(
     percentualeContributo float(3) check(percentualeContributo between 0  and 100)
 );
 
+CREATE TABLE if not exists BustaPaga(
+    codB INT,
+    retribuzioneOraria float NOT NULL,
+    oreLavorate float NOT NULL,
+    mese varchar(30) CHECK (mese in ('gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre')),
+    primary key(codB)
+);
+
+CREATE TABLE if not exists Retribuzione(
+    CF varchar(12),
+    FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+    codB INT,
+    FOREIGN KEY (codB) REFERENCES BustaPaga(codB)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+    PRIMARY KEY(CF, codB)
+);
+
 -- TODO aggiornare ER con le due tabelle qui sotto
 
 CREATE TABLE IF NOT EXISTS Ruolo(
@@ -232,6 +252,14 @@ CREATE TABLE if not exists Membro_Troupe_Scena(
         ON UPDATE NO ACTION,
         PRIMARY KEY(codScena, CF)
         );
+
+
+
+
+
+
+
+
 
 CREATE TABLE if not exists Magazzino(
         numMagazzino int Primary Key,
