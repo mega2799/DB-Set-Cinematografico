@@ -240,3 +240,8 @@ INSERT IGNORE INTO CostumeScena(codC, codScena)
 INSERT IGNORE INTO OggettiDiScena(codO, tipo, descrizione, codP)
     VALUES (402, 'armi', 'Spada blu Di anakin', 81401),
            (66, 'armi', 'Spada rossa Darth vader', 91241);
+
+INSERT IGNORE INTO OggettoScena(codO,codScena)
+VALUES (402,00456), (66,00456), (402,03245), (66,03245);
+ -- TODO la query oggetti di scena mi da oggetti duplicati
+ -- ci mettiamo un distinct.

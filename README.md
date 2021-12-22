@@ -764,8 +764,8 @@ o mettiamo 1% per ogni ruolo -> 3% totale oppure non mettiamo i ruoli
     
     ```sql
     select ods.*
-    from scenaciak sc join oggettoscena os on (sc.codScena=os.codScena)
-    join oggettidiscena ods on (ods.codO=ods.codO)
+    from ScenaCiak sc join OggettoScena os on (sc.codScena=os.codScena)
+    join OggettiDiScena ods on (ods.codO=ods.codO)
     where sc.codScena=?
     ```
 
