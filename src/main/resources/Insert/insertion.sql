@@ -245,3 +245,37 @@ INSERT IGNORE INTO OggettoScena(codO,codScena)
 VALUES (402,00456), (66,00456), (402,03245), (66,03245);
  -- TODO la query oggetti di scena mi da oggetti duplicati
  -- ci mettiamo un distinct ?
+
+
+
+-- Le riprese sono iniziate il 22 marzo 1976 e finirono il 16 luglio 1976
+-- 116 giorni - 32 sabato/domeniche = 84 giorni di lavoro "puro"
+
+INSERT IGNORE INTO BustaPaga(codB, retribuzioneOraria, oreLavorate, mese)
+    -- luke skywalker
+    VALUES (12301, 32, 124.2, 'marzo'),
+    (47918, 32, 111.2, 'aprile'),
+    (09581, 32, 102.2, 'maggio'),
+    (05982, 32, 141.2, 'giugno'),
+    (41012, 32, 199.2, 'luglio'),
+    -- ian solo
+    (65481, 77, 153.2, 'aprile'),
+    (96848, 77, 101.4, 'maggio'),
+    (98431, 77, 169.2, 'luglio'),
+    -- darth vader
+    (68481, 15, 89.3, 'marzo'),
+    (98741, 15, 14.8, 'luglio');
+
+INSERT IGNORE INTO Retribuzione(CF, CodB) 
+    -- luke
+    VALUES  ('MRKHML25IS51', 47918),
+            ('MRKHML25IS51', 09581),
+            ('MRKHML25IS51', 05982),
+            ('MRKHML25IS51', 41012),
+    -- ian solo
+            ('HRSFRD13GS42', 65481), 
+            ('HRSFRD13GS42', 96848),
+            ('HRSFRD13GS42', 98431),
+    -- darth vader
+            ('DVDPRW01GS32', 68481),
+            ('DVDPRW01GS32', 98741);

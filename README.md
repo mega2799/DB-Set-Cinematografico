@@ -776,8 +776,8 @@ lo componiamo di altre query utili a calcolare un eventuale fatturato
     ```sql
   	-- query sulle spese per location per ogni scena del film 
   	select @spesa := sum(costoAffittoGiornaliero * durataOre) as Spesa from ScenaCiak;
-    -- query su stipendio 
-  	?????
+    -- query su stipendio nei 5 mesi in cui e stato girato 
+    select @stipendi :=  sum(retribuzioneOraria * oreLavorate) as Stipendi from BustaPaga
   	-- query su spesa acquisto oggetti 
   	??????? 
     ```
