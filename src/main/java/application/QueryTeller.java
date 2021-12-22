@@ -44,8 +44,7 @@ public class QueryTeller {
         return result;
     }
 
-    // TODO l ho solo scritta ma non provata :^ /
-    public ResultSet luoghiFilm(String title){
+    public ResultSet luoghiFilm(final String title){
         var res = "";
         String query = "    select distinct i.*\n" +
                 "    from ScenaCiak sc join Film f on (sc.codF=f.codF)\n" +
@@ -63,8 +62,7 @@ public class QueryTeller {
         return result;
     }
 
-    // TODO l ho solo scritta ma non provata :^ / pt.2 
-    public ResultSet luoghiFilm(String codScena, String nomeMembroTroupe, String cognomeMembroTroupe ){
+    public ResultSet costumiScenaAttore(final String codScena,final  String nomeMembroTroupe,final  String cognomeMembroTroupe ){
         var res = "";
         String query = " select i.*\n" +
                 "    from ScenaCiak sc join CostumeScena cs on (cs.codScena=sc.codScena)\n" +
@@ -86,4 +84,23 @@ public class QueryTeller {
         }
         return result;
     }
+
+    public ResultSet attoriInScena(final String codScena){
+        var res = "";
+        String query = "select mt.*\n" +
+                "    from ScenaCiak sc join Membro_Troupe_Scena mts on (sc.codScena = mts.codScena)\n" +
+                "    join MemtroTroupe mt on (mts.CF = mt.CF)\n" +
+                "    where sc.codScena = ?";
+
+        ResultSet result = null;
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(query);
+            stmt.setString(1, codScena);
+            result = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 }

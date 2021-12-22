@@ -781,8 +781,8 @@ o mettiamo 1% per ogni ruolo -> 3% totale oppure non mettiamo i ruoli
     
     ```sql
     select mt.*
-    from scenaciak sc join membro_troupe_scena mts on (sc.codScena = mts.codScena)
-    join memtrotroupe mt on (mts.CF = mt.CF)
+    from ScenaCiak sc join Membro_Troupe_Scena mts on (sc.codScena = mts.codScena)
+    join MemtroTroupe mt on (mts.CF = mt.CF)
     where sc.codScena = ?
     ```
     

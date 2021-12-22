@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main extends Application{
@@ -57,7 +59,6 @@ public class Main extends Application{
         DBConnection.getConnection().commit();
         stage.show();
         //System.exit(0);
-
     }
 
     public static void main(String[] args) {
