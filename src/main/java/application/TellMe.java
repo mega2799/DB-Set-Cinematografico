@@ -37,32 +37,18 @@ public class TellMe {
      *
      * @return String
      */
-//    public String sponsors(){
-//        String query = "select * from Sponsor;";
-//        List<List<String>> ll = new ArrayList<>();
-//        try(Statement statement = connection.createStatement()){
-//            ResultSet resultSet = statement.executeQuery(query);
-//            while(resultSet.next()) {
-//                ll.add(List.of(resultSet.getString("P_IVA_SPONSOR"),resultSet.getString("nome")));
-//            }
-//        }catch (SQLException e){
-//            e.printStackTrace();
-//        }
-//        return ll.toString();
-//    }
-
 //DA QUI INIZIANO QUERY CHE RESTITUISCONO RESULTSETS
  //TODO: 07/12/2021 rendere coerente metodi get di tabelle usando getTable come sotto
-    public ResultSet sponsors(){
-        String query = "select * from Sponsor;";
-        try {
-            ResultSet result = connection.createStatement().executeQuery(query);
-            return result;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    public ResultSet sponsors(){
+//        String query = "select * from Sponsor;";
+//        try {
+//            ResultSet result = connection.createStatement().executeQuery(query);
+//            return result;
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
 
     public ResultSet troupe(){
@@ -139,6 +125,10 @@ public class TellMe {
 
     public ResultSet film() {
         return getTable("Film");
+    }
+
+    public ResultSet sponsors() {
+        return getTable("Sponsor");
     }
 
 }

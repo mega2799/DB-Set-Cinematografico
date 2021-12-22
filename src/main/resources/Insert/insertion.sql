@@ -7,14 +7,14 @@ INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP) VALUES(24673, 'nic
 	-- casa di george lucas
 
 
-INSERT IGNORE INTO Ruolo(nomeRuolo) VALUES ('sceneggiatore'),  
+INSERT IGNORE INTO Ruolo(nomeRuolo) VALUES ('sceneggiatore'),
 													('produttore'),
                                                     ('produttore esecutivo'),
-													('aiuto regista'), 
+													('aiuto regista'),
 													('capo regista'),
-                                                    ('regista'), 
-													('attore'), 
-													('stilista'), 
+                                                    ('regista'),
+													('attore'),
+													('stilista'),
 													('operatore fonico'),
 													('operatore fotografico');
 
@@ -24,13 +24,9 @@ INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
 	VALUES ('GRGLCS14ES44', 'George', 'Lucas', 'GB98BARC20040156884556',
 				'1944/05/14', '516-527-8719', 24673, 1.0);
 
-INSERT IGNORE INTO RuoloMembroTroupe(CF, nomeRuolo) VALUES ('GRGLCS14ES44', 'Produttore Esecutivo'), ('GRGLCS14ES44', 'Sceneggiatore') , ('GRGLCS14ES44', 'Produttore');
-
-INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
-							codInd, percentualeContributo)
-	-- sceneggiatore George Lucas
-	VALUES ('GRGLCS14ES44', 'George', 'Lucas', 'GB98BARC20040156884556',
-				'1944/05/14', '516-527-8719', 24673,1.0);
+INSERT IGNORE INTO RuoloMembroTroupe(CF, nomeRuolo) VALUES ('GRGLCS14ES44', 'Produttore Esecutivo'),
+                                                           ('GRGLCS14ES44', 'Sceneggiatore'),
+                                                           ('GRGLCS14ES44', 'Produttore');
 
 INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- George lucas
@@ -119,7 +115,6 @@ INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
 INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP) VALUES(19447, 'south erictown',
 						'dereck hill', 473, 89559);
 	-- Carrie Fisher
-
 
 INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
 							codInd, percentualeContributo)
@@ -361,3 +356,15 @@ INSERT IGNORE INTO CostumeScena(codC, codScena)
            (49262, 00789), (47429, 00789),
            (49262, 04745), (55124, 04745),
            (49262, 03245), (55124, 03245), (41231, 03245);
+
+INSERT IGNORE INTO PosizioneMagazzino(codP, numMagazzino, scaffale, percorso)
+    -- Posizione spada blu
+VALUES (81401, 1, 11, 'B'),
+    -- Posizione spada Rossa
+       (91241, 1, 2, 'P');
+
+
+-- ('arredo','maschere','armi','mobili','strumentoMusicale','motori')
+INSERT IGNORE INTO OggettiDiScena(codO, tipo, descrizione, codP)
+    VALUES (402, 'armi', 'Spada blu Di anakin', 81401),
+           (66, 'armi', 'Spada rossa Darth vader', 91241);
