@@ -42,7 +42,9 @@ VALUES (24673, 'nicasio', 'lucas valley rid', 5858, 94946),
     --indirizzo Sky forge ditta crea modelli spasa laser
         (16378,'Caverzere','Armando Diaz',1,30014),
     --indirizzo etsy
-        (13859,'New York', 'Adams Street', 117, 11201);
+        (13859,'New York', 'Adams Street', 117, 11201),
+    --indirizzo star wars industries
+        (16957, 'New York', 'Empire State', 23, 34534);
 
 
 
@@ -255,14 +257,19 @@ VALUES (402,00456), (66,00456), (402,03245), (66,03245),
 
 INSERT IGNORE INTO Ditta(P_IVA_DITTA, nome, codInd)
 VALUES (04502240270, 'Skyforge Sabers', 16378),
-       (06363391001, 'Etsy', 13859);
+       (06363391001, 'Etsy', 13859),
+       (03453323434,'Star Wars Industries',16957);
 
 INSERT IGNORE INTO Acquisto(idAcquisto, data, prezzoTotale, P_IVA_DITTA)
 VALUES (1,'1977-07-07', 200, 04502240270),
-       (2,'1977-07-10', 100, 06363391001);
+       (2,'1977-07-10', 100, 06363391001),
+       (3,'1977-05-12', 1050, 03453323434);
 
 INSERT IGNORE INTO AcquistoOggetto(codO, idAcquisto, prezzo)
 VALUES (402, 1, 100), (66,1,100), (55,2,35), (23,2,65);
+
+INSERT IGNORE INTO AcquistoCostume(codC, idAcquisto, prezzo)
+VALUES (49262, 3, 200), (53921,3,200), (55124,3,250), (47429,3,200), (41231,3,200);
 
 
 -- Le riprese sono iniziate il 22 marzo 1976 e finirono il 16 luglio 1976
