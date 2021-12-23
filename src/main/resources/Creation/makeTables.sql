@@ -1,6 +1,6 @@
 CREATE TABLE if not exists Indirizzo(
-        codInd int primary key,
-        citta varchar(21) NOT NULL,
+    codInd int primary key,
+    citta varchar(21) NOT NULL,
     via varchar(40) NOT NULL,
     civico int NOT NULL,
     CAP int NOT NULL check(length(CAP) = 5)
@@ -54,10 +54,6 @@ CREATE TABLE if not exists Retribuzione(
 
 CREATE TABLE IF NOT EXISTS Ruolo(
     nomeRuolo varchar(41) Primary KEY
-      -- NOT NULL check (ruolo in ('sceneggiatore', 'produttore',
-      --     'produttore esecutivo','aiuto regista', 'capo regista',
-      --     'regista', 'attore', 'stilista', 'operatore')),
-      --    tipoOperatore varchar(31)  check (tipoOperatore in ('fonico', 'fotografico')),
 );
 
 CREATE TABLE IF NOT EXISTS RuoloMembroTroupe(
@@ -137,22 +133,6 @@ CREATE TABLE if NOT EXISTS Incasso(
     PRIMARY KEY(dataInizio, dataFine, incasso)
 );
 
--- CREATE TABLE if not exists Incasso(
---    percentualeTrattenute primary key float(3),
-  --  FOREIGN KEY (codF) REFERENCES Film(codF)
-    --        ON DELETE CASCADE
-      --      ON UPDATE NO ACTION,
-  --  FOREIGN KEY (codInd) REFERENCES Sede(codInd) -- sede !!!
-    --        ON DELETE CASCADE
-      --      ON UPDATE NO ACTION,
-    -- todo per calcolare incasso useremo una query (?)
--- );
-
-
-
-
--- incasso settimanale non ci piace....
-
 CREATE TABLE if not exists Sponsor(
         P_IVA_SPONSOR varchar(11) primary key,
         nome varchar(41) NOT NULL
@@ -206,6 +186,7 @@ CREATE TABLE if not exists Film_Membro_Troupe(
         PRIMARY KEY(codF, CF)
         );
 
+-- TODO la questione supervisore andrebbe anche risolta
 -- CREATE TABLE if not exists Supervisione(
 -- supervisore INT NOT NULL,
 -- FOREIGN KEY (supervisore) REFERENCES Supervisione(supervisore)
@@ -252,14 +233,6 @@ CREATE TABLE if not exists Membro_Troupe_Scena(
         ON UPDATE NO ACTION,
         PRIMARY KEY(codScena, CF)
         );
-
-
-
-
-
-
-
-
 
 CREATE TABLE if not exists Magazzino(
         numMagazzino int Primary Key,
