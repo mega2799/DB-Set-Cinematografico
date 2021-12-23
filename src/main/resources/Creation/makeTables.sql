@@ -375,3 +375,16 @@ CREATE TABLE if not exists AcquistoCostume(
         prezzo float(8) NOT NULL,
         PRIMARY KEY(codC, idAcquisto)
         );
+
+CREATE TABLE if not exists AcquistoOggetto(
+    codO INT NOT NULL,
+    FOREIGN KEY (codO) REFERENCES OggettiDiScena(codO)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+    idAcquisto INT NOT NULL,
+    FOREIGN KEY (idAcquisto) REFERENCES Acquisto(idAcquisto)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+    prezzo float(8) NOT NULL,
+    PRIMARY KEY(codO, idAcquisto)
+    );

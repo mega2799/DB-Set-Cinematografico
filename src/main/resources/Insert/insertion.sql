@@ -38,7 +38,11 @@ VALUES (24673, 'nicasio', 'lucas valley rid', 5858, 94946),
     -- indirizzo Magazzino
         (19341, 'South Veronafurt', 'Alejandra Ports', 658, 28270),
     -- indirizzo Studio simulazione Navi spaziali
-        (74921, 'Devyn Tromp', ' Aditya Lakes Apt. 670', 742, 74921);
+        (74921, 'Devyn Tromp', ' Aditya Lakes Apt. 670', 742, 74921),
+    --indirizzo Sky forge ditta crea modelli spasa laser
+        (16378,'Caverzere','Armando Diaz',1,30014),
+    --indirizzo etsy
+        (13859,'New York', 'Adams Street', 117, 11201);
 
 
 
@@ -239,9 +243,23 @@ INSERT IGNORE INTO CostumeScena(codC, codScena)
 
 INSERT IGNORE INTO OggettiDiScena(codO, tipo, descrizione, codP)
     VALUES (402, 'armi', 'Spada blu Di anakin', 81401),
-           (66, 'armi', 'Spada rossa Darth vader', 91241);
+           (66, 'armi', 'Spada rossa Darth vader', 91241),
+           (55, 'armi','Fucile Blaster E-5', 25588),
+           (23, 'armi', 'Cannone blaster rotante Z-6', 25588);
 
 INSERT IGNORE INTO OggettoScena(codO,codScena)
-VALUES (402,00456), (66,00456), (402,03245), (66,03245);
+VALUES (402,00456), (66,00456), (402,03245), (66,03245),
+        (55, 00456), (23, 00456);
  -- TODO la query oggetti di scena mi da oggetti duplicati
  -- ci mettiamo un distinct ?
+
+INSERT IGNORE INTO Ditta(P_IVA_DITTA, nome, codInd)
+VALUES (04502240270, 'Skyforge Sabers', 16378),
+       (06363391001, 'Etsy', 13859);
+
+INSERT IGNORE INTO Acquisto(idAcquisto, data, prezzoTotale, P_IVA_DITTA)
+VALUES (1,'1977-07-07', 200, 04502240270),
+       (2,'1977-07-10', 100, 06363391001);
+
+INSERT IGNORE INTO AcquistoOggetto(codO, idAcquisto, prezzo)
+VALUES (402, 1, 100), (66,1,100), (55,2,35), (23,2,65);
