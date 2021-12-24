@@ -25,10 +25,21 @@ La presente documentazione tratta nel dettaglio la progettazione e l’implement
 * [3.1 Distribuzione e Incasso](#31-distribuzione-e-incasso)
 * [3.2 Inspirazione e Sceneggiatura](#32-inspirazione-e-sceneggiatura)
 * [3.3 Gestione Fondi](#33-gestione-fondi)
-* [3.4 Membro della Troupe](#34-membro-troupe)
+* [3.4 Membro della Troupe](#34-membro-della-troupe)
+* [3.5 Stipendio](#35-stipendio)
 * [3.6 Scena](#36-scena)
-
-* [5 Il progetto Logico](#5-il-progetto-logico)
+* [4 Il progetto Logico](#4-il-progetto-logico)
+* [4.11 Aggiunta Film](#411-aggiunta-film)
+* [4.12 Aggiunta Membro-Troupe](#412-aggiunta-membro-troupe)
+* [4.13 Distribuzione](#413-distribuzione)
+* [4.14 Costumi e Magazzini](#414-costumi-e-magazzini)
+* [5 Specifiche Funzionali](#5-specifiche-funzionali)
+* [5.1 Stipendio membri della troupe](#51-stipendio-membri-della-troupe)
+* [5.3  Profitto finanziatori](#53-profitto-finanziatori)
+* [5.4 Luoghi riprese](#54-luoghi-riprese)
+* [6.1 Traduzione delle entità](#61-traduzione-delle-entita)
+* [6.2 Creazione delle tables](#62-creazione-delle-tables)
+* 
 
 Introduzione
 -----------
@@ -116,10 +127,9 @@ scena-Ciak fondamentale per la realizzazione di un film
 3.1 Distribuzione e Incasso
 ----------
 Ogni Film ha bisogno di un ente specifico che si occupi della distribuzione,  
-come ad esempio Netflix che dopo aver preso i diritti per la riproduzione  
-porta sulla sua piattaforma la pellicola, ogni ente da noi gestito attraverso  
-un entita composta da nome, indirizzo, P.IVA ha poi una dislocazione locale  
-che possiede l'attributo trattenute.
+come ad esempio l'azienda UCI che dopo aver comprato i diritti per la riproduzione  
+porta nelle sue sedi la pellicola, ogni ente da noi gestito attraverso  
+un entita composta da nome, indirizzo, P.IVA ha poi una dislocazione locale.
 ![](/res/distribuzioneIncasso.png)
 
 3.2 Inspirazione e Sceneggiatura
@@ -138,11 +148,10 @@ Un film per poter essere realizzato ha un enorme bisogno di soldi quindi di fond
 dato che i costi sono molti, spesso questo patrimonio si crea dagli investimenti  
 che la pellicola riesce a raccogliere, abbiamo creato le entità Sponsor che   
 rappresentano le possibili aziende che possono in cambio di una sponsorizzazione  
-del loro prodotto pagare una somma di denaro e l' entità Finanziatore per le   
-persone o aziende che decidono di investire una somma di denaro per poi poter   
-guadagnare grazie ad una percentuale una volta ricevuti gli incassi del film _o   
-o attraverso somme pattuite_ tramite un associazione che ha come attributo   
-la data di investimento e il Produttore esecutivo abbiamo modellato la gestione  
+del loro prodotto pagare una somma di denaro e l' entità Finanziatore per la   
+persona o azienda che decidono di investire una somma di denaro per poi poter   
+guadagnare grazie ad una percentuale una volta ricevuti gli incassi del film tramite  un associazione che ha come  
+attributo la data di investimento e il Produttore esecutivo abbiamo modellato la gestione
 dei fondi.
 A livello concettuale avremo una gerarchia con entità padre il fondo ed entità figlie  
 i corrispettivi fondo_sponsor e fondo_finanziatore che erediteranno gli attributi  
@@ -158,8 +167,9 @@ gerarchia per poter più comodamente rappresentarle.
 
 ![](/res/gerarchia.png)
 
+
 3.5	Stipendio
---------
+------------
 Ogni addetto ai lavori in un set cinematografico ha uno stipendio, modellato  
 attraverso un entità nella quale vengono registrati i codici singoli per busta  
 paga, le ore accumulate sul set, i contributi e il periodo sul quale poi verrà 
@@ -177,54 +187,66 @@ Schema Completo
 ----------
 ![](/res/schemaCompleto.png)
 
-Il progetto Logico
+4 Il progetto Logico
 ---------------
 Qui riportati gli schemi di navigazione delle operazioni
 
-# 5.x Traduzione delle operazioni in query
+# 4.1 Traduzione delle operazioni in query
 
-## Aggiunta Film
+### 4.11 Aggiunta Film
 Aggiungere un film consiste nell'aggiungere un instanza dell' entità FILM
 ```sql 
 INSERT IGNORE INTO Film(codF, titolo, genere, durata, dataUscita, idSerie) 
 
-VALUES(00001, 'Star Wars: Episodio VI - Il ritorno dello Jedi',
+VALUES (00001, 'Star Wars: Episodio VI - Il ritorno dello Jedi',
 	'fantascienza', 134, 25/05/2983, 2551983);
 ```
 
-Aggiunta Membro-Troupe
--------
+### 4.12 Aggiunta Membro Troupe
 Aggiungiamo prima al database un membro generico, il quale verra poi collegato al film  
-tramite la tupla Film_Membro_Troupe che rappresenta l'associazione _lavora_
+tramite la tupla Film_Membro_Troupe che rappresenta l'associazione _lavora_ e ad il lavoro   
+che svolgerà all' interno di questo progetto con una tupla della tabella RuoloMembroTroupe
+
 ```sql
-INSERT IGNORE INTO Membro_Troupe(CF, nome, cognome, iban,
- 	data_nascita, telefono,
-	codInd, percentuale_contributo[0-1],
-	ruolo, tipoOperatore[0-1])
 
-VALUES ('GRGLCS14ES44', 'George', 'Lucas', 'GB98BARC20040156884556', 
-		'1944/05/14', '516-527-8719', 1.5, 'Produttore Esecutivo');
+INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
+							codInd, percentualeContributo)
+	-- produttore esecutivo George Lucas
+	VALUES ('GRGLCS14ES44', 'George', 'Lucas', 'GB98BARC20040156884556',
+				'1944/05/14', '516-527-8719', 24673, 1.0);
+				
+INSERT IGNORE INTO RuoloMembroTroupe(CF, nomeRuolo)
+    VALUES ('GRGLCS14ES44', 'Produttore Esecutivo');
 
-INSERT IGNORE INTO Film_Membro_Troupe(00001, 'GRGLCS14ES44');
+INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
+    -- George lucas
+    VALUES (1, 'GRGLCS14ES44'),
 ```
 
-Distribuzione (il codice IND va aggiornato)
----------
+### 4.13 Distribuzione
 Avendo precedentemente inserito un Indirizzo e usando quel codice, creiamo l'ente che
-si occuperà della distribuzione del film, rappresentando quindi l'associazione e l'entita ente.
+si occuperà della distribuzione del film, rappresentando quindi l'associazione e l'entita ente  
+con la sua eventuale sedeTerritoriale.
 ```sql
-INSERT IGNORE INTO Ente(P.IVA_ENTE,nome,codInd)
- 			VALUES (40365320379,'20th Century Studios', ?);
+INSERT IGNORE INTO Enti(P_IVA,nome,codInd)
+    -- ente di distribuizone
+	VALUES (40365320379, "UCI Milano", 18302);
 
-INSERT IGNORE INTO Distribuzione(P.IVA, codF) VALUES (40365320379, 00001);
+INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
+	--sede territoriale uci savignano
+	VALUES (16395, 'savignano', 'Piazza Metropolis', 18, 47039),
+ 
+INSERT IGNORE INTO SediTerritoriali(P_IVA, codInd)
+    VALUES (40365320379, 16395);
 ```
-Costumi e Magazzini
-----
+
+### 4.14 Costumi e Magazzini
 Per poter procedere a realizzare i concetti dell'utlizzo e storage dei costumi si può inserire  
 l'entita Magazzino, le associazioni riportate nell ER collocazioni_costumi e assegnamento  
 attore vengono formalizzate utilizzando un Entità Posizione Magazzino che utlizza la primary  
 key di Magazzino che viene legata a Costume con la foreign key codP e la seconda associazione  
 assegnando ad un costume una foreign key CF (codice fiscale) che viene importato da MembroTroupe.  
+
 ```sql 
 INSERT IGNORE INTO Magazzino(numMagazzino, codInd)
     -- magazzino principale
@@ -239,108 +261,162 @@ INSERT IGNORE INTO PosizioneMagazzino(codP,numMagazzino,scaffale, percorso)
     -- Posizione costume luke skywalker
 VALUES(25588, 1, 2, 'S');
 ```
-# 5 Il Progetto Logico
+
+# 5 Specifiche funzionali
 
 
+## 5.1 Stipendio membri della troupe
+Query creata per poter calcolare lo stipendio della troupe per un mese, ottenuta collezionando  
+le busta paga dei lavoratori.
 
+```sql 
+	    select @stipendi :=  sum(retribuzioneOraria * oreLavorate) as Stipendi 
+	    from BustaPaga 
+	    where mese = ?;
+```
 
-# 5.X Traduzione delle entità 
-* Film(__*codF*__, titolo, genere ,durata, dataUscita, idSerie)
-	+ FK: idSerie REFERENCES __Serie_Letteraria__
+# 5.2 Elenco oggetti acquistati in magazzino
+Trova la posizione in un dato magazzino di tutti gli oggetti acquistati 
+    ```sql
+    select oggettoscena.*
+    from oggettoscena o join oggettidiscena os on (o.codO=os.codO)
+    join posizionemagazzino pm on (pm.codP=os.codP)
+    where pm.numMagazzino = ?
+    ```
+
+# 5.3  Profitto finanziatori
+    ```sql
+    select @Denaro := sum(incasso) as money FROM Incasso;
+    select distinct F.nome, F.percentualeGuadagno, (F.percentualeGuadagno / 100 * @Denaro ) as guadagno
+    from Finanziatore F
+    where F.percentualeGuadagno is not null;
+    ```
+
+# 5.4 Luoghi riprese
+
+    ```sql
+    select distinct i.*
+    from ScenaCiak sc join Film f on (sc.codF=f.codF)
+    join Indirizzo i on (i.codInd=sc.codInd)
+    where f.titolo=?
+    ```
+
+# 6 Il Progetto Logico
+
+# 6.1 Traduzione delle entita
+
+* SerieLetteraria(__*idSerie*__, titolo, genere, CF)
+    + FK: CF REFERENCES __Membro_troupe__
+
+* Film(__*codF*__, titolo, genere ,durata, dataUscita, idSerie[0-1])
+    + FK: idSerie REFERENCES __Serie_Letteraria__
 
 * Indirizzo(__*codInd*__, città, via, civico, CAP)
 
 * Ente(__*P.IVA_ENTE*__,nome,codInd)
-	+ FK: codInd REFERENCES __Indirizzo__
+    + FK: codInd REFERENCES __Indirizzo__
 
 * Distribuzione(__*P.IVA*__, __*codF*__)
-	+ FK: P.IVA_ENTE REFERENCES __Ente__
-	+ FK: codF REFERENCES __Film__
+    + FK: P.IVA_ENTE REFERENCES __Ente__
+    + FK: codF REFERENCES __Film__
 
-* Sede_Territoriale(__*codInd*__, P.IVA_ENTE)
-	+ FK: codInd REFERENCES __Indirizzo__
-	+ FK: P.IVA_ENTE REFERENCES __Ente__
+* Sedi_Territoriali(__*codInd*__, P.IVA_ENTE)
+    + FK: codInd REFERENCES __Indirizzo__
+    + FK: P.IVA_ENTE REFERENCES __Ente__
 
 * Incasso(percentualeTrattenute, __*codF*__, __*indSede*__)
-	+ FK: codFr REFERENCES __Film__
-	+ FK: indSede REFERENCES __Sede__
+    + FK: codFr REFERENCES __Film__
+    + FK: indSede REFERENCES __Sede__
 
-* Incasso_settimanale(__*idIncasso*__, inizio_settimana, fine_settimana, incasso, codF, indSede) !!!!!!!!!!!!!!!!
-	+ FK: codF, indSede REFERENCES __Incasso__
-
-* Fondo(__*codFondo*__, data, patrimonio, P_IVA_SPONSOR[0, 1], P.IVA_FINANZIATORE[0, 1], CF, codF)
-	+ FK: P.IVA_SPONSOR REFERENCES __Sponsor__
-	+ FK: P.IVA_FINANZIATORE REFERENCES __Finanziatore__
-	+ FK: CF REFERENCES __Membro_troupe__
+* Incasso_settimanale(__*idIncasso*__, __*dataInizio*__, __*dataFine*__, incasso, codF, codInd)
 	+ FK: codF REFERENCES __Film__
+	+ FK: codInd REFERENCES __Indirizzo__
+
+* Fondo(__*codFondo*__, dataAccredito, patrimonio, P_IVA_SPONSOR[0, 1], P.IVA_FINANZIATORE[0, 1], CF, codF)
+    + FK: P.IVA_SPONSOR REFERENCES __Sponsor__
+    + FK: P.IVA_FINANZIATORE REFERENCES __Finanziatore__
+    + FK: CF REFERENCES __Membro_troupe__
+    + FK: codF REFERENCES __Film__
 
 * Sponsor(__*P.IVA_SPONSOR*__, nome)
 
 * Finanziatore(__*P.IVA_FINANZIATORE*__, nome, codInd, percentuale_guadagno)
-	+ FK: codInd REFERENCES __Indirizzo__
+    + FK: codInd REFERENCES __Indirizzo__
 
 * Serie_Letteraria(__*idSerie*__, titolo, genere, volumi, CF)
-	+ FK: CF REFERENCES __Membro_troupe__
+    + FK: CF REFERENCES __Membro_troupe__
 
-* Membro_Troupe(__*CF*__, nome, cognome, iban, data_nascita, telefono, codInd, percentuale_contributo[0-1], ruolo, tipoOperatore[0-1])
-	+ FK: codInd REFERENCES __Indirizzo__
+* Membro_Troupe(__*CF*__, nome, cognome, IBAN, dataNascita, telefono, codInd, percentuale_contributo[0-1], ruolo, tipoOperatore[0-1])
+    + FK: codInd REFERENCES __Indirizzo__
+
+* Ruolo(__*nomeRuolo*__)
+
+* RuoloMembroTroupe(__*CF*__, __*nomeRuolo*__)
+    + FK: CF REFERENCES __Membro_troupe__
+    + FK: nomeRuolo REFERENCES __Ruolo__
+    
+* BustaPaga(__*codB*__, retribuzioneOraria, oreLavorate, mese)
+
+* Retribuzione(__*CF*__, __*codB*__)
+    + FK: CF REFERENCES __Membro_Troupe__
+    + FK: codB REFERENCES __BustaPaga__
 
 * Film_Membro_Troupe(__*codF*__, __*CF*__)
-	+ FK: codF REFERENCES __Film__
-	+ FK: CF REFERENCES __Membro_troupe__
+    + FK: codF REFERENCES __Film__
+    + FK: CF REFERENCES __Membro_troupe__
 
 * Supervisione(Supervisore, __*Subalterno*__)
-	+ FK: Supervisore REFERENCES __Membro_troupe__
-	+ FK: Subalterno REFERENCES __Membro_troupe__
+    + FK: Supervisore REFERENCES __Membro_troupe__
+    + FK: Subalterno REFERENCES __Membro_troupe__
 
-* ScenaCiak(__*codScena*__, note_di_produzione, rullo, numRiprese, data_inizio[0-1], data_fine[0-1], costo_affitto_giornaliero[0-1], codInd[0-1], codF)
-	+ FK: codInd REFERENCES __Indirizzo__
-	+ FK: codF REFERENCES __Film__
+* ScenaCiak(__*codScena*__, note_di_produzione, rullo, numRiprese, durataOre, costo_affitto_giornaliero[0-1], codInd, codF)
+    + FK: codInd REFERENCES __Indirizzo__
+    + FK: codF REFERENCES __Film__
 
 * Membro_Troupe_Scena(__*codScena*__, __*CF*__)
-	+ FK: codScena REFERENCES __Scena-Ciak__
-	+ FK: CF REFERENCES __Membro-Troupe__
+    + FK: codScena REFERENCES __Scena-Ciak__
+    + FK: CF REFERENCES __Membro-Troupe__
 
 * Magazzino(__*numMagazzino*__, codInd)
-	+ FK: codInd REFERENCES __Indirizzo__
+    + FK: codInd REFERENCES __Indirizzo__
 
 * PosizioneMagazzino(__*codP*__, __*numMagazzino*__, scaffale, percorso)
-	+ FK: numMagazzino REFERENCES __Magazzino__
+    + FK: numMagazzino REFERENCES __Magazzino__
 
 * Costume(__*codC*__, tipo, descrizione, CF, codP)
-	+ FK: CF REFERENCES __Membro_troupe__
-	+ FK: codP REFERENCES __PosizioneMagazzino__
+    + FK: CF REFERENCES __Membro_troupe__
+    + FK: codP REFERENCES __PosizioneMagazzino__
 
 * Stilista_Costume(__*CF*__, __*codC*__)
-	+ FK: CF REFERENCES __Membro_troupe__
-	+ FK: codC REFERENCES __Costume__
+    + FK: CF REFERENCES __Membro_troupe__
+    + FK: codC REFERENCES __Costume__
 
 * Costume_Scena(__*codC*__, __*codScena*__)
-	+ FK: codC REFERENCES __Costume__
-	+ FK: codScena REFERENCES __Scena-Ciak__
+    + FK: codC REFERENCES __Costume__
+    + FK: codScena REFERENCES __Scena-Ciak__
 
 * Oggetti_di_scena(__*codO*__, tipo, descrizione, codP)
-	+ FK: numMagazzino REFERENCES __PosizioneMagazzino__
+    + FK: numMagazzino REFERENCES __PosizioneMagazzino__
 
 * Oggetto_Scena(__*codO*__, __*codScena*__)
-	+ FK: codO REFERENCES __Oggetto_di_scena__
-	+ FK: codScena REFERENCES __ScenaCiak__
+    + FK: codO REFERENCES __Oggetto_di_scena__
+    + FK: codScena REFERENCES __ScenaCiak__
 
 * Acquisto(__*idAcquisto*__, data, prezzoTotale, P.IVA_DITTA)
-	+ FK: P.IVA_DITTA REFERENCES __Ditta__
+    + FK: P.IVA_DITTA REFERENCES __Ditta__
 
 * Acquisto_Costume(__*codC*__, __*idAcquisto*__, prezzo)
-	+ FK: codC REFERENCES __Costume__
-	+ FK: idAcquisto REFERENCES __Acquisto__
+    + FK: codC REFERENCES __Costume__
+    + FK: idAcquisto REFERENCES __Acquisto__
 
 * Acquisto_Oggetto(__*codO*__, __*idAcquisto*__, prezzo)
-	+ FK: codO REFERENCES __Oggetto_di_scena__
-	+ FK: idAcquisto REFERENCES __Acquisto__
+    + FK: codO REFERENCES __Oggetto_di_scena__
+    + FK: idAcquisto REFERENCES __Acquisto__
 
 * Ditta(__*P.IVA_DITTA*__, nome,codInd)
-	+ FK: codInd REFERENCES __Indirizzo__
+    + FK: codInd REFERENCES __Indirizzo__
 
-# 5.X Creazione delle tables
+# 6.2 Creazione delle tables
 ```sql
 CREATE TABLE if not exists Indirizzo(
         codInd int primary key,
@@ -677,39 +753,15 @@ CREATE TABLE if not exists AcquistoCostume(
 
 [indirizzo e persona](https://anytexteditor.com/it/fake-address-generator)
 ## possibili query per noi
-- query sullo stipendio per i membri della troupe
-- query di aggiornamento del fondo con nuovi finanziatori/sponsor
-  (ADDED in insertTab)
-    ```sql
-    se finanziatore non presente quindi query di verifica:
-    select *
-    from finanziatore 
-    where P_IVA=?
-    
-    veririco che esista l'indirizzo con query di verifica:
-    select *
-    from indirizzo
-    where codInd=?
-    
-    se non esiste inserisco:
-    insert into indirizzo(codInd,citta,via,civico,CAP)
-    values (?,?,?,?,?)
-    
-    se non esiste inserisco finanziatore:
-    insert into finanziatore(P_iva,nome,codInd,percentualeGuadagno)
-    values (?,?,?,?)
-    
-    equivalente con sponsor.
-    ```
-    
 - selezionare tutti i lavoratori che hanno contribuito ad un film (DONE)
+
 - calcolo percentuale contribuito caporegista e regista (ADDED)
-	```sql
-	select @Denaro := sum(incasso) as money FROM Incasso;
-	select distinct M.nome, M.cognome,M.percentualeContributo, (M.percentualeContributo / 100 * @Denaro ) as Guadagno
-	from Incasso I, MembroTroupe M
-	where M.percentualeContributo is not null;
-	```
+    ```sql
+    select @Denaro := sum(incasso) as money FROM Incasso;
+    select distinct M.nome, M.cognome,M.percentualeContributo, (M.percentualeContributo / 100 * @Denaro ) as Guadagno
+    from Incasso I, MembroTroupe M
+    where M.percentualeContributo is not null;
+    ```
  TODO !!!!!!!!
 
 - la query sopra va bene, ma potrebbe essere meglio facendo vedere anche i ruoli  
@@ -779,13 +831,29 @@ lo componiamo di altre query utili a calcolare un eventuale fatturato
     -- query su stipendio nei 5 mesi in cui e stato girato 
     select @stipendi :=  sum(retribuzioneOraria * oreLavorate) as Stipendi from BustaPaga
   	-- query su spesa acquisto oggetti 
-  	??????? 
+    select @speseOggetti := sum(prezzoTotale) as SpeseOggetti from Acquisto;
     ```
 	```sql 
  	-- query per stimare un fatturato annuo a cui poi sottrarre le varie spese
       select @fatturato := sum(incasso)/count(incasso) as Fatturato from Incasso;
       select (@fatturato * 12) as FatturatoAnnuoStimato;
     ```
+ 
+
+	select @spesa := sum(costoAffittoGiornaliero * durataOre) as Spesa from ScenaCiak;
+    select @stipendi :=  sum(retribuzioneOraria * oreLavorate) as Stipendi from BustaPaga;
+    select @speseOggetti := sum(prezzoTotale) as SpeseOggetti from Acquisto;
+	select @fatturato := sum(incasso)/count(incasso) as Fatturato from Incasso;
+	select @fatturatoAnnuoStimato := (@fatturato * 12) as FatturatoAnnuoStimato;
+	
+	QUESTA SOTTO NON FUNZIONA 
+	select @percentualeInvestitori := sum(guadagno) from (select @Denaro := sum(incasso) as money FROM Incasso
+    select distinct F.nome, F.percentualeGuadagno, (F.percentualeGuadagno / 100 * @Denaro ) as guadagno
+    from Finanziatore F
+    where F.percentualeGuadagno is not null)
+	
+	select @ProfittoStimato := @fatturatoAnnuoStimato - (@spesa + @stipendi + @speseOggetti) as Profitto;
+
 - Stipendio netto percepito da un dipendente
 - Controllo scena da riprendere in giornata
 - Controllo dipendenti da richiamare per scena

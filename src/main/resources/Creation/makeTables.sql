@@ -1,3 +1,4 @@
+-- TODO incollare questo file alla fine nella relazione dopo aver ucciso i todo, me compreso :^ (
 CREATE TABLE if not exists Indirizzo(
     codInd int primary key,
     citta varchar(21) NOT NULL,
@@ -171,7 +172,6 @@ CREATE TABLE if not exists Fondo(
         ON DELETE CASCADE
         ON UPDATE NO ACTION
     );
-
 
 
 CREATE TABLE if not exists Film_Membro_Troupe(

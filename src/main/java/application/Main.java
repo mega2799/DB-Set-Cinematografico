@@ -45,9 +45,6 @@ public class Main extends Application{
 
         /* executing queries */
         TellMe tellMe = new TellMe();
-        //TODO
-        // Per come abbiamo modellato il DB george lucas non puo essere sia produttore che sceneggiatore
-        System.out.println(tellMe.troupeMembers());
 
         Stage stage = new FXMLLoader(this.getClass().getResource("/GUI/insert.fxml")).load();
 

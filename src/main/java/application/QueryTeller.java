@@ -115,4 +115,20 @@ public class QueryTeller {
         }
         return result;
     }
+
+    public ResultSet stipendioMensile(final String mese){
+        String query = "select @stipendi :=  sum(retribuzioneOraria * oreLavorate) as Stipendi \n" +
+                "\t    from BustaPaga \n" +
+                "\t    where mese = ?;";
+
+        ResultSet result = null;
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(query);
+            stmt.setString(1, mese);
+            result = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }
