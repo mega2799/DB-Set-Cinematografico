@@ -1,6 +1,5 @@
 INSERT IGNORE INTO Film(codF, titolo, genere, durata, dataUscita, idSerie)
-	VALUES(00001, 'Star Wars: Episodio VI - Il ritorno dello Jedi',
-				'fantascienza', 134, '1983/05/25'  , NULL) ;
+	VALUES(00001, 'Star Wars: Episodio VI - Il ritorno dello Jedi','fantascienza', 134, '1983/05/25'  , NULL) ;
 
 INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP)
 	-- casa di george lucas
