@@ -35,8 +35,13 @@ La presente documentazione tratta nel dettaglio la progettazione e l’implement
 * [4.14 Costumi e Magazzini](#414-costumi-e-magazzini)
 * [5 Specifiche Funzionali](#5-specifiche-funzionali)
 * [5.1 Stipendio membri della troupe](#51-stipendio-membri-della-troupe)
+* [5.2 Elenco oggetti acquistati in magazzino](#52-elenco-oggetti-acquistati-in-magazzino)
 * [5.3  Profitto finanziatori](#53-profitto-finanziatori)
 * [5.4 Luoghi riprese](#54-luoghi-riprese)
+* [5.5 Costumi da usare per scena](#55-costumi-da-usare-per-scena)
+* [5.6 Dipendenti in scena](#56-dipendenti-in-scena)
+* [5.7 Oggetti in scena](#57-oggetti-in-scena)
+* [5.8 Stipendio netto dipendente](#58-stipendio-netto-dipendente)
 * [6.1 Traduzione delle entità](#61-traduzione-delle-entita)
 * [6.2 Creazione delle tables](#62-creazione-delle-tables)
 * 
@@ -168,7 +173,7 @@ gerarchia per poter più comodamente rappresentarle.
 ![](/res/gerarchia.png)
 
 
-3.5	Stipendio
+3.5 Stipendio
 ------------
 Ogni addetto ai lavori in un set cinematografico ha uno stipendio, modellato  
 attraverso un entità nella quale vengono registrati i codici singoli per busta  
@@ -278,13 +283,11 @@ le busta paga dei lavoratori.
 # 5.2 Elenco oggetti acquistati in magazzino
 Trova la posizione in un dato magazzino di tutti gli oggetti acquistati 
     ```sql
-    select oggettoscena.*
-    from oggettoscena o join oggettidiscena os on (o.codO=os.codO)
-    join posizionemagazzino pm on (pm.codP=os.codP)
-    where pm.numMagazzino = ?
+    select *  from OggettoScena o join OggettiDiScena os on (o.codO=os.codO)
+    join PosizioneMagazzino pm on (pm.codP=os.codP)     where pm.numMagazzino = ?;
     ```
 
-# 5.3  Profitto finanziatori
+# 5.3 Profitto finanziatori
     ```sql
     select @Denaro := sum(incasso) as money FROM Incasso;
     select distinct F.nome, F.percentualeGuadagno, (F.percentualeGuadagno / 100 * @Denaro ) as guadagno
@@ -300,7 +303,38 @@ Trova la posizione in un dato magazzino di tutti gli oggetti acquistati
     join Indirizzo i on (i.codInd=sc.codInd)
     where f.titolo=?
     ```
+# 5.5 Costumi da usare per scena
 
+    ```sql
+    select i.*
+    from ScenaCiak sc join CostumeScena cs on (cs.codScena=sc.codScena)
+    join Membro_Troupe_Scena mts on (mts.codScena=sc.codScena)
+    join Membrotroupe mt on (mt.CF=mts.CF)
+    where sc.codScena= ? 
+    and mt.nome = ?
+    and mt.cognome = ?
+    ```
+# 5.6 Dipendenti in scena
+    ```sql
+    select mt.*
+    from ScenaCiak sc join Membro_Troupe_Scena mts on (sc.codScena = mts.codScena)
+    join MemtroTroupe mt on (mts.CF = mt.CF)
+    where sc.codScena = ?
+    ```
+
+# 5.7 Oggetti in scena
+    ```sql
+    select ods.*
+    from ScenaCiak sc join OggettoScena os on (sc.codScena=os.codScena)
+    join OggettiDiScena ods on (os.codO=ods.codO)
+    where sc.codScena=?
+    ```
+# 5.8 Stipendio netto dipendente
+  ```sql
+  select @stipendio := sum(retribuzioneOraria * oreLavorate) as Stipendio
+  from BustaPaga bp join Retribuzione r on (bp.codB = r.codB)
+  where r.CF = ?; 
+  ```
 # 6 Il Progetto Logico
 
 # 6.1 Traduzione delle entita
@@ -753,7 +787,6 @@ CREATE TABLE if not exists AcquistoCostume(
 
 [indirizzo e persona](https://anytexteditor.com/it/fake-address-generator)
 ## possibili query per noi
-- selezionare tutti i lavoratori che hanno contribuito ad un film (DONE)
 
 - calcolo percentuale contribuito caporegista e regista (ADDED)
     ```sql
@@ -774,67 +807,23 @@ o mettiamo 1% per ogni ruolo -> 3% totale oppure non mettiamo i ruoli
     where (M.CF = Rm.CF) and M.percentualeContributo is not null;
     ```
 
-- calcolo profitto finanziatori e sponsor 
-    ```sql
-    select @Denaro := sum(incasso) as money FROM Incasso;
-    select distinct F.nome, F.percentualeGuadagno, (F.percentualeGuadagno / 100 * @Denaro ) as guadagno
-    from Finanziatore F
-    where F.percentualeGuadagno is not null;
-    ```
 - calcolo trattenute sede territoriale
-- query che elenca oggetti acquistati "in magazzino"
-    
-    ```sql
-    select oggettoscena.*
-    from oggettoscena o join oggettidiscena os on (o.codO=os.codO)
-    join posizionemagazzino pm on (pm.codP=os.codP)
-    where pm.numMagazzino = ?
-    ```
-    
-- query che elenca i luoghi in cui sono state girate le scene
-    
-    ```sql
-    select distinct i.*
-    from ScenaCiak sc join Film f on (sc.codF=f.codF)
-    join Indirizzo i on (i.codInd=sc.codInd)
-    where f.titolo=?
-    ```
-    
-- Verifica Costumi da usare per scena da un attore
-    
-    ```sql
-    select i.*
-    from ScenaCiak sc join CostumeScena cs on (cs.codScena=sc.codScena)
-    join Membro_Troupe_Scena mts on (mts.codScena=sc.codScena)
-    join Membrotroupe mt on (mt.CF=mts.CF)
-    where sc.codScena= ? 
-    and mt.nome = ?
-    and mt.cognome = ?
-    ```
-    
-- Verifica oggetti da usare per scena
-    
-    ```sql
-    select ods.*
-    from ScenaCiak sc join OggettoScena os on (sc.codScena=os.codScena)
-    join OggettiDiScena ods on (os.codO=ods.codO)
-    where sc.codScena=?
-    ```
 
+  
 - Spese mensili totali
 
 - Fatturato Annuo (qui vanno aggiunte tutte le spese, gli stipendi etc etc, mancano le query) 
 lo componiamo di altre query utili a calcolare un eventuale fatturato
     ```sql
-  	-- query sulle spese per location per ogni scena del film 
-  	select @spesa := sum(costoAffittoGiornaliero * durataOre) as Spesa from ScenaCiak;
+      -- query sulle spese per location per ogni scena del film 
+      select @spesa := sum(costoAffittoGiornaliero * durataOre) as Spesa from ScenaCiak;
     -- query su stipendio nei 5 mesi in cui e stato girato 
     select @stipendi :=  sum(retribuzioneOraria * oreLavorate) as Stipendi from BustaPaga
-  	-- query su spesa acquisto oggetti 
+      -- query su spesa acquisto oggetti 
     select @speseOggetti := sum(prezzoTotale) as SpeseOggetti from Acquisto;
     ```
-	```sql 
- 	-- query per stimare un fatturato annuo a cui poi sottrarre le varie spese
+    ```sql 
+     -- query per stimare un fatturato annuo a cui poi sottrarre le varie spese
       select @fatturato := sum(incasso)/count(incasso) as Fatturato from Incasso;
       select (@fatturato * 12) as FatturatoAnnuoStimato;
     ```
@@ -854,16 +843,8 @@ lo componiamo di altre query utili a calcolare un eventuale fatturato
 	
 	select @ProfittoStimato := @fatturatoAnnuoStimato - (@spesa + @stipendi + @speseOggetti) as Profitto;
 
-- Stipendio netto percepito da un dipendente
+
 - Controllo scena da riprendere in giornata
-- Controllo dipendenti da richiamare per scena
-    
-    ```sql
-    select mt.*
-    from ScenaCiak sc join Membro_Troupe_Scena mts on (sc.codScena = mts.codScena)
-    join MemtroTroupe mt on (mts.CF = mt.CF)
-    where sc.codScena = ?
-    ```
-    
+
 - /* l'applicativo deve quindi anche poter ordinare gli oggetti e i costumi temporalmente utilizzati nelle riprese*/
 
