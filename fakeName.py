@@ -19,13 +19,17 @@ MembroTroupe = []
 
 VALUES = 19
 
+NumFinanziatori = 4
+
 RUOLI = ['sceneggiatore','produttore','produttore esecutivo','aiuto regista','capo regista','regista','attore','stilista','operatore fonico','operatore fotografico']
 
 codScena = []
 
 BUSTAPAGA = [] 
 
-for i in range(VALUES):
+AZIENDE = ['Adobe','Boeing','Wells Fargo','PepsiCo','Comcast','Cisco Systems','Chevron','Pfizer','Merck & Co.','Verizon','The Coca-Cola Company','The Walt Disney Company','The Home Depot','ExxonMobil','UnitedHealth Group','AT&T','Intel','Bank of America','Procter & Gamble','Mastercard','Walmart','Johnson & Johnson','JPMorgan Chase','Visa','Berkshire Hathaway','Facebook','Alphabet','Amazon','Apple','Microsoft']
+
+for i in range(VALUES + NumFinanziatori):
     INDIRIZZO.append([random_with_N_digits(5),f.city(),f.street_name(),f.building_number(), int(f.postcode())])
 # print(INDIRIZZO)
 
@@ -35,7 +39,6 @@ def dateparse(d):
 
 def codeFiscale(name, surname, date):
     return (codicefiscale.encode(name, surname, "M", dateparse(date),'torino'))
-
 
 for i in range(VALUES):
     nome = f.last_name()
@@ -79,8 +82,19 @@ for i in range(VALUES):
         file.write("\n" + str([codScena[i], str(j[0])]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")
 
-file.write("INSERT IGNORE INTO BustaPaga(codB, retribuzioneOraria, oreLavorate, mese) VALUES ")
 
+file.write("INSERT IGNORE INTO Sponsor(P_IVA_SPONSOR, nome) VALUES ")
+for i in range(VALUES%2):
+    file.write("\n" + str([f.iban(), random.choice(AZIENDE)]).replace("[", "(").replace("]", ")") + ",") 
+    # nel caso siano replicate il DB non si lamenta 
+file.write(";\n")
+
+file.write("INSERT IGNORE INTO Finanziatore(P_IVA_FINANZIATORE, nome,codInd ,percentualeGuadagno) VALUES")
+for i in range(NumFinanziatori):
+    file.write("\n " + str([f.iban(), random.choice(AZIENDE), INDIRIZZO[VALUES + i][0], random.random()]).replace("[", "(").replace("]", ")") + ",")
+file.write(";\n")
+
+file.write("INSERT IGNORE INTO BustaPaga(codB, retribuzioneOraria, oreLavorate, mese) VALUES ")
 for i in range(VALUES):
     file.write("\n" + str(BUSTAPAGA[i]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")

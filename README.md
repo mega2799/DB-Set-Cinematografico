@@ -282,30 +282,31 @@ le busta paga dei lavoratori.
 
 # 5.2 Elenco oggetti acquistati in magazzino
 Trova la posizione in un dato magazzino di tutti gli oggetti acquistati 
-    ```sql
+
+```sql
     select *  from OggettoScena o join OggettiDiScena os on (o.codO=os.codO)
     join PosizioneMagazzino pm on (pm.codP=os.codP)     where pm.numMagazzino = ?;
-    ```
+```
 
 # 5.3 Profitto finanziatori
-    ```sql
+
+```sql
     select @Denaro := sum(incasso) as money FROM Incasso;
     select distinct F.nome, F.percentualeGuadagno, (F.percentualeGuadagno / 100 * @Denaro ) as guadagno
     from Finanziatore F
     where F.percentualeGuadagno is not null;
-    ```
+```
 
 # 5.4 Luoghi riprese
 
-    ```sql
+```sql
     select distinct i.*
     from ScenaCiak sc join Film f on (sc.codF=f.codF)
     join Indirizzo i on (i.codInd=sc.codInd)
     where f.titolo=?
-    ```
+```
 # 5.5 Costumi da usare per scena
-
-    ```sql
+```sql
     select i.*
     from ScenaCiak sc join CostumeScena cs on (cs.codScena=sc.codScena)
     join Membro_Troupe_Scena mts on (mts.codScena=sc.codScena)
@@ -313,28 +314,28 @@ Trova la posizione in un dato magazzino di tutti gli oggetti acquistati
     where sc.codScena= ? 
     and mt.nome = ?
     and mt.cognome = ?
-    ```
+```
 # 5.6 Dipendenti in scena
-    ```sql
+```sql
     select mt.*
     from ScenaCiak sc join Membro_Troupe_Scena mts on (sc.codScena = mts.codScena)
     join MemtroTroupe mt on (mts.CF = mt.CF)
     where sc.codScena = ?
-    ```
+```
 
 # 5.7 Oggetti in scena
-    ```sql
+```sql
     select ods.*
     from ScenaCiak sc join OggettoScena os on (sc.codScena=os.codScena)
     join OggettiDiScena ods on (os.codO=ods.codO)
     where sc.codScena=?
-    ```
+```
 # 5.8 Stipendio netto dipendente
-  ```sql
+```sql
   select @stipendio := sum(retribuzioneOraria * oreLavorate) as Stipendio
   from BustaPaga bp join Retribuzione r on (bp.codB = r.codB)
   where r.CF = ?; 
-  ```
+```
 # 6 Il Progetto Logico
 
 # 6.1 Traduzione delle entita
