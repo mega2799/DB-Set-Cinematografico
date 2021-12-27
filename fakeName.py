@@ -62,7 +62,7 @@ for i in range(VALUES):
 for i in range(NumFinanziatori):
     FINANZIATORE.append([f.iban(), random.choice(AZIENDE), INDIRIZZO[VALUES + i][0], random.random()])
 
-file = open("try.sql", "w")
+file = open("fakeData.sql", "w")
 
 file.write("INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP) VALUES ") 
 for i in range(VALUES): 
