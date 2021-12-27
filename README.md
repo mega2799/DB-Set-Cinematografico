@@ -17,34 +17,42 @@ Risolvere i TODO in giro
 La presente documentazione tratta nel dettaglio la progettazione e l’implementazione dell’elaborato "Set cinematografico" di Michele Nardini ()  Santoro Matteo(881608)
 
 ## Struttura:
-* [1 Introduzione](#Introduzione)
-* [2 Analisi requisiti](#2-analisi-requisiti)
-* [2.11 Intervista](#211-intervista)
-* [2.2 Estrazione Concetti Fondamentali](#22-estrazione-concetti-fondamentali)
-* [3 Progetto dello schema Concettuale](#3-progetto-dello-schema-concettuale)
-* [3.1 Distribuzione e Incasso](#31-distribuzione-e-incasso)
-* [3.2 Inspirazione e Sceneggiatura](#32-inspirazione-e-sceneggiatura)
-* [3.3 Gestione Fondi](#33-gestione-fondi)
-* [3.4 Membro della Troupe](#34-membro-della-troupe)
-* [3.5 Stipendio](#35-stipendio)
-* [3.6 Scena](#36-scena)
-* [4 Il progetto Logico](#4-il-progetto-logico)
-* [4.11 Aggiunta Film](#411-aggiunta-film)
-* [4.12 Aggiunta Membro-Troupe](#412-aggiunta-membro-troupe)
-* [4.13 Distribuzione](#413-distribuzione)
-* [4.14 Costumi e Magazzini](#414-costumi-e-magazzini)
-* [5 Specifiche Funzionali](#5-specifiche-funzionali)
-* [5.1 Stipendio membri della troupe](#51-stipendio-membri-della-troupe)
-* [5.2 Elenco oggetti acquistati in magazzino](#52-elenco-oggetti-acquistati-in-magazzino)
-* [5.3  Profitto finanziatori](#53-profitto-finanziatori)
-* [5.4 Luoghi riprese](#54-luoghi-riprese)
-* [5.5 Costumi da usare per scena](#55-costumi-da-usare-per-scena)
-* [5.6 Dipendenti in scena](#56-dipendenti-in-scena)
-* [5.7 Oggetti in scena](#57-oggetti-in-scena)
-* [5.8 Stipendio netto dipendente](#58-stipendio-netto-dipendente)
-* [6.1 Traduzione delle entità](#61-traduzione-delle-entita)
-* [6.2 Creazione delle tables](#62-creazione-delle-tables)
-* 
+- [Set Cinematografico](#set-cinematografico)
+      - [Note personali](#note-personali)
+  - [Struttura del progetto](#struttura-del-progetto)
+  - [Struttura:](#struttura)
+  - [Introduzione](#introduzione)
+- [2 Analisi requisiti](#2-analisi-requisiti)
+  - [2.11 Intervista](#211-intervista)
+- [2.2 Estrazione Concetti Fondamentali (va cambiato se cambiamo il paragrafo sopra)](#22-estrazione-concetti-fondamentali-va-cambiato-se-cambiamo-il-paragrafo-sopra)
+  - [3 Progetto dello schema concettuale](#3-progetto-dello-schema-concettuale)
+  - [3.1 Distribuzione e Incasso](#31-distribuzione-e-incasso)
+  - [3.2 Inspirazione e Sceneggiatura](#32-inspirazione-e-sceneggiatura)
+  - [3.3 Gestione Fondi](#33-gestione-fondi)
+  - [3.4 Membro della Troupe](#34-membro-della-troupe)
+  - [3.5 Stipendio](#35-stipendio)
+  - [3.6 Scena](#36-scena)
+  - [Schema Completo](#schema-completo)
+  - [4 Il progetto Logico](#4-il-progetto-logico)
+- [4.1 Traduzione delle operazioni in query](#41-traduzione-delle-operazioni-in-query)
+    - [4.11 Aggiunta Film](#411-aggiunta-film)
+    - [4.12 Aggiunta Membro Troupe](#412-aggiunta-membro-troupe)
+    - [4.13 Distribuzione](#413-distribuzione)
+    - [4.14 Costumi e Magazzini](#414-costumi-e-magazzini)
+- [5 Specifiche funzionali](#5-specifiche-funzionali)
+  - [5.1 Stipendio membri della troupe](#51-stipendio-membri-della-troupe)
+- [5.2 Elenco oggetti acquistati in magazzino](#52-elenco-oggetti-acquistati-in-magazzino)
+- [5.3 Profitto finanziatori](#53-profitto-finanziatori)
+- [5.4 Luoghi riprese](#54-luoghi-riprese)
+- [5.5 Costumi da usare per scena](#55-costumi-da-usare-per-scena)
+- [5.6 Dipendenti in scena](#56-dipendenti-in-scena)
+- [5.7 Oggetti in scena](#57-oggetti-in-scena)
+- [5.8 Stipendio netto dipendente](#58-stipendio-netto-dipendente)
+- [6 Il Progetto Logico](#6-il-progetto-logico)
+- [6.1 Traduzione delle entita](#61-traduzione-delle-entita)
+- [6.2 Creazione delle tables](#62-creazione-delle-tables)
+  - [# Special thanks](#-special-thanks)
+  - [possibili query per noi](#possibili-query-per-noi)
 
 Introduzione
 -----------
@@ -303,7 +311,7 @@ Trova la posizione in un dato magazzino di tutti gli oggetti acquistati
     select distinct i.*
     from ScenaCiak sc join Film f on (sc.codF=f.codF)
     join Indirizzo i on (i.codInd=sc.codInd)
-    where f.titolo=?
+    where f.titolo=?;
 ```
 # 5.5 Costumi da usare per scena
 ```sql
@@ -313,14 +321,14 @@ Trova la posizione in un dato magazzino di tutti gli oggetti acquistati
     join Membrotroupe mt on (mt.CF=mts.CF)
     where sc.codScena= ? 
     and mt.nome = ?
-    and mt.cognome = ?
+    and mt.cognome = ?;
 ```
 # 5.6 Dipendenti in scena
 ```sql
     select mt.*
     from ScenaCiak sc join Membro_Troupe_Scena mts on (sc.codScena = mts.codScena)
     join MemtroTroupe mt on (mts.CF = mt.CF)
-    where sc.codScena = ?
+    where sc.codScena = ?;
 ```
 
 # 5.7 Oggetti in scena
@@ -328,7 +336,7 @@ Trova la posizione in un dato magazzino di tutti gli oggetti acquistati
     select ods.*
     from ScenaCiak sc join OggettoScena os on (sc.codScena=os.codScena)
     join OggettiDiScena ods on (os.codO=ods.codO)
-    where sc.codScena=?
+    where sc.codScena=?;
 ```
 # 5.8 Stipendio netto dipendente
 ```sql

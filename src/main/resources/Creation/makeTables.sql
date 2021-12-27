@@ -1,4 +1,6 @@
 -- TODO incollare questo file alla fine nella relazione dopo aver ucciso i todo, me compreso :^ (
+
+-- TODO inserire controllo len nei cod identificativi di wntita varie
 CREATE TABLE if not exists Indirizzo(
     codInd int primary key,
     citta varchar(21) NOT NULL,

@@ -46,7 +46,7 @@ public class QueryTeller {
         String query = "    select distinct i.*\n" +
                 "    from ScenaCiak sc join Film f on (sc.codF=f.codF)\n" +
                 "    join Indirizzo i on (i.codInd=sc.codInd)\n" +
-                "    where f.titolo=?";
+                "    where f.titolo=?;";
 
         ResultSet result = null;
         try {
@@ -66,7 +66,7 @@ public class QueryTeller {
                 "    join Membrotroupe mt on (mt.CF=mts.CF)\n" +
                 "    where sc.codScena= ? \n" +
                 "    and mt.nome = ?\n" +
-                "    and mt.cognome = ?";
+                "    and mt.cognome = ?;";
 
         ResultSet result = null;
         try {
@@ -86,7 +86,7 @@ public class QueryTeller {
         String query = "select mt.*\n" +
                 "    from ScenaCiak sc join Membro_Troupe_Scena mts on (sc.codScena = mts.codScena)\n" +
                 "    join MemtroTroupe mt on (mts.CF = mt.CF)\n" +
-                "    where sc.codScena = ?";
+                "    where sc.codScena = ?;";
 
         ResultSet result = null;
         try {
@@ -103,7 +103,7 @@ public class QueryTeller {
         String query = "    select ods.*\n" +
                 "    from ScenaCiak sc join OggettoScena os on (sc.codScena=os.codScena)\n" +
                 "    join OggettiDiScena ods on (os.codO=ods.codO)\n" +
-                "    where sc.codScena=?";
+                "    where sc.codScena=?;";
 
         ResultSet result = null;
         try {
