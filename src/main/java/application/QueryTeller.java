@@ -42,6 +42,7 @@ public class QueryTeller {
         return result;
     }
 
+    // TODO lavare questa query, fa schifo,  anche da README
     public ResultSet luoghiFilm(final String title){
         String query = "    select distinct i.*\n" +
                 "    from ScenaCiak sc join Film f on (sc.codF=f.codF)\n" +

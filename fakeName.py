@@ -10,7 +10,7 @@ def random_with_N_digits(n):
     return randint(range_start, range_end)
     
 f = Faker('it_IT')
-
+ 
 codFilm = 1
 
 INDIRIZZO = []
@@ -29,6 +29,7 @@ BUSTAPAGA = []
 
 AZIENDE = ['Adobe','Boeing','Wells Fargo','PepsiCo','Comcast','Cisco Systems','Chevron','Pfizer','Merck & Co.','Verizon','The Coca-Cola Company','The Walt Disney Company','The Home Depot','ExxonMobil','UnitedHealth Group','AT&T','Intel','Bank of America','Procter & Gamble','Mastercard','Walmart','Johnson & Johnson','JPMorgan Chase','Visa','Berkshire Hathaway','Facebook','Alphabet','Amazon','Apple','Microsoft']
 
+SCENE = [] 
 for i in range(VALUES + NumFinanziatori):
     INDIRIZZO.append([random_with_N_digits(5),f.city(),f.street_name(),f.building_number(), int(f.postcode())])
 # print(INDIRIZZO)
@@ -50,7 +51,10 @@ for i in range(VALUES):
     codScena.append(random_with_N_digits(5))
 
 for i in range(VALUES):
-    BUSTAPAGA.append([random_with_N_digits(5), randint(7, 54), randint(45, 198), f.month_name()])
+    BUSTAPAGA.append( [random_with_N_digits(5), randint(7, 54), randint(45, 198), f.month_name()])
+
+for i in range(VALUES):
+    SCENE.append([random_with_N_digits(5), "Scena n. " + str(i), random_with_N_digits(2), random_with_N_digits(3), random_with_N_digits(3), random_with_N_digits(2),codFilm])
 
 file = open("try.sql", "w")
 
@@ -69,19 +73,16 @@ for i in range(VALUES):
     file.write("\n" + str([MembroTroupe[i][0], random.choice(RUOLI)]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")
 
-
 file.write("INSERT IGNORE INTO Film_Membro_Troupe(codF, CF) VALUES ")
 for i in range(VALUES):
     file.write("\n" + str([codFilm, str(MembroTroupe[i][0])]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")
-
 
 file.write("INSERT IGNORE INTO Membro_Troupe_Scena(codScena ,CF) VALUES ")
 for i in range(VALUES):
     for j in random.choices(MembroTroupe, k=4):
         file.write("\n" + str([codScena[i], str(j[0])]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")
-
 
 file.write("INSERT IGNORE INTO Sponsor(P_IVA_SPONSOR, nome) VALUES ")
 for i in range(VALUES%2):
@@ -94,13 +95,17 @@ for i in range(NumFinanziatori):
     file.write("\n " + str([f.iban(), random.choice(AZIENDE), INDIRIZZO[VALUES + i][0], random.random()]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")
 
+file.write("INSERT IGNORE INTO ScenaCiak(codScena, noteDiProduzione, rullo, numRiprese, durataOre, costoAffittoGiornaliero, codF) VALUES") 
+for i in range(VALUES):
+    file.write("\n " + str(SCENE[i]).replace("[", "(").replace("]", ")") + ",")
+file.write(";\n")
+
 file.write("INSERT IGNORE INTO BustaPaga(codB, retribuzioneOraria, oreLavorate, mese) VALUES ")
 for i in range(VALUES):
     file.write("\n" + str(BUSTAPAGA[i]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")
 
 file.write("INSERT IGNORE INTO Retribuzione(CF, CodB) VALUES")
-
 for i in range(VALUES):
     file.write("\n" + str([MembroTroupe[i][0], BUSTAPAGA[i][0]]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")

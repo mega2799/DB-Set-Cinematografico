@@ -214,10 +214,6 @@ CREATE TABLE if not exists ScenaCiak(
         -- sostituiro le date con il numero di ore
         durataOre float NOT NULL,
         costoAffittoGiornaliero float(5),
-        codInd INT NOT NULL,
-        FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
-        ON DELETE CASCADE
-        ON UPDATE NO ACTION,
         codF INT NOT NULL,
         FOREIGN KEY (codF) REFERENCES Film(codF)
         ON DELETE CASCADE

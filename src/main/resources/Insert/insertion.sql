@@ -218,12 +218,12 @@ INSERT IGNORE INTO Fondo(codFondo, dataAccredito, patrimonio, P_IVA_SPONSOR, P_I
 VALUES (1, '1977-01-05', 2000000, '53179880082', null, 'GRGLCS14ES44', 1);
 
 
-INSERT IGNORE INTO ScenaCiak(codScena, noteDiProduzione, rullo, numRiprese, durataOre, costoAffittoGiornaliero, codInd,codF)
+INSERT IGNORE INTO ScenaCiak(codScena, noteDiProduzione, rullo, numRiprese, durataOre, costoAffittoGiornaliero, codF)
 -- scena
-VALUES (00456, 'Scena in cui luke skywalker salva la principessa leila dalle grinfie di Dart Vader', 4, 5, 2, 200, 74921, 1),
-    (04745, 'Scena in cui luke skywalker distrugge la morte nera', 15, 1, .5, 200, 74921, 1),
-    (03245, 'Scena in cui luke skywalker assiste alla morte di obi wan', 11, 7, 4, 200, 74921, 1),
-    (00789, 'Scena in cui luke skywalker guida il millenium falcon con Ian solo', 5, 5, 3, 200, 74921, 1);
+VALUES (00456, 'Scena in cui luke skywalker salva la principessa leila dalle grinfie di Dart Vader', 4, 5, 2, 200, 1),
+    (04745, 'Scena in cui luke skywalker distrugge la morte nera', 15, 1, .5, 200, 1),
+    (03245, 'Scena in cui luke skywalker assiste alla morte di obi wan', 11, 7, 4, 200, 1),
+    (00789, 'Scena in cui luke skywalker guida il millenium falcon con Ian solo', 5, 5, 3, 200, 1);
 
 INSERT IGNORE INTO Membro_Troupe_Scena(codScena ,CF)
     -- personaggi presenti in scena ???
