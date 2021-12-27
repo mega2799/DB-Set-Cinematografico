@@ -30,6 +30,9 @@ BUSTAPAGA = []
 AZIENDE = ['Adobe','Boeing','Wells Fargo','PepsiCo','Comcast','Cisco Systems','Chevron','Pfizer','Merck & Co.','Verizon','The Coca-Cola Company','The Walt Disney Company','The Home Depot','ExxonMobil','UnitedHealth Group','AT&T','Intel','Bank of America','Procter & Gamble','Mastercard','Walmart','Johnson & Johnson','JPMorgan Chase','Visa','Berkshire Hathaway','Facebook','Alphabet','Amazon','Apple','Microsoft']
 
 SCENE = [] 
+
+FINANZIATORE = [] 
+
 for i in range(VALUES + NumFinanziatori):
     INDIRIZZO.append([random_with_N_digits(5),f.city(),f.street_name(),f.building_number(), int(f.postcode())])
 # print(INDIRIZZO)
@@ -55,6 +58,9 @@ for i in range(VALUES):
 
 for i in range(VALUES):
     SCENE.append([random_with_N_digits(5), "Scena n. " + str(i), random_with_N_digits(2), random_with_N_digits(3), random_with_N_digits(3), random_with_N_digits(2),codFilm])
+
+for i in range(NumFinanziatori):
+    FINANZIATORE.append([f.iban(), random.choice(AZIENDE), INDIRIZZO[VALUES + i][0], random.random()])
 
 file = open("try.sql", "w")
 
@@ -92,12 +98,23 @@ file.write(";\n")
 
 file.write("INSERT IGNORE INTO Finanziatore(P_IVA_FINANZIATORE, nome,codInd ,percentualeGuadagno) VALUES")
 for i in range(NumFinanziatori):
-    file.write("\n " + str([f.iban(), random.choice(AZIENDE), INDIRIZZO[VALUES + i][0], random.random()]).replace("[", "(").replace("]", ")") + ",")
+    file.write("\n " + str(FINANZIATORE[i]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")
 
 file.write("INSERT IGNORE INTO ScenaCiak(codScena, noteDiProduzione, rullo, numRiprese, durataOre, costoAffittoGiornaliero, codF) VALUES") 
 for i in range(VALUES):
     file.write("\n " + str(SCENE[i]).replace("[", "(").replace("]", ")") + ",")
+file.write(";\n")
+
+file.write("INSERT IGNORE INTO Fondo(codFondo, dataAccredito, patrimonio, P_IVA_SPONSOR, P_IVA_FINANZIATORE,CF, codF) VALUES ")
+for i in range(NumFinanziatori):
+    file.write("\n " + str([random_with_N_digits(5), f.date(), random_with_N_digits(6), "NULL", FINANZIATORE[i][0], codFilm]).replace("[", "(").replace("]", ")") + ",")
+file.write(";\n")
+
+file.write("INSERT IGNORE INTO Membro_Troupe_Scena(codScena ,CF) VALUES ")
+for i in range(VALUES):
+    for j in random.choices(MembroTroupe, k=5):
+        file.write("\n "+ str([SCENE[i][0], str(j[0])]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")
 
 file.write("INSERT IGNORE INTO BustaPaga(codB, retribuzioneOraria, oreLavorate, mese) VALUES ")

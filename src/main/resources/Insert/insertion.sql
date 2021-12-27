@@ -213,9 +213,9 @@ VALUES ('1977-10-21', '1977-10-28', 53011203, 1, 16395),
        ('1977-11-05', '1977-11-12', 27595582, 1, 16395),
        ('1977-11-13', '1977-11-20', 36983558, 1, 16395);
 
-INSERT IGNORE INTO Fondo(codFondo, dataAccredito, patrimonio, P_IVA_SPONSOR, P_IVA_FINANZIATORE,CF, codF)
+INSERT IGNORE INTO Fondo(codFondo, dataAccredito, patrimonio, P_IVA_SPONSOR, P_IVA_FINANZIATORE,codF)
     -- george lucas ha contribuito al fondo
-VALUES (1, '1977-01-05', 2000000, '53179880082', null, 'GRGLCS14ES44', 1);
+VALUES (1, '1977-01-05', 2000000, '53179880082', null, 1);
 
 
 INSERT IGNORE INTO ScenaCiak(codScena, noteDiProduzione, rullo, numRiprese, durataOre, costoAffittoGiornaliero, codF)
