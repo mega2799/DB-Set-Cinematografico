@@ -51,7 +51,7 @@ public class TellMe {
 //    }
 
 
-    public ResultSet troupe(){
+    public ResultSet troupeStaffOnly(){
         String query = "select distinct * from MembroTroupe inner join RuoloMembroTroupe on MembroTroupe.CF = RuoloMembroTroupe.CF where RuoloMembroTroupe.nomeRuolo != 'attore'";
         ResultSet result = null;
         try {
@@ -79,8 +79,10 @@ public class TellMe {
         String query = "select * from " + tableName + ";";
         ResultSet result = null;
         try {
-            PreparedStatement stmt = this.connection.prepareStatement(query);
-            result = stmt.executeQuery();
+            //PreparedStatement stmt = this.connection.prepareStatement(query);
+            Statement stmt = this.connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+            result = stmt.executeQuery(query);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -130,5 +132,11 @@ public class TellMe {
     public ResultSet sponsors() {
         return getTable("Sponsor");
     }
+
+    //aggiungo troupe per problemi di delete,tolgo momentaneamente query troupeStaffOnly da gui:
+    public ResultSet troupe() {
+        return getTable("MembroTroupe");
+    }
+
 
 }
