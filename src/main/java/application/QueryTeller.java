@@ -1,9 +1,11 @@
 package application;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.ToggleGroup;
+
+import java.sql.*;
 
 public class QueryTeller {
     private Connection connection;
@@ -143,6 +145,53 @@ public class QueryTeller {
             stmt.setString(1, CF);
             result = stmt.executeQuery();
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public ToggleGroup setMenuButton(MenuButton menu, String query, String column) {
+        ToggleGroup tg = new ToggleGroup();
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            ResultSet result = null;
+            result = stmt.executeQuery();
+            while(result.next()) {
+                String name = result.getString(column);
+                RadioMenuItem menuItem = new RadioMenuItem(name);
+                menuItem.setToggleGroup(tg);
+                // add event handlers, etc, as needed..
+                menu.getItems().add(menuItem);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tg;
+    }
+
+    public ResultSet oggettiInMagazzino(final int nM){
+        String query = "select oggettidiscena.tipo, oggettidiscena.descrizione, posizionemagazzino.scaffale, posizionemagazzino.percorso " +
+                       "from posizionemagazzino inner join oggettidiscena on posizionemagazzino.codP = oggettidiscena.codP where posizionemagazzino.numMagazzino = "+nM+";";
+        ResultSet result = null;
+        try(Statement statement = connection.createStatement()) {
+            PreparedStatement stmt = this.connection.prepareStatement(query);
+            result = stmt.executeQuery();
+        }catch (SQLException e){
+            System.out.println(result);
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public ResultSet oggettiInScena(final int codScena){
+        String query = "select oggettidiscena.tipo,oggettidiscena.codO, oggettidiscena.descrizione, oggettoscena.codScena " +
+                "from oggettoscena inner join oggettidiscena on oggettoscena.codO = oggettidiscena.codO where oggettoscena.codScena = "+ codScena+";";
+        ResultSet result = null;
+        try(Statement statement = connection.createStatement()) {
+            PreparedStatement stmt = this.connection.prepareStatement(query);
+            result = stmt.executeQuery();
+        }catch (SQLException e){
+            System.out.println(result);
             e.printStackTrace();
         }
         return result;

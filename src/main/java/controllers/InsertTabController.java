@@ -178,11 +178,14 @@ public class InsertTabController {
 
     private Tab visualization1;
 
+    private Tab query;
+
     private Stage stage;
 
 
     public void initialize(){
         this.visualization1 = new Tab();
+        this.query = new Tab();
         this.dataInizio_field.getEditor().setDisable(true);
         this.dataFine_field.getEditor().setDisable(true);
         this.dataInizio_field.getEditor().setOpacity(1);
@@ -191,11 +194,16 @@ public class InsertTabController {
         this.dataNascitaOperatore_field.getEditor().setOpacity(1);
         this.insertNew = new InsertNew();
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/GUI/visualization1.fxml"));
+        FXMLLoader queryGui = new FXMLLoader(this.getClass().getResource("/GUI/query.fxml"));
         visualization1.setText("visualization");
         visualization1.setClosable(false);
+        query.setText("query");
+        query.setClosable(false);
         this.tabPane.getTabs().add(visualization1);
+        this.tabPane.getTabs().add(query);
         try {
             visualization1.setContent(loader.load());
+            query.setContent(queryGui.load());
         } catch (IOException e) {
             e.printStackTrace();
         }
