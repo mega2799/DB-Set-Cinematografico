@@ -1,4 +1,5 @@
 package controllers;
+import application.DBConnection;
 import application.TellMe;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -207,4 +208,26 @@ public class Visualization1Controller {
     }
 
 
+    @FXML
+    void deleteRowButtonClicked(MouseEvent event) {
+        System.out.println(this.tableView.getSelectionModel().getSelectedItem());
+        int index = this.tableView.getSelectionModel().getSelectedIndex() + 1;
+        if( index <= 0){
+            return;
+        }
+        try {
+            rs.beforeFirst();
+            while(rs.next()){
+                if(rs.getRow() == index){
+                    System.out.println(rs.getRow() + " "+ index);
+                    rs.deleteRow();
+                    DBConnection.getConnection().commit();
+                    this.refreshTable();
+                    break;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
