@@ -24,15 +24,15 @@ public class Visualization1Controller {
     // TODO abbisogna selezionare il film dalla visualizzazione, da modificare anche tutte le query con il where codF = codice film
     @FXML
     private TableView tableView;
-
     @FXML
     private VBox vbox;
-
     @FXML
     private Button refreshButton;
-
     @FXML
     private Button sponsor_button;
+    @FXML
+    private Button deleteRowButton;
+
 
     private ObservableList<ObservableList> data;
     private ResultSet rs;
@@ -119,6 +119,7 @@ public class Visualization1Controller {
     void film_mouseClicked(MouseEvent event) {
         rs = tell.film();
         setLastQuery("film");
+        this.deleteRowButton.setVisible(true);
         refreshTable();
     }
 
@@ -126,6 +127,7 @@ public class Visualization1Controller {
     void sponsor_buttonClicked(MouseEvent event) {
         rs = tell.sponsors();
         setLastQuery("sponsors");
+        this.deleteRowButton.setVisible(true);
         refreshTable();
     }
 
@@ -133,6 +135,7 @@ public class Visualization1Controller {
     void troupe_mouseClicked(MouseEvent event) {
         rs = tell.troupe();
         setLastQuery("troupe");
+        this.deleteRowButton.setVisible(true);
         refreshTable();
     }
 
@@ -141,6 +144,7 @@ public class Visualization1Controller {
     void actors_mouseClicked(MouseEvent event) {
         rs = tell.actors();
         setLastQuery("actors");
+        this.deleteRowButton.setVisible(false);
         refreshTable();
     }
 
@@ -148,6 +152,7 @@ public class Visualization1Controller {
     void ditte_mouseClicked(MouseEvent event) {
         rs = tell.ditte();
         setLastQuery("ditte");
+        this.deleteRowButton.setVisible(true);
         refreshTable();
     }
 
@@ -155,6 +160,7 @@ public class Visualization1Controller {
     void costumi_mouseClicked(MouseEvent event) {
         rs = tell.costumi();
         setLastQuery("costumi");
+        this.deleteRowButton.setVisible(true);
         refreshTable();
     }
 
@@ -162,6 +168,7 @@ public class Visualization1Controller {
     void finanziatori_mouseClicked(MouseEvent event) {
         rs = tell.finanziatori();
         setLastQuery("finanziatori");
+        this.deleteRowButton.setVisible(true);
         refreshTable();
     }
 
@@ -169,6 +176,7 @@ public class Visualization1Controller {
     void fondi_mouseClicked(MouseEvent event) {
         rs = tell.fondi();
         setLastQuery("fondi");
+        this.deleteRowButton.setVisible(true);
         refreshTable();
     }
 
@@ -176,6 +184,7 @@ public class Visualization1Controller {
     void incassi_mouseClicked(MouseEvent event) {
         rs = tell.incassi();
         setLastQuery("incassi");
+        this.deleteRowButton.setVisible(true);
         refreshTable();
     }
 
@@ -183,6 +192,7 @@ public class Visualization1Controller {
     void indirizzi_mouseClicked(MouseEvent event) {
         rs = tell.indirizzi();
         setLastQuery("indirizzi");
+        this.deleteRowButton.setVisible(true);
         refreshTable();
     }
 
@@ -190,6 +200,7 @@ public class Visualization1Controller {
     void magazzini_mouseClicked(MouseEvent event) {
         rs = tell.magazzini();
         setLastQuery("magazzini");
+        this.deleteRowButton.setVisible(true);
         refreshTable();
     }
 
@@ -197,6 +208,7 @@ public class Visualization1Controller {
     void oggettiScena_mouseClicked(MouseEvent event) {
         rs = tell.oggettiDiScena();
         setLastQuery("oggettiDiScena");
+        this.deleteRowButton.setVisible(true);
         refreshTable();
     }
 
@@ -204,6 +216,7 @@ public class Visualization1Controller {
     void scene_mouseClicked(MouseEvent event) {
         rs = tell.scene();
         setLastQuery("scene");
+        this.deleteRowButton.setVisible(true);
         refreshTable();
     }
 

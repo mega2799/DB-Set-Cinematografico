@@ -91,7 +91,7 @@
                            </VBox.margin>
                         </Button>
                      </children></VBox>
-                  <Button layoutY="647.0" mnemonicParsing="false" onMouseClicked="#deleteRowButtonClicked" prefHeight="32.0" prefWidth="106.0" text="Delete Row" AnchorPane.bottomAnchor="40.200000000000045" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Button fx:id="deleteRowButton" layoutY="647.0" mnemonicParsing="false" onMouseClicked="#deleteRowButtonClicked" prefHeight="32.0" prefWidth="106.0" text="Delete Row" AnchorPane.bottomAnchor="40.200000000000045" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                   <Button fx:id="refreshButton" layoutY="686.0" mnemonicParsing="false" onMouseClicked="#refreshButtonClicked" prefHeight="32.0" prefWidth="106.0" text="Refresh" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                </children>
             </AnchorPane>
