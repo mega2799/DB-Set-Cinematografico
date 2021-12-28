@@ -11,7 +11,7 @@ def random_with_N_digits(n):
     
 f = Faker('it_IT')
  
-codFilm = 1
+codFilm = 2
 
 INDIRIZZO = []
 
@@ -106,7 +106,7 @@ for i in range(VALUES):
     file.write("\n " + str(SCENE[i]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")
 
-file.write("INSERT IGNORE INTO Fondo(codFondo, dataAccredito, patrimonio, P_IVA_SPONSOR, P_IVA_FINANZIATORE,CF, codF) VALUES ")
+file.write("INSERT IGNORE INTO Fondo(codFondo, dataAccredito, patrimonio, P_IVA_SPONSOR, P_IVA_FINANZIATORE, codF) VALUES ")
 for i in range(NumFinanziatori):
     file.write("\n " + str([random_with_N_digits(5), f.date(), random_with_N_digits(6), "NULL", FINANZIATORE[i][0], codFilm]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")

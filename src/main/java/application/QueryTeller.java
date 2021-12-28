@@ -169,6 +169,21 @@ public class QueryTeller {
         return tg;
     }
 
+    public ResultSet getCodF(final String title){
+
+        String query = "select codF from Film where titolo = ?";
+
+        ResultSet result = null;
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(query);
+            stmt.setString(1, title);
+            result = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+
+    }
     public ResultSet oggettiInMagazzino(final int nM){
         String query = "select oggettidiscena.tipo, oggettidiscena.descrizione, posizionemagazzino.scaffale, posizionemagazzino.percorso " +
                        "from posizionemagazzino inner join oggettidiscena on posizionemagazzino.codP = oggettidiscena.codP where posizionemagazzino.numMagazzino = "+nM+";";
