@@ -317,7 +317,7 @@ Trova la posizione in un dato magazzino di tutti gli oggetti acquistati
 ```sql
     select i.*
     from ScenaCiak sc join CostumeScena cs on (cs.codScena=sc.codScena)
-    join Membro_Troupe_Scena mts on (mts.codScena=sc.codScena)
+    join MembroTroupeScena mts on (mts.codScena=sc.codScena)
     join Membrotroupe mt on (mt.CF=mts.CF)
     where sc.codScena= ? 
     and mt.nome = ?
@@ -326,7 +326,7 @@ Trova la posizione in un dato magazzino di tutti gli oggetti acquistati
 # 5.6 Dipendenti in scena
 ```sql
     select mt.*
-    from ScenaCiak sc join Membro_Troupe_Scena mts on (sc.codScena = mts.codScena)
+    from ScenaCiak sc join MembroTroupeScena mts on (sc.codScena = mts.codScena)
     join MemtroTroupe mt on (mts.CF = mt.CF)
     where sc.codScena = ?;
 ```
@@ -416,7 +416,7 @@ Trova la posizione in un dato magazzino di tutti gli oggetti acquistati
     + FK: codInd REFERENCES __Indirizzo__
     + FK: codF REFERENCES __Film__
 
-* Membro_Troupe_Scena(__*codScena*__, __*CF*__)
+* MembroTroupeScena(__*codScena*__, __*CF*__)
     + FK: codScena REFERENCES __Scena-Ciak__
     + FK: CF REFERENCES __Membro-Troupe__
 
@@ -653,7 +653,7 @@ CREATE TABLE if not exists ScenaCiak(
         ON UPDATE NO ACTION
         );
 
-CREATE TABLE if not exists Membro_Troupe_Scena(
+CREATE TABLE if not exists MembroTroupeScena(
         codScena INT NOT NULL,
         FOREIGN KEY (codScena) REFERENCES ScenaCiak(codScena)
         ON DELETE CASCADE

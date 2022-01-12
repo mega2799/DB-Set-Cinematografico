@@ -225,7 +225,7 @@ VALUES (00456, 'Scena in cui luke skywalker salva la principessa leila dalle gri
     (03245, 'Scena in cui luke skywalker assiste alla morte di obi wan', 11, 7, 4, 200, 1),
     (00789, 'Scena in cui luke skywalker guida il millenium falcon con Ian solo', 5, 5, 3, 200, 1);
 
-INSERT IGNORE INTO Membro_Troupe_Scena(codScena ,CF)
+INSERT IGNORE INTO MembroTroupeScena(codScena ,CF)
     -- personaggi presenti in scena ???
 VALUES (00456,'CRRFSH21NS56'), (00456,'MRKHML25IS51'), (00456, 'DVDPRW01GS32'),
        (00789,'MRKHML25IS51'), (00789, 'HRSFRD13GS42'),
@@ -388,7 +388,7 @@ INSERT IGNORE INTO Film_Membro_Troupe(codF, CF) VALUES
 (2, 'PLMFRG21S29L219A'),
 (2, 'SLNLNE21R12L219G'),
 (2, 'SSNGLI21T26L219N');
-INSERT IGNORE INTO Membro_Troupe_Scena(codScena ,CF) VALUES
+INSERT IGNORE INTO MembroTroupeScena(codScena ,CF) VALUES
 (71581, 'SSNRMN21T24L219L'),
 (71581, 'CLLGCM21T20L219A'),
 (71581, 'PLMFRG21S29L219A'),
@@ -497,7 +497,7 @@ INSERT IGNORE INTO Fondo(codFondo, dataAccredito, patrimonio, P_IVA_SPONSOR, P_I
  (56035, '2021-11-07', 602526, 'NULL', 'IT93D1199916844817071051228', 2),
  (93559, '2005-11-22', 176009, 'NULL', 'IT85J3255311792353701262713', 2),
  (42523, '1984-04-20', 704837, 'NULL', 'IT64Z8940558839232834774506', 2);
-INSERT IGNORE INTO Membro_Troupe_Scena(codScena ,CF) VALUES
+INSERT IGNORE INTO MembroTroupeScena(codScena ,CF) VALUES
  (78363, 'PNNRTI21T21L219F'),
  (78363, 'SLNLNE21R12L219G'),
  (78363, 'GLGLSI21M12L219K'),

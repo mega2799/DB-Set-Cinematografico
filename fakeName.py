@@ -89,7 +89,7 @@ for i in range(VALUES):
 file.write(";\n")
 
 
-file.write("INSERT IGNORE INTO Membro_Troupe_Scena(codScena ,CF) VALUES ")
+file.write("INSERT IGNORE INTO MembroTroupeScena(codScena ,CF) VALUES ")
 for i in range(VALUES):
     for j in random.choices(MembroTroupe, k=4):
         file.write("\n" + str([SCENE[i][0], str(j[0])]).replace("[", "(").replace("]", ")") + ",")
@@ -117,7 +117,7 @@ for i in SPONSOR:
     file.write("\n " + str([random_with_N_digits(5), f.date(), random_with_N_digits(6), i[0] , NULL, codFilm]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")
 
-file.write("INSERT IGNORE INTO Membro_Troupe_Scena(codScena ,CF) VALUES ")
+file.write("INSERT IGNORE INTO MembroTroupeScena(codScena ,CF) VALUES ")
 for i in range(VALUES):
     for j in random.choices(MembroTroupe, k=5):
         file.write("\n "+ str([SCENE[i][0], str(j[0])]).replace("[", "(").replace("]", ")") + ",")

@@ -1,8 +1,7 @@
 -- TODO incollare questo file alla fine nella relazione dopo aver ucciso i todo, me compreso :^ (
 
--- TODO inserire controllo len nei cod identificativi di wntita varie
 CREATE TABLE if not exists Indirizzo(
-    codInd int primary key,
+    codInd int primary key check(length(codInd) <= 5),
     citta varchar(41) NOT NULL,
     via varchar(40) NOT NULL,
     civico int NOT NULL,
@@ -198,17 +197,12 @@ CREATE TABLE if not exists Film_Membro_Troupe(
 -- );
 
 CREATE TABLE if not exists ScenaCiak(
-        -- TODO HO CAMBIATO GLI ATTRIBUTI dataInizio e Fine, trovare un sostituto valido e cambiare il resto nell ER e relazione....
-        -- scommentando le date non da errore la query, mahhh .....
+        -- TODO cambiare ER e relazione....
         codScena int primary key,
         noteDiProduzione varchar(255),
         rullo int NOT NULL,
         numRiprese int NOT NULL,
-        -- dataInizio date,
-        -- dataFine date, -- CHECK(dataFine >= dataInizio),
-
-        -- sostituiro le date con il numero di ore
-        durataOre float NOT NULL,
+        durataOre float NOT NULL check(durataOre > 0),
         costoAffittoGiornaliero float(5),
         codF INT NOT NULL,
         FOREIGN KEY (codF) REFERENCES Film(codF)
@@ -216,7 +210,7 @@ CREATE TABLE if not exists ScenaCiak(
         ON UPDATE NO ACTION
         );
 
-CREATE TABLE if not exists Membro_Troupe_Scena(
+CREATE TABLE if not exists MembroTroupeScena(
         codScena INT NOT NULL,
         FOREIGN KEY (codScena) REFERENCES ScenaCiak(codScena)
         ON DELETE CASCADE

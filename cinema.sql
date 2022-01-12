@@ -433,13 +433,13 @@ LOCK TABLES `MembroTroupe` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Membro_Troupe_Scena`
+-- Table structure for table `MembroTroupeScena`
 --
 
-DROP TABLE IF EXISTS `Membro_Troupe_Scena`;
+DROP TABLE IF EXISTS `MembroTroupeScena`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Membro_Troupe_Scena` (
+CREATE TABLE `MembroTroupeScena` (
   `codScena` int(11) NOT NULL,
   `CF` varchar(12) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`codScena`,`CF`),
@@ -450,12 +450,12 @@ CREATE TABLE `Membro_Troupe_Scena` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Membro_Troupe_Scena`
+-- Dumping data for table `MembroTroupeScena`
 --
 
-LOCK TABLES `Membro_Troupe_Scena` WRITE;
-/*!40000 ALTER TABLE `Membro_Troupe_Scena` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Membro_Troupe_Scena` ENABLE KEYS */;
+LOCK TABLES `MembroTroupeScena` WRITE;
+/*!40000 ALTER TABLE `MembroTroupeScena` DISABLE KEYS */;
+/*!40000 ALTER TABLE `MembroTroupeScena` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

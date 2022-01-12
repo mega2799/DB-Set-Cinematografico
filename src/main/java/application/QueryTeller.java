@@ -65,7 +65,7 @@ public class QueryTeller {
     public ResultSet costumiScenaAttore(final String codScena,final  String nomeMembroTroupe,final  String cognomeMembroTroupe ){
         String query = " select i.*\n" +
                 "    from ScenaCiak sc join CostumeScena cs on (cs.codScena=sc.codScena)\n" +
-                "    join Membro_Troupe_Scena mts on (mts.codScena=sc.codScena)\n" +
+                "    join MembroTroupeScena mts on (mts.codScena=sc.codScena)\n" +
                 "    join Membrotroupe mt on (mt.CF=mts.CF)\n" +
                 "    where sc.codScena= ? \n" +
                 "    and mt.nome = ?\n" +
@@ -87,7 +87,7 @@ public class QueryTeller {
     public ResultSet attoriInScena(final String codScena){
         var res = "";
         String query = "select mt.*\n" +
-                "    from ScenaCiak sc join Membro_Troupe_Scena mts on (sc.codScena = mts.codScena)\n" +
+                "    from ScenaCiak sc join MembroTroupeScena mts on (sc.codScena = mts.codScena)\n" +
                 "    join MemtroTroupe mt on (mts.CF = mt.CF)\n" +
                 "    where sc.codScena = ?;";
 
