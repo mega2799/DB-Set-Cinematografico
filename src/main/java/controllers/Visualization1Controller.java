@@ -21,7 +21,6 @@ import java.sql.SQLException;
 
 public class Visualization1Controller {
 
-    // TODO abbisogna selezionare il film dalla visualizzazione, da modificare anche tutte le query con il where codF = codice film
     @FXML
     private TableView tableView;
     @FXML
@@ -49,7 +48,6 @@ public class Visualization1Controller {
 
 
     private String CODFILM;
-    // todo aggiungere un check prima di ogni funzione se e' nullo
 
     private boolean filmCheck(){
         return CODFILM == null;
