@@ -63,11 +63,16 @@ public class TellMe {
         return result;
     }
 
-    public ResultSet actors(){
-        String query = "select MembroTroupe.*, RuoloMembroTroupe.nomeRuolo from MembroTroupe INNER JOIN RuoloMembroTroupe ON MembroTroupe.CF = RuoloMembroTroupe.CF WHERE RuoloMembroTroupe.nomeRuolo = 'attore'";
+    public ResultSet actors(final String codF){
+        String query = "select m.* from MembroTroupe m\n" +
+                "join Film_Membro_Troupe fmt on ( m.CF = fmt.CF) \n" +
+                "join RuoloMembroTroupe rmt on (m.CF = rmt.CF)\n" +
+                "where codF = ? \n" +
+                "and nomeRuolo='attore';";
         ResultSet result = null;
         try {
             PreparedStatement stmt = this.connection.prepareStatement(query);
+            stmt.setString(1, codF);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -93,20 +98,64 @@ public class TellMe {
         return getTable("Ditta");
     }
 
-    public ResultSet costumi() {
-        return getTable("Costume");
+    public ResultSet costumi(final String codF) {
+        String query = "select concat(concat(m.nome,' '), m.cognome) as utilizzatore, c.* from MembroTroupe m\n" +
+                "join Film_Membro_Troupe fmt on ( m.CF = fmt.CF)\n" +
+                "join Costume c on (m.CF = c.CF)\n" +
+                "where codF = ?;";
+        ResultSet result = null;
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(query);
+            stmt.setString(1, codF);
+            result = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
-    public ResultSet finanziatori() {
-        return getTable("Finanziatore");
+    public ResultSet finanziatori(final String codF) {
+        String query = "select ff.* from Finanziatore ff \n" +
+                "join Fondo f on (ff.P_IVA_FINANZIATORE = f.P_IVA_FINANZIATORE)\n" +
+                "where codF = ?;";
+        ResultSet result = null;
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(query);
+            stmt.setString(1, codF);
+            result = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
-    public ResultSet fondi() {
-        return getTable("Fondo");
+    public ResultSet fondi(final String codF) {
+        String query = "select * from Fondo\n" +
+                "where codF = ?;";
+        ResultSet result = null;
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(query);
+            stmt.setString(1, codF);
+            result = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
-    public ResultSet incassi() {
-        return getTable("Incasso");
+    public ResultSet incassi(final String codF) {
+        String query = "select * from Incasso\n" +
+                "where codF = ?;";
+        ResultSet result = null;
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(query);
+            stmt.setString(1, codF);
+            result = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+
     }
 
     public ResultSet indirizzi() {
@@ -117,12 +166,34 @@ public class TellMe {
         return getTable("Magazzino");
     }
 
-    public ResultSet oggettiDiScena() {
-        return getTable("OggettoScena");
+    public ResultSet oggettiDiScena(final String codF) {
+        String query = "select ods.descrizione, ods.tipo from OggettoScena os \n" +
+                "join OggettiDiScena ods on (os.codO = ods.codO)\n" +
+                "join ScenaCiak sc on (os.codScena = sc.codScena)\n" +
+                "where sc.codF = ?;";
+        ResultSet result = null;
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(query);
+            stmt.setString(1, codF);
+            result = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
-    public ResultSet scene() {
-        return getTable("ScenaCiak");
+    public ResultSet scene(final String codF) {
+        String query = "select * from ScenaCiak\n" +
+                "where codF = ?;";
+        ResultSet result = null;
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(query);
+            stmt.setString(1, codF);
+            result = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     public ResultSet film() {
@@ -131,7 +202,7 @@ public class TellMe {
 
     public ResultSet sponsors(final String codF) {
         String query = "select s.* from Sponsor s \n" +
-                "left join Fondo f on (s.P_IVA_SPONSOR = f.P_IVA_SPONSOR)\n" +
+                "join Fondo f on (s.P_IVA_SPONSOR = f.P_IVA_SPONSOR)\n" +
                 "where codF = ?;";
         ResultSet result = null;
         try {
@@ -145,8 +216,19 @@ public class TellMe {
     }
 
     //aggiungo troupe per problemi di delete,tolgo momentaneamente query troupeStaffOnly da gui:
-    public ResultSet troupe() {
-        return getTable("MembroTroupe");
+    public ResultSet troupe(final String codF) {
+        String query = "select m.* from MembroTroupe m\n" +
+                "join Film_Membro_Troupe fmt on ( m.CF = fmt.CF) \n" +
+                "where codF = ?;";
+        ResultSet result = null;
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(query);
+            stmt.setString(1, codF);
+            result = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
 

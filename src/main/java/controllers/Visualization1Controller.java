@@ -168,7 +168,7 @@ public class Visualization1Controller {
 
     @FXML
     void ditte_mouseClicked(MouseEvent event) {
-        rs = tell.ditte(CODFILM);
+        rs = tell.ditte();
         setLastQuery("ditte");
         this.deleteRowButton.setVisible(true);
         refreshTable();
@@ -208,7 +208,7 @@ public class Visualization1Controller {
 
     @FXML
     void indirizzi_mouseClicked(MouseEvent event) {
-        rs = tell.indirizzi(CODFILM);
+        rs = tell.indirizzi();
         setLastQuery("indirizzi");
         this.deleteRowButton.setVisible(true);
         refreshTable();
@@ -216,7 +216,7 @@ public class Visualization1Controller {
 
     @FXML
     void magazzini_mouseClicked(MouseEvent event) {
-        rs = tell.magazzini(CODFILM);
+        rs = tell.magazzini();
         setLastQuery("magazzini");
         this.deleteRowButton.setVisible(true);
         refreshTable();
