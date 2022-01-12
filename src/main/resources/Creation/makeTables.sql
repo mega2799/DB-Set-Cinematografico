@@ -3,14 +3,14 @@
 -- TODO inserire controllo len nei cod identificativi di wntita varie
 CREATE TABLE if not exists Indirizzo(
     codInd int primary key,
-    citta varchar(21) NOT NULL,
+    citta varchar(41) NOT NULL,
     via varchar(40) NOT NULL,
     civico int NOT NULL,
     CAP int NOT NULL check(length(CAP) = 5)
     );
 
 CREATE TABLE IF NOT EXISTS  Enti(
-  P_IVA varchar(11) NOT NULL,
+  P_IVA varchar(31) NOT NULL,
   nome varchar(40) NOT NULL,
   codInd INT NOT NULL,
   FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
@@ -20,12 +20,12 @@ CREATE TABLE IF NOT EXISTS  Enti(
 ) ;
    
 CREATE TABLE if not exists MembroTroupe(
-    CF varchar(12) primary key,
+    CF varchar(18) primary key,
     nome varchar(20) NOT NULL, 
     cognome varchar(20) NOT NULL, 
     IBAN varchar(30) NOT NULL, 
     dataNascita date NOT NULL,
-    telefono varchar(15) NOT NULL, 
+    telefono varchar(35) NOT NULL, 
     codInd INT NOT NULL,
     FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
         ON DELETE CASCADE
@@ -42,7 +42,7 @@ CREATE TABLE if not exists BustaPaga(
 );
 
 CREATE TABLE if not exists Retribuzione(
-    CF varchar(12),
+    CF varchar(18),
     FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS Ruolo(
 );
 
 CREATE TABLE IF NOT EXISTS RuoloMembroTroupe(
-    CF varchar(12),
+    CF varchar(18),
     FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
            ON DELETE CASCADE
            ON UPDATE NO ACTION,
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS SerieLetteraria(
     idSerie varchar(11) primary key,
     titolo varchar(51) NOT NULL,
     genere varchar(40) NOT NULL, 
-    CF  varchar(12) NOT NULL,
+    CF  varchar(18) NOT NULL,
         FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
         ON DELETE CASCADE
         ON UPDATE NO ACTION
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS Film (
 
 -- TODO il nome non coincide su gituhb
 CREATE TABLE IF NOT EXISTS SediTerritoriali (
-  P_IVA varchar(11) NOT NULL,
+  P_IVA varchar(31) NOT NULL,
   FOREIGN KEY (P_IVA) REFERENCES Enti (P_IVA)
   ON DELETE CASCADE
   ON UPDATE NO ACTION,
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS SediTerritoriali (
 
 
 CREATE TABLE if not exists Distribuzione(
-        P_IVA varchar(11) ,
+        P_IVA varchar(31) ,
         FOREIGN KEY (P_IVA) REFERENCES Enti(P_IVA)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,
@@ -137,13 +137,13 @@ CREATE TABLE if NOT EXISTS Incasso(
 );
 
 CREATE TABLE if not exists Sponsor(
-        P_IVA_SPONSOR varchar(11) primary key,
+        P_IVA_SPONSOR varchar(31) primary key,
         nome varchar(41) NOT NULL
     );
 
 
 CREATE TABLE if not exists Finanziatore(
-    P_IVA_FINANZIATORE varchar(11) primary key,
+    P_IVA_FINANZIATORE varchar(31) primary key,
     nome varchar(41) NOT NULL,
     codInd INT NOT NULL,
     FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
@@ -157,11 +157,11 @@ CREATE TABLE if not exists Fondo(
     codFondo INT primary key,
     dataAccredito date NOT NULL,
     patrimonio float(14) NOT NULL CHECK(patrimonio >= 0),
-    P_IVA_SPONSOR varchar(11),
+    P_IVA_SPONSOR varchar(31),
     FOREIGN KEY (P_IVA_SPONSOR) REFERENCES Sponsor(P_IVA_SPONSOR)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,
-    P_IVA_FINANZIATORE varchar(11),
+    P_IVA_FINANZIATORE varchar(31),
     FOREIGN KEY (P_IVA_FINANZIATORE) REFERENCES Finanziatore(P_IVA_FINANZIATORE)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,
@@ -177,7 +177,7 @@ CREATE TABLE if not exists Film_Membro_Troupe(
         FOREIGN KEY (codF) REFERENCES Film(codF)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,
-        CF varchar(12) NOT NULL,
+        CF varchar(18) NOT NULL,
         FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,
@@ -199,7 +199,7 @@ CREATE TABLE if not exists Film_Membro_Troupe(
 
 CREATE TABLE if not exists ScenaCiak(
         -- TODO HO CAMBIATO GLI ATTRIBUTI dataInizio e Fine, trovare un sostituto valido e cambiare il resto nell ER e relazione....
-        --scommentando le date non da errore la query, mahhh .....
+        -- scommentando le date non da errore la query, mahhh .....
         codScena int primary key,
         noteDiProduzione varchar(255),
         rullo int NOT NULL,
@@ -221,11 +221,12 @@ CREATE TABLE if not exists Membro_Troupe_Scena(
         FOREIGN KEY (codScena) REFERENCES ScenaCiak(codScena)
         ON DELETE CASCADE
         ON UPDATE NO ACTION ,
-        CF varchar(12) NOT NULL,
+        CF varchar(18) NOT NULL,
         FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,
         PRIMARY KEY(codScena, CF)
+        -- todo qua le primary key si ripetono, almeno cosi mi dice mysqlWorkbench
         );
 
 CREATE TABLE if not exists Magazzino(
@@ -251,7 +252,7 @@ CREATE TABLE if not exists Costume(
         codC int Primary Key,
         tipo varchar(12) NOT NULL CHECK(tipo='epoca' OR tipo='contemporaneo' OR tipo='fantasia'),
         descrizione varchar(255) NOT NULL,
-        CF varchar(12) NOT NULL,
+        CF varchar(18) NOT NULL,
         FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,
@@ -263,7 +264,7 @@ CREATE TABLE if not exists Costume(
         );
 
 CREATE TABLE if not exists StilistaCostume(
-        CF varchar(12) NOT NULL,
+        CF varchar(18) NOT NULL,
         FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,
@@ -312,7 +313,7 @@ CREATE TABLE if not exists OggettoScena(
         );
 
 CREATE TABLE if not exists Ditta(
-        P_IVA_DITTA varchar(11) Primary Key,
+        P_IVA_DITTA varchar(31) Primary Key,
         nome varchar(41) NOT NULL,
         codInd INT NOT NULL,
         FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)

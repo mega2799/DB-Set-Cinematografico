@@ -129,8 +129,19 @@ public class TellMe {
         return getTable("Film");
     }
 
-    public ResultSet sponsors() {
-        return getTable("Sponsor");
+    public ResultSet sponsors(final String codF) {
+        String query = "select s.* from Sponsor s \n" +
+                "left join Fondo f on (s.P_IVA_SPONSOR = f.P_IVA_SPONSOR)\n" +
+                "where codF = ?;";
+        ResultSet result = null;
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(query);
+            stmt.setString(1, codF);
+            result = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     //aggiungo troupe per problemi di delete,tolgo momentaneamente query troupeStaffOnly da gui:
