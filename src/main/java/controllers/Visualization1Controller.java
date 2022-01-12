@@ -45,17 +45,26 @@ public class Visualization1Controller {
     private TellMe tell;
     private Method lastQuery;
     private QueryTeller queryTeller;
+    private Alert alert;
 
-    private String CODFILM = "1";
+
+    private String CODFILM;
     // todo aggiungere un check prima di ogni funzione se e' nullo
 
+    private boolean filmCheck(){
+        return CODFILM == null;
+    }
     public void initialize(){
         tell = new TellMe();
         data = FXCollections.observableArrayList();
-        sponsor_buttonClicked(null);
+       // sponsor_buttonClicked(null);
         this.queryTeller = new QueryTeller();
         this.nomiFilm = queryTeller.setMenuButton(this.filmSelectioner, "SELECT * FROM Film", "titolo");
+    }
 
+    private void showAlert(final Alert.AlertType alertType, final String mex){
+        this.alert = new Alert(alertType,mex);
+        alert.showAndWait();
     }
 
     private void setLastQuery(String methodName){
@@ -143,6 +152,10 @@ public class Visualization1Controller {
 
     @FXML
     void sponsor_buttonClicked(MouseEvent event) {
+        if(filmCheck()){
+            showAlert(Alert.AlertType.ERROR,"Non hai selezionato il Film");
+            return;
+        }
         rs = tell.sponsors(CODFILM);
         setLastQuery("sponsors");
         this.deleteRowButton.setVisible(true);
@@ -151,6 +164,10 @@ public class Visualization1Controller {
 
     @FXML
     void troupe_mouseClicked(MouseEvent event) {
+        if(filmCheck()){
+            showAlert(Alert.AlertType.ERROR,"Non hai selezionato il Film");
+            return;
+        }
         rs = tell.troupe(CODFILM);
         setLastQuery("troupe");
         this.deleteRowButton.setVisible(true);
@@ -160,6 +177,10 @@ public class Visualization1Controller {
 
     @FXML
     void actors_mouseClicked(MouseEvent event) {
+        if(filmCheck()){
+            showAlert(Alert.AlertType.ERROR,"Non hai selezionato il Film");
+            return;
+        }
         rs = tell.actors(CODFILM);
         setLastQuery("actors");
         this.deleteRowButton.setVisible(false);
@@ -176,6 +197,10 @@ public class Visualization1Controller {
 
     @FXML
     void costumi_mouseClicked(MouseEvent event) {
+        if(filmCheck()){
+            showAlert(Alert.AlertType.ERROR,"Non hai selezionato il Film");
+            return;
+        }
         rs = tell.costumi(CODFILM);
         setLastQuery("costumi");
         this.deleteRowButton.setVisible(true);
@@ -184,6 +209,10 @@ public class Visualization1Controller {
 
     @FXML
     void finanziatori_mouseClicked(MouseEvent event) {
+        if(filmCheck()){
+            showAlert(Alert.AlertType.ERROR,"Non hai selezionato il Film");
+            return;
+        }
         rs = tell.finanziatori(CODFILM);
         setLastQuery("finanziatori");
         this.deleteRowButton.setVisible(true);
@@ -192,6 +221,10 @@ public class Visualization1Controller {
 
     @FXML
     void fondi_mouseClicked(MouseEvent event) {
+        if(filmCheck()){
+            showAlert(Alert.AlertType.ERROR,"Non hai selezionato il Film");
+            return;
+        }
         rs = tell.fondi(CODFILM);
         setLastQuery("fondi");
         this.deleteRowButton.setVisible(true);
@@ -200,6 +233,10 @@ public class Visualization1Controller {
 
     @FXML
     void incassi_mouseClicked(MouseEvent event) {
+        if(filmCheck()){
+            showAlert(Alert.AlertType.ERROR,"Non hai selezionato il Film");
+            return;
+        }
         rs = tell.incassi(CODFILM);
         setLastQuery("incassi");
         this.deleteRowButton.setVisible(true);
@@ -224,6 +261,10 @@ public class Visualization1Controller {
 
     @FXML
     void oggettiScena_mouseClicked(MouseEvent event) {
+        if(filmCheck()){
+            showAlert(Alert.AlertType.ERROR,"Non hai selezionato il Film");
+            return;
+        }
         rs = tell.oggettiDiScena(CODFILM);
         setLastQuery("oggettiDiScena");
         this.deleteRowButton.setVisible(true);
@@ -232,6 +273,10 @@ public class Visualization1Controller {
 
     @FXML
     void scene_mouseClicked(MouseEvent event) {
+        if(filmCheck()){
+            showAlert(Alert.AlertType.ERROR,"Non hai selezionato il Film");
+            return;
+        }
         rs = tell.scene(CODFILM);
         setLastQuery("scene");
         this.deleteRowButton.setVisible(true);
@@ -269,6 +314,8 @@ public class Visualization1Controller {
         try {
             while(rs.next()) {
                 this.CODFILM = rs.getString("codF");
+                this.filmSelectioner.setText(rb.getText());
+                this.deleteRowButton.setVisible(true);
             }
         } catch (SQLException e) {
             e.printStackTrace();
