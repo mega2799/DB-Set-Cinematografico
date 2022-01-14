@@ -67,9 +67,16 @@ public class Visualization1Controller {
 
     private void setLastQuery(String methodName){
         try {
-            lastQuery = Class.forName("application.TellMe").getMethod(methodName, String[].class);
-            lastQuery.invoke(methodName, CODFILM);
-        } catch (NoSuchMethodException | ClassNotFoundException e) {
+            lastQuery = Class.forName("application.TellMe").getMethod(methodName, String.class);
+            lastQuery.invoke(this.tell, CODFILM);
+        } catch (NoSuchMethodException e) {
+            try{
+                lastQuery = Class.forName("application.TellMe").getMethod(methodName);
+                lastQuery.invoke(this.tell);
+            } catch (NoSuchMethodException | ClassNotFoundException | IllegalAccessException | InvocationTargetException ex){
+                ex.printStackTrace();
+            }
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
             e.printStackTrace();
@@ -115,10 +122,14 @@ public class Visualization1Controller {
 
     public void refreshQuery() {
         try {
-            rs = (ResultSet) lastQuery.invoke(tell, (Object[]) null);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+            rs = (ResultSet) lastQuery.invoke(tell, CODFILM);
+        } catch (IllegalArgumentException e) {
+            try{
+                rs = (ResultSet) lastQuery.invoke(tell,null);
+            } catch (InvocationTargetException | IllegalAccessException invocationTargetException) {
+                invocationTargetException.printStackTrace();
+            }
+        } catch (InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
         }
     }
