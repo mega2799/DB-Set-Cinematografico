@@ -34,6 +34,7 @@ public class Visualization1Controller {
     @FXML
     private MenuButton filmSelectioner;
 
+
     @FXML
     private Button okButton;
     private ToggleGroup nomiFilm;
@@ -125,7 +126,7 @@ public class Visualization1Controller {
             rs = (ResultSet) lastQuery.invoke(tell, CODFILM);
         } catch (IllegalArgumentException e) {
             try{
-                rs = (ResultSet) lastQuery.invoke(tell,null);
+                rs = (ResultSet) lastQuery.invoke(tell,(Object[]) null);
             } catch (InvocationTargetException | IllegalAccessException invocationTargetException) {
                 invocationTargetException.printStackTrace();
             }

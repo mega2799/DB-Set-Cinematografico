@@ -36,8 +36,6 @@
                                     </font>
                                  </Label>
                                  <Separator prefHeight="0.0" prefWidth="206.0" />
-                                 <Label text="Codice FIlm" />
-                                 <TextField fx:id="codFilm_field" />
                                  <Label text="Ttolo" />
                                  <TextField fx:id="titolo_field" />
                                  <Label text="Genere" />
@@ -45,7 +43,7 @@
                                  <Label layoutX="10.0" layoutY="94.0" text="Durata" />
                                  <TextField fx:id="durata_field" layoutX="10.0" layoutY="111.0" />
                                  <Label layoutX="10.0" layoutY="136.0" text="Data Usicta" />
-                                 <TextField fx:id="dataUscita_field" layoutX="10.0" layoutY="153.0" />
+                                 <DatePicker fx:id="dataUscita_field" prefHeight="26.0" prefWidth="206.0" />
                                  <Label layoutX="10.0" layoutY="178.0" text="ID serie letteraria" />
                                  <TextField fx:id="idSerieLetteraria_field" layoutX="10.0" layoutY="195.0" />
                                  <Label />
@@ -72,7 +70,7 @@
                                  <Label text="Via" />
                                  <TextField fx:id="viaIndirizzo_field" />
                                  <Label layoutX="10.0" layoutY="94.0" text="Civico" />
-                                 <TextField fx:id="civicoIndirizzo_fielda" layoutX="10.0" layoutY="111.0" />
+                                 <TextField fx:id="civicoIndirizzo_field" layoutX="10.0" layoutY="111.0" />
                                  <Label layoutX="10.0" layoutY="136.0" text="CAP" />
                                  <TextField fx:id="capIndirizzo_field" layoutX="10.0" layoutY="153.0" />
                                  <Label />
@@ -90,8 +88,7 @@
                                  <Separator prefHeight="0.0" prefWidth="206.0" />
                                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                                     <children>
-                                       <MenuButton mnemonicParsing="false" text="Seleziona Film" />
-                                       <Button mnemonicParsing="false" text="Button" />
+                                       <MenuButton fx:id="filmSelection_operatoreTroupe" mnemonicParsing="false" prefHeight="25.0" prefWidth="248.0" text="Seleziona Film" />
                                     </children>
                                  </HBox>
                                  <Label text="CF" />
@@ -226,6 +223,11 @@
                                  <Button fx:id="incasso_insertButton" mnemonicParsing="false" onMouseClicked="#incasso_insertButton_clicked" text="Insert" />
                               </children>
                            </VBox>
+                           <Button layoutX="994.0" layoutY="716.0" mnemonicParsing="false" onMouseClicked="#refreshButton_clicked" prefHeight="30.0" prefWidth="102.0" text="Refresh" AnchorPane.bottomAnchor="36.0" AnchorPane.rightAnchor="34.0">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </Button>
                         </children>
                      </AnchorPane>
                   </content>

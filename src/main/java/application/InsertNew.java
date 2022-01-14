@@ -58,7 +58,7 @@ public class InsertNew {
         return false;
     }
 
-    private void showAlert(final Alert.AlertType alertType, final String mex){
+    public void showAlert(final Alert.AlertType alertType, final String mex){
         this.alert = new Alert(alertType,mex);
         alert.showAndWait();
     }
@@ -77,6 +77,41 @@ public class InsertNew {
             showAlert(Alert.AlertType.ERROR,"Lunghezza P.IVA non corretta");
         }
     }
+    public void film(final String titolo,final String genere, final String durata, final String dataUscita, final String idSerie){
+        String query = "INSERT IGNORE INTO Film(titolo,genere,durata,dataUscita,idSerie) VALUES(?,?,?,?,?);";
+        try(PreparedStatement statement = connection.prepareStatement(query)){
+            statement.setString(1,titolo);
+            statement.setString(2,genere);
+            statement.setInt(3,Integer.parseInt(durata));
+            statement.setDate(4,Date.valueOf(dataUscita.replaceAll(" ","-")));
+            statement.setInt(5, Integer.parseInt(idSerie));
+            System.out.println(statement.toString());
+            System.out.println(statement.executeUpdate());
+            connection.commit();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void indirizzo(final String codInd, final String citta, final String via, final String civico, final String CAP){
+        if(checkAddress(codInd)){
+            showAlert(Alert.AlertType.ERROR,"CodIndirizzo gia presente");
+            return;
+        }
+        String query = "INSERT INTO indirizzo(codInd,citta,via,civico,CAP) VALUES (?,?,?,?,?);";
+        try(PreparedStatement stmt = connection.prepareStatement(query)){
+            stmt.setInt(1,Integer.parseInt(codInd));
+            stmt.setString(2,citta);
+            stmt.setString(3,via);
+            stmt.setInt(4,Integer.parseInt(civico));
+            stmt.setInt(5,Integer.parseInt(CAP));
+            stmt.executeUpdate();
+            connection.commit();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
 
     public void incasso(final String dataInizio, final String dataFine, final int incasso, final String codF, final String codInd){
         if(checkFilm(codF) && checkAddress(codInd)) {
@@ -134,11 +169,11 @@ public class InsertNew {
         }
     }
 
-    public void operatore(final String cf, final String nome, final String cognome, final String iban, final String data, final String telefono, final String codInd, float pContributo, final List<String> ruolo){
-        List<String> queries = new ArrayList<>();
+    public void operatore(final String cf, final String nome, final String cognome, final String iban, final String data, final String telefono, final String codInd, float pContributo, final String ruolo){
+        //List<String> queries = new ArrayList<>();
         String query = "INSERT IGNORE INTO MembroTroupe(CF,nome,cognome,IBAN,dataNascita,telefono,codInd, percentualeContributo) " +
-                "VALUES (\'" + cf + "\', \'" + nome +"\', \'"+ cognome +"\', \'" + iban +"\', \'"+ data +"\', \'" + telefono +"\', \'"+ codInd +"\', \'"+ pContributo+"\');";
-        System.out.println(query);
+                "VALUES (?,?,?,?,?,?,?,?)";
+        /*System.out.println(query);
         queries.add(query);
         ruolo.stream().forEach(r -> queries.add("INSERT IGNORE INTO RuoloMembroTroupe(CF, nomeRuolo) " + "VALUES (\'" + cf + "\', \'" + r+"\');"));
         System.out.println(queries.get(1));
@@ -148,6 +183,35 @@ public class InsertNew {
                 connection.commit();
             }
         }catch (SQLException e){
+            e.printStackTrace();
+        }
+         */
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1,cf);
+            statement.setString(2,nome);
+            statement.setString(3,cognome);
+            statement.setString(4,iban);
+            statement.setDate(5,Date.valueOf(data));
+            statement.setString(6,telefono);
+            statement.setInt(7,Integer.parseInt(codInd));
+            statement.setFloat(8,pContributo);
+            System.out.println(statement.toString());
+            System.out.println(statement.executeUpdate());
+            connection.commit();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void operatore_film(final int codF,final String CF){
+        String query = "INSERT INTO film_membro_troupe(codF,CF) VALUES (?,?);";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(query);
+            stmt.setInt(1,codF);
+            stmt.setString(2,CF);
+            stmt.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

@@ -211,4 +211,18 @@ public class QueryTeller {
         }
         return result;
     }
+
+    public boolean checkCF(final String cf){
+        String query = "SELECT CF FROM membrotroupe as mt WHERE mt.CF = ?;";
+        try(PreparedStatement stmt = connection.prepareStatement(query)){
+            stmt.setString(1,cf);
+            ResultSet result = stmt.executeQuery();
+            if(!result.isBeforeFirst()){
+                return false;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return true;
+    }
 }

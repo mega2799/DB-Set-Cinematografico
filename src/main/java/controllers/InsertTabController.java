@@ -1,6 +1,7 @@
 package controllers;
 import application.DBConnection;
 import application.InsertNew;
+import application.QueryTeller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -8,16 +9,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 public class InsertTabController {
 
     @FXML
-    private Button Operatore_insertButton;
+    private Button operatore_insertButton;
 
     @FXML
     private TextField capIndirizzo_field;
@@ -59,9 +60,6 @@ public class InsertTabController {
     private CheckMenuItem operatoreFotografico_field;
 
     @FXML
-    private TextField codFilm_field;
-
-    @FXML
     private TextField codIndirizzoFinanziatore_field;
 
     @FXML
@@ -80,7 +78,7 @@ public class InsertTabController {
     private DatePicker dataNascitaOperatore_field;
 
     @FXML
-    private TextField dataUscita_field;
+    private DatePicker dataUscita_field;
 
     @FXML
     private TextField durata_field;
@@ -171,6 +169,8 @@ public class InsertTabController {
 
     @FXML
     private TabPane tabPane;
+    @FXML
+    private MenuButton filmSelection_operatoreTroupe;
 
     private DBConnection DbC;
 
@@ -207,10 +207,16 @@ public class InsertTabController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        this.refreshMenuFilm();
     }
 
     @FXML
     void film_insertButton_clicked(MouseEvent event) {
+        List<TextField> list = List.of(titolo_field,genere_field,durata_field,idSerieLetteraria_field);
+        String[] params = (String[]) list.stream().map(x->x.getText()).toArray(String[]::new);
+        insertNew.film(params[0],params[1],params[2],dataUscita_field.getValue().format(DateTimeFormatter.ofPattern("yyyy MM dd")),params[3]);
+        list.forEach(x->x.clear());
+        dataUscita_field.setValue(null);
     }
 
     @FXML
@@ -224,16 +230,43 @@ public class InsertTabController {
 
     @FXML
     void indirizzo_insertButton_clicked(MouseEvent event) {
-
+        List<TextField> list = List.of(codIndirizzoIndirizzo_field,cittaIndirizzo_field,viaIndirizzo_field,civicoIndirizzo_field,capIndirizzo_field);
+        String[] params = (String[]) list.stream().map(x->x.getText()).toArray(String[]::new);
+        insertNew.indirizzo(params[0],params[1],params[2],params[3],params[4]);
+        list.forEach(x->x.clear());
     }
 
     @FXML
     void operatore_insertButton_clicked(MouseEvent event) {
+        Optional<String> selectedFilm = filmSelection_operatoreTroupe.getItems().stream().filter((MenuItem x)->((RadioMenuItem)x).isSelected()).map(x->x.getText()).findFirst();
+        if(selectedFilm.isEmpty()){
+            insertNew.showAlert(Alert.AlertType.ERROR,"film not selected");
+            return;
+        }
+        //System.out.println(selectedFilm.get());
+
+        /*
         List<CheckMenuItem> items = Arrays.asList(sceneggiatore_field, aiutoRegista_field, capoRegista_field, produttore_field, produttoreEsecutivo_field, attore_field, stilista_field, operatoreFonico_field, operatoreFotografico_field);
         this.insertNew.operatore(cfOperatore_field.getText(), nomeOperatore_field.getText(), cognomeOperatore_field.getText(), ibanOperatore_field.getText(),
                 dataNascitaOperatore_field.getValue().toString(), telefonoOperatore_field.getText(),codiceIndirizzoOperatore_field.getText(),
                 Float.parseFloat(percentualeContributoOperatore_field.getText()), items.stream().filter(e -> e.isSelected()).map(e -> e.getText()).collect(Collectors.toList()));
         cfOperatore_field.clear();
+         */
+         QueryTeller queryTeller = new QueryTeller();
+         if(!queryTeller.checkCF(cfOperatore_field.getText())){
+             insertNew.operatore(cfOperatore_field.getText(),nomeOperatore_field.getText(),cognomeOperatore_field.getText(),
+             ibanOperatore_field.getText(),dataNascitaOperatore_field.getValue().format(DateTimeFormatter.ofPattern("yyyy MM dd")).replaceAll(" ","-"),telefonoOperatore_field.getText(),codiceIndirizzoOperatore_field.getText(),Float.parseFloat(percentualeContributoOperatore_field.getText()),ruoloOperatore_field.getText());
+         }
+
+        try {
+            ResultSet resFilm = queryTeller.getCodF(selectedFilm.get());
+            resFilm.next();
+            int codF = resFilm.getInt("codF");
+            insertNew.operatore_film(codF,cfOperatore_field.getText());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         nomeOperatore_field.clear();
         cognomeOperatore_field.clear();
         ibanOperatore_field.clear();
@@ -241,7 +274,7 @@ public class InsertTabController {
         telefonoOperatore_field.clear();
         codiceIndirizzoOperatore_field.clear();
         percentualeContributoOperatore_field.clear();
-        items.stream().forEach(i -> i.setSelected(false));
+        //items.stream().forEach(i -> i.setSelected(false));
     }
 
     @FXML
@@ -271,5 +304,12 @@ public class InsertTabController {
         codiceIndirizzoEnti_field.clear();
     }
 
+    private void refreshMenuFilm(){
+        new QueryTeller().setMenuButton(this.filmSelection_operatoreTroupe, "SELECT * FROM Film", "titolo");
+    }
 
+    @FXML
+    void refreshButton_clicked(MouseEvent event){
+        this.refreshMenuFilm();
+    }
 }
