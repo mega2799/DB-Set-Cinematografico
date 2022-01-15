@@ -13,6 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class specialQuery {
 
@@ -31,29 +32,70 @@ public class specialQuery {
     @FXML
     private MenuButton selectScena;
 
+    @FXML
+    private MenuButton scene_menu_bar;
+
+    @FXML
+    private MenuButton filmSelectioner;
+
+    @FXML
+    private Button okButton;
+
+    private ToggleGroup nomiFilm;
+
+
     private ToggleGroup tgMagazzino;
 
-    private ToggleGroup tgScena;
+    private ToggleGroup noteScena;
 
     QueryTeller queryTeller;
+
+    private String CODFILM;
+
+
     private ResultSet rs;
     private Method lastQuery;
     private ObservableList<ObservableList> data;
 
-    public void initialize(){
+    // TODO devi modificare anche qua in modo che si possa selezioanare i risultati in base al film, quindi passsare codF anche alle query speciali
+    public void initialize() {
         queryTeller = new QueryTeller();
         data = FXCollections.observableArrayList();
-        tgMagazzino = queryTeller.setMenuButton(selectMagazzino, "SELECT numMagazzino FROM magazzino", "numMagazzino");
-        tgScena = queryTeller.setMenuButton(selectScena, "SELECT codScena FROM scenaciak", "codScena");
+        refreshFilmBar();
+        this.tgMagazzino = queryTeller.setMenuButton(selectMagazzino, "SELECT numMagazzino FROM Magazzino", "numMagazzino");
+
     }
 
-    /*private void setLastQuery(String methodName){
+    private void refreshFilmBar(){
+        this.nomiFilm = queryTeller.setMenuButton(this.filmSelectioner, "SELECT * FROM Film", "titolo");
+    }
+
+    @FXML
+    void filmSelOK(MouseEvent event){
+        RadioMenuItem rb = (RadioMenuItem) nomiFilm.getSelectedToggle();
+        rs = this.queryTeller.getCodF(rb.getText());
+        try {
+            while(rs.next()) {
+                this.CODFILM = rs.getString("codF");
+                this.filmSelectioner.setText(rb.getText());
+                //this.deleteRowButton.setVisible(true);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // qui aggiornare i menuItem
+        this.noteScena = queryTeller.setMenuButton(scene_menu_bar, "SELECT * from ScenaCiak where codF = " + CODFILM + " order by noteDiProduzione ASC", "noteDiProduzione");
+
+    }
+
+    private void setLastQuery(String methodName){
         try {
             lastQuery = Class.forName("application.QueryTeller").getMethod(methodName,(Class<?>[])null);
         } catch (NoSuchMethodException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
     private void populateTable() {
         try{
@@ -121,10 +163,21 @@ public class specialQuery {
 
     @FXML
     void queryScena_clicked(MouseEvent e){
-        RadioMenuItem rb = (RadioMenuItem) tgScena.getSelectedToggle();
+        RadioMenuItem rb = (RadioMenuItem) noteScena.getSelectedToggle();
         rs = queryTeller.oggettiInScena(Integer.parseInt(rb.getText()));
         refreshTable();
     }
 
+    @FXML
+    void profitto_finanzziatori_clicked(MouseEvent e ){
+       return;
+    }
 
+
+    @FXML
+    void attori_in_scena_clicked(MouseEvent e ){
+        RadioMenuItem rb = (RadioMenuItem) noteScena.getSelectedToggle();
+        rs = queryTeller.attoriInScena(rb.getText(), CODFILM);
+        refreshTable();
+    }
 }

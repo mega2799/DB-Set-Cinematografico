@@ -7,6 +7,7 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 
 <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.specialQuery">
    <children>
@@ -14,24 +15,29 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="118.0" prefWidth="1080.0">
                <children>
-                  <Label layoutX="10.0" layoutY="6.0" prefHeight="16.0" prefWidth="97.0" text="Query Speciali" />
-                  <Button layoutX="75.0" layoutY="80.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="203.0" text="Stipendio Membri Troupe" />
-                  <Button layoutX="23.0" layoutY="38.0" mnemonicParsing="false" text="Profitto Finanziatori" />
-                  <Button layoutX="197.0" layoutY="38.0" mnemonicParsing="false" text="Luoghi Riprese" />
+                  <HBox alignment="CENTER" prefHeight="29.0" prefWidth="624.0" spacing="30.0">
+                     <children>
+                        <Label prefHeight="16.0" prefWidth="97.0" text="Query Speciali" />
+                        <MenuButton fx:id="filmSelectioner" mnemonicParsing="false" text="Seleziona Film" />
+                        <Button fx:id="okButton" mnemonicParsing="false" onMouseClicked="#filmSelOK" prefHeight="24.0" prefWidth="95.0" text="OK" />
+                     </children>
+                  </HBox>
+                  <Button layoutX="43.0" layoutY="81.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="203.0" text="Stipendio Membri Troupe" />
+                  <Button layoutX="43.0" layoutY="38.0" mnemonicParsing="false" onMouseClicked="#profitto_finanzziatori_clicked" text="Profitto Finanziatori" />
                   <Button layoutX="334.0" layoutY="38.0" mnemonicParsing="false" text="Costumi Scena" />
-                  <Button layoutX="473.0" layoutY="38.0" mnemonicParsing="false" text="Dipendenti Scena" />
-                  <Button layoutX="845.0" layoutY="59.0" mnemonicParsing="false" onMouseClicked="#queryScena_clicked" text="Oggetti Scena" />
-                  <Button layoutX="845.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#queryMagazzino_clicked" text="Oggetti in Magazzino" />
-                  <MenuButton fx:id="selectMagazzino" layoutX="976.0" layoutY="15.0" mnemonicParsing="false" text="Magazzino" />
+                  <Button layoutX="517.0" layoutY="38.0" mnemonicParsing="false" onMouseClicked="#attori_in_scena_clicked" text="Dipendenti Scena" />
+                  <Button layoutX="528.0" layoutY="69.0" mnemonicParsing="false" onMouseClicked="#queryScena_clicked" text="Oggetti Scena" />
+                  <Button layoutX="798.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#queryMagazzino_clicked" text="Oggetti in Magazzino" />
+                  <MenuButton fx:id="selectMagazzino" layoutX="967.0" layoutY="15.0" mnemonicParsing="false" text="Magazzino" />
                   <ButtonBar layoutX="985.0" layoutY="81.0" prefHeight="32.0" prefWidth="80.0">
                     <buttons>
                       <Button fx:id="refreshQuery" mnemonicParsing="false" text="Refresh" />
                     </buttons>
                   </ButtonBar>
-                  <MenuButton fx:id="selectScena" layoutX="935.0" layoutY="59.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" text="Scena" />
+                  <MenuButton fx:id="scene_menu_bar" layoutX="668.0" layoutY="57.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="124.0" text="Scene in film" />
                </children>
             </AnchorPane>
-            <TableView fx:id="queryView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="1080.0" />
+            <TableView fx:id="queryView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#attori_in_scena_clicked" prefHeight="620.0" prefWidth="1080.0" />
         </items>
       </SplitPane>
    </children>

@@ -44,7 +44,7 @@ public class QueryTeller {
         return result;
     }
 
-    // TODO lavare questa query, fa schifo,  anche da README
+    // TODO lavare questa query, fa schifo,  anche da README e da .fxml
     public ResultSet luoghiFilm(final String title){
         String query = "    select distinct i.*\n" +
                 "    from ScenaCiak sc join Film f on (sc.codF=f.codF)\n" +
@@ -84,17 +84,19 @@ public class QueryTeller {
         return result;
     }
 
-    public ResultSet attoriInScena(final String codScena){
+    public ResultSet attoriInScena(final String noteDiProduzione, final String codF){
         var res = "";
         String query = "select mt.*\n" +
                 "    from ScenaCiak sc join MembroTroupeScena mts on (sc.codScena = mts.codScena)\n" +
-                "    join MemtroTroupe mt on (mts.CF = mt.CF)\n" +
-                "    where sc.codScena = ?;";
+                "    join MembroTroupe mt on (mts.CF = mt.CF)\n" +
+                "    where sc.noteDiProduzione = ? " +
+                "    and codF = ?;";
 
         ResultSet result = null;
         try {
             PreparedStatement stmt = this.connection.prepareStatement(query);
-            stmt.setString(1, codScena);
+            stmt.setString(1, noteDiProduzione);
+            stmt.setString(2, codF);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
