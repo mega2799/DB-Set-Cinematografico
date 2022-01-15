@@ -156,6 +156,7 @@ public class QueryTeller {
             PreparedStatement stmt = connection.prepareStatement(query);
             ResultSet result = null;
             result = stmt.executeQuery();
+            menu.getItems().clear();
             while(result.next()) {
                 String name = result.getString(column);
                 RadioMenuItem menuItem = new RadioMenuItem(name);

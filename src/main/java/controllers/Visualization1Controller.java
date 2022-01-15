@@ -58,7 +58,11 @@ public class Visualization1Controller {
         data = FXCollections.observableArrayList();
        // sponsor_buttonClicked(null);
         this.queryTeller = new QueryTeller();
-        this.nomiFilm = queryTeller.setMenuButton(this.filmSelectioner, "SELECT * FROM Film", "titolo");
+        this.refreshFilmBar();
+    }
+
+    private void refreshFilmBar(){
+        this.nomiFilm= queryTeller.setMenuButton(this.filmSelectioner, "SELECT * FROM Film", "titolo");
     }
 
     private void showAlert(final Alert.AlertType alertType, final String mex){
@@ -144,6 +148,7 @@ public class Visualization1Controller {
             e.printStackTrace();
         }
         populateTable();
+        this.refreshFilmBar();
     }
 
     @FXML

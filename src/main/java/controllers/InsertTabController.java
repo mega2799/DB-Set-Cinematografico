@@ -213,7 +213,9 @@ public class InsertTabController {
     @FXML
     void film_insertButton_clicked(MouseEvent event) {
         List<TextField> list = List.of(titolo_field,genere_field,durata_field,idSerieLetteraria_field);
-        String[] params = (String[]) list.stream().map(x->x.getText()).toArray(String[]::new);
+        String[] params = (String[]) list.stream().map(x->{
+            return (x.getText().equals("")) ? null: x.getText();
+        }).toArray(String[]::new);
         insertNew.film(params[0],params[1],params[2],dataUscita_field.getValue().format(DateTimeFormatter.ofPattern("yyyy MM dd")),params[3]);
         list.forEach(x->x.clear());
         dataUscita_field.setValue(null);

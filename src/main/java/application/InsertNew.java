@@ -84,7 +84,7 @@ public class InsertNew {
             statement.setString(2,genere);
             statement.setInt(3,Integer.parseInt(durata));
             statement.setDate(4,Date.valueOf(dataUscita.replaceAll(" ","-")));
-            statement.setInt(5, Integer.parseInt(idSerie));
+            this.setOptionalElement(statement,5,Types.INTEGER,idSerie);
             System.out.println(statement.toString());
             System.out.println(statement.executeUpdate());
             connection.commit();
@@ -216,4 +216,27 @@ public class InsertNew {
         }
     }
 
+    private void setOptionalElement(PreparedStatement stmt,int index, int sqlType, Object value){
+        if(value == null){
+            try {
+                stmt.setNull(index,sqlType);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                //incluso solo stringhe e int per ora, forse ci vuole anche data
+                switch (sqlType){
+                    case Types.INTEGER:
+                        stmt.setInt(index,(Integer)value);
+                        break;
+                    case Types.VARCHAR:
+                        stmt.setString(index,(String)value);
+                        break;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
