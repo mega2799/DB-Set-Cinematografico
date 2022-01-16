@@ -413,6 +413,8 @@ moltiplicando la retribuzione oraria stabilita mediante contratto e le ore lavor
 ![](/res/frequenzaEAccessi.PNG)
 
 # 6.2 Volume dati del database
+Riportiamo in seguito la tabella dei volumi in cui sono elencante
+tutte le entità, le relazioni e i relativi volumi.
 ![](/res/volume.PNG)
 
 # 6.3 Traduzione delle entita
