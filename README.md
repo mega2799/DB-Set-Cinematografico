@@ -409,7 +409,7 @@ moltiplicando la retribuzione oraria stabilita mediante contratto e le ore lavor
 # 6 Il Progetto Logico
 
 # 6.1 Frequenza e costo degli accessi
-![](/res/frequenzaEAccessi.png)
+![](/res/frequenzaEAccessi.PNG)
 
 # 6.2 Traduzione delle entita
 
