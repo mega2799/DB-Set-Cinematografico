@@ -207,11 +207,14 @@ public class QueryTeller {
 
     }
     public ResultSet oggettiInMagazzino(final int nM){
-        String query = "select oggettidiscena.tipo, oggettidiscena.descrizione, posizionemagazzino.scaffale, posizionemagazzino.percorso " +
-                       "from posizionemagazzino inner join oggettidiscena on posizionemagazzino.codP = oggettidiscena.codP where posizionemagazzino.numMagazzino = "+nM+";";
+        //String query = "select oggettidiscena.tipo, oggettidiscena.descrizione, posizionemagazzino.scaffale, posizionemagazzino.percorso " +
+           //            "from posizionemagazzino inner join oggettidiscena on posizionemagazzino.codP = oggettidiscena.codP where posizionemagazzino.numMagazzino = "+nM+";";
+        String query = "    select *  from OggettoScena o join OggettiDiScena os on (o.codO=os.codO)\n" +
+                "    join PosizioneMagazzino pm on (pm.codP=os.codP)     where pm.numMagazzino = ?;";
         ResultSet result = null;
         try(Statement statement = connection.createStatement()) {
             PreparedStatement stmt = this.connection.prepareStatement(query);
+            stmt.setInt(1,nM);
             result = stmt.executeQuery();
         }catch (SQLException e){
             System.out.println(result);
