@@ -13,6 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 public class specialQuery {
@@ -43,10 +44,14 @@ public class specialQuery {
 
     private ToggleGroup nomiFilm;
 
-
     private ToggleGroup tgMagazzino;
 
     private ToggleGroup noteScena;
+
+
+
+    @FXML
+    private MenuButton month_sel;
 
     QueryTeller queryTeller;
 
@@ -56,6 +61,9 @@ public class specialQuery {
     private ResultSet rs;
     private Method lastQuery;
     private ObservableList<ObservableList> data;
+    private Alert alert;
+    private ToggleGroup tgMonth;
+
 
     // TODO devi modificare anche qua in modo che si possa selezioanare i risultati in base al film, quindi passsare codF anche alle query speciali
     public void initialize() {
@@ -63,12 +71,23 @@ public class specialQuery {
         data = FXCollections.observableArrayList();
         refreshFilmBar();
         this.tgMagazzino = queryTeller.setMenuButton(selectMagazzino, "SELECT numMagazzino FROM Magazzino", "numMagazzino");
-
+        this.tgMonth = queryTeller.setMenuButton(month_sel, List.of("gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"));
     }
 
     private void refreshFilmBar(){
         this.nomiFilm = queryTeller.setMenuButton(this.filmSelectioner, "SELECT * FROM Film", "titolo");
     }
+
+    private boolean filmCheck(){
+        return CODFILM == null;
+    }
+
+
+    private void showAlert(final Alert.AlertType alertType, final String mex){
+        this.alert = new Alert(alertType,mex);
+        alert.showAndWait();
+    }
+
 
     @FXML
     void filmSelOK(MouseEvent event){
@@ -162,13 +181,6 @@ public class specialQuery {
     }
 
     @FXML
-    void queryScena_clicked(MouseEvent e){
-        RadioMenuItem rb = (RadioMenuItem) noteScena.getSelectedToggle();
-        rs = queryTeller.oggettiInScena(Integer.parseInt(rb.getText()));
-        refreshTable();
-    }
-
-    @FXML
     void profitto_finanzziatori_clicked(MouseEvent e ){
        return;
     }
@@ -176,8 +188,35 @@ public class specialQuery {
 
     @FXML
     void attori_in_scena_clicked(MouseEvent e ){
+        if(filmCheck()){
+            showAlert(Alert.AlertType.ERROR,"Non hai selezionato il Film");
+            return;
+        }
         RadioMenuItem rb = (RadioMenuItem) noteScena.getSelectedToggle();
         rs = queryTeller.attoriInScena(rb.getText(), CODFILM);
         refreshTable();
     }
+
+    @FXML
+    void queryScena_clicked(MouseEvent e ){
+        if(filmCheck()){
+            showAlert(Alert.AlertType.ERROR,"Non hai selezionato il Film");
+            return;
+        }
+        RadioMenuItem rb = (RadioMenuItem) noteScena.getSelectedToggle();
+        rs = queryTeller.oggettiInScena(rb.getText(), CODFILM);
+        refreshTable();
+    }
+
+    @FXML
+    void stipendio_troupe(MouseEvent e){
+        if(filmCheck()){
+            showAlert(Alert.AlertType.ERROR,"Non hai selezionato il Film");
+            return;
+        }
+        RadioMenuItem rb = (RadioMenuItem) tgMonth.getSelectedToggle();
+        rs = queryTeller.stipendioMensileTroupeTotale(rb.getText(), CODFILM);
+        refreshTable();
+    }
+
 }

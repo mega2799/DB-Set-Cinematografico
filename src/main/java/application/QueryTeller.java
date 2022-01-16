@@ -6,6 +6,7 @@ import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
 
 import java.sql.*;
+import java.util.List;
 
 public class QueryTeller {
     private Connection connection;
@@ -104,16 +105,18 @@ public class QueryTeller {
         return result;
     }
 
-    public ResultSet oggettiInScena(final String codScena){
-        String query = "    select ods.*\n" +
+    public ResultSet oggettiInScena(final String note, final String codF){
+        String query = "select ods.*\n" +
                 "    from ScenaCiak sc join OggettoScena os on (sc.codScena=os.codScena)\n" +
                 "    join OggettiDiScena ods on (os.codO=ods.codO)\n" +
-                "    where sc.codScena=?;";
+                "    where sc.noteDiProduzione=?" +
+                "    and sc.codF = ?;";
 
         ResultSet result = null;
         try {
             PreparedStatement stmt = this.connection.prepareStatement(query);
-            stmt.setString(1, codScena);
+            stmt.setString(1, note);
+            stmt.setString(2, codF);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -121,15 +124,19 @@ public class QueryTeller {
         return result;
     }
 
-    public ResultSet stipendioMensileTroupeTotale(final String mese){
-        String query = "select @stipendi :=  sum(retribuzioneOraria * oreLavorate) as Stipendi \n" +
-                "\t    from BustaPaga \n" +
-                "\t    where mese = ?;";
+    public ResultSet stipendioMensileTroupeTotale(final String mese, final String codF){
+        String query = "select @stipendi :=  sum(retribuzioneOraria * oreLavorate) as CostoTroupe_" + mese + " from \n" +
+               "BustaPaga b join Retribuzione r on (b.codB = r.codB )" +
+                " join Film_Membro_Troupe flm on (r.CF = flm.CF)  where mese = ? " +
+                "and codF = ?;\n";
+               // "\t    from BustaPaga \n" +
+               // "\t    where mese = ?;";
 
         ResultSet result = null;
         try {
             PreparedStatement stmt = this.connection.prepareStatement(query);
             stmt.setString(1, mese);
+            stmt.setString(2, codF);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -172,6 +179,18 @@ public class QueryTeller {
         return tg;
     }
 
+    public ToggleGroup setMenuButton(MenuButton menu, List<String> l) {
+        ToggleGroup tg = new ToggleGroup();
+            menu.getItems().clear();
+            for(String name: l){
+                RadioMenuItem menuItem = new RadioMenuItem(name);
+                menuItem.setToggleGroup(tg);
+                // add event handlers, etc, as needed..
+                menu.getItems().add(menuItem);
+            }
+        return tg;
+    }
+
     public ResultSet getCodF(final String title){
 
         String query = "select codF from Film where titolo = ?";
@@ -188,11 +207,14 @@ public class QueryTeller {
 
     }
     public ResultSet oggettiInMagazzino(final int nM){
-        String query = "select oggettidiscena.tipo, oggettidiscena.descrizione, posizionemagazzino.scaffale, posizionemagazzino.percorso " +
-                       "from posizionemagazzino inner join oggettidiscena on posizionemagazzino.codP = oggettidiscena.codP where posizionemagazzino.numMagazzino = "+nM+";";
+        //String query = "select oggettidiscena.tipo, oggettidiscena.descrizione, posizionemagazzino.scaffale, posizionemagazzino.percorso " +
+           //            "from posizionemagazzino inner join oggettidiscena on posizionemagazzino.codP = oggettidiscena.codP where posizionemagazzino.numMagazzino = "+nM+";";
+        String query = "    select *  from OggettoScena o join OggettiDiScena os on (o.codO=os.codO)\n" +
+                "    join PosizioneMagazzino pm on (pm.codP=os.codP)     where pm.numMagazzino = ?;";
         ResultSet result = null;
         try(Statement statement = connection.createStatement()) {
             PreparedStatement stmt = this.connection.prepareStatement(query);
+            stmt.setInt(1,nM);
             result = stmt.executeQuery();
         }catch (SQLException e){
             System.out.println(result);

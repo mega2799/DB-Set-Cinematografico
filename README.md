@@ -14,7 +14,8 @@ Risolvere i TODO in giro
 
 ## Struttura del progetto
 
-La presente documentazione tratta nel dettaglio la progettazione e l’implementazione dell’elaborato "Set cinematografico" di Michele Nardini ()  Santoro Matteo(881608)
+La presente documentazione tratta nel dettaglio la progettazione e l’implementazione dell’elaborato   
+"Set cinematografico" di Michele Nardini ()  Santoro Matteo(0000881608) Manuel Luzietti()
 
 ## Struttura:
 - [Set Cinematografico](#set-cinematografico)
@@ -39,6 +40,8 @@ La presente documentazione tratta nel dettaglio la progettazione e l’implement
     - [4.12 Aggiunta Membro Troupe](#412-aggiunta-membro-troupe)
     - [4.13 Distribuzione](#413-distribuzione)
     - [4.14 Costumi e Magazzini](#414-costumi-e-magazzini)
+    - [4.15 Sponsor, Finanziatori e Fondo](#415-sponsor-finanziatori-e-fondo)
+    - [4.16 Retribuzione Membro_Troupe](#416-retribuzione-membro-troupe)
 - [5 Specifiche funzionali](#5-specifiche-funzionali)
   - [5.1 Stipendio membri della troupe](#51-stipendio-membri-della-troupe)
 - [5.2 Elenco oggetti acquistati in magazzino](#52-elenco-oggetti-acquistati-in-magazzino)
@@ -49,8 +52,9 @@ La presente documentazione tratta nel dettaglio la progettazione e l’implement
 - [5.7 Oggetti in scena](#57-oggetti-in-scena)
 - [5.8 Stipendio netto dipendente](#58-stipendio-netto-dipendente)
 - [6 Il Progetto Logico](#6-il-progetto-logico)
-- [6.1 Traduzione delle entita](#61-traduzione-delle-entita)
-- [6.2 Creazione delle tables](#62-creazione-delle-tables)
+- [6.1 Frequenza e costo degli accessi](#62-frequenza-e-costo-degli-accessi)
+- [6.2 Traduzione delle entita](#62-traduzione-delle-entita)
+- [6.3 Creazione delle tables](#63-creazione-delle-tables)
   - [# Special thanks](#-special-thanks)
   - [possibili query per noi](#possibili-query-per-noi)
 
@@ -275,21 +279,68 @@ INSERT IGNORE INTO PosizioneMagazzino(codP,numMagazzino,scaffale, percorso)
 VALUES(25588, 1, 2, 'S');
 ```
 
-# 5 Specifiche funzionali
+### 4.15 Sponsor, Finanziatori e Fondo
+Per poter procedere alla realizzazione di un film, quest'ultimo avrà bisogno di una serie
+di fondi che andranno a contribuire alle spese.
+Per fare ciò inseriremo prima una serie di Sponsor e Finanziatori, seguiti da una entità fondo
+aventi due foreign key associate opzionalmente o allo sponsor o al finanziatore(ipotizzando che
+un fondo può essere o di uno sponsor o di un finanziatore).
 
+```sql 
+INSERT IGNORE INTO Sponsor(P_IVA_SPONSOR, nome)
+    -- Samsung
+    VALUES('53179880082', 'Samsung Galaxy');
+
+INSERT IGNORE INTO Finanziatore(P_IVA_FINANZIATORE, nome,codInd ,percentualeGuadagno)
+    -- Finanziatore 1
+    VALUES('31562270996', 'Micheal Barnaby', 49429, 1.8);
+
+INSERT IGNORE INTO Fondo(codFondo, dataAccredito, patrimonio, P_IVA_SPONSOR, P_IVA_FINANZIATORE,codF)
+    -- george lucas ha contribuito al fondo
+    VALUES (1, '1977-01-05', 2000000, '53179880082', null, 1);
+```
+
+### 4.16 Retribuzione Membro Troupe
+Avendo creato in precedenza un membro troupe, ora potremo creare le varie busta paga per
+quel determinato membro troupe usando una entità busta paga contentente tutte le informazioni
+dello stipendio del dipendente e una entità retribuzione che avrà lo scopo di associare un membro troupe
+alla propria busta paga
+
+```sql 
+INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono,
+							codInd, percentualeContributo)
+	-- produttore esecutivo George Lucas
+	VALUES ('MRKHML25IS51', 'Mark', 'Hamill', 'GB56BARC20038438638758',
+    			'1951/09/25', '214-989-5138', 37065, NULL);
+
+INSERT IGNORE INTO BustaPaga(codB, retribuzioneOraria, oreLavorate, mese)
+    -- luke skywalker
+    VALUES (47918, 32, 111.2, 'aprile');
+
+INSERT IGNORE INTO Retribuzione(CF, CodB) 
+    -- luke
+    VALUES  ('MRKHML25IS51', 47918);
+```
+
+# 5 Specifiche funzionali
+Ora andremo a svolgere le seguenti operazioni
 
 ## 5.1 Stipendio membri della troupe
 Query creata per poter calcolare lo stipendio della troupe per un mese, ottenuta collezionando  
-le busta paga dei lavoratori.
+le busta paga dei lavoratori, in altre parole il costo della troupe mensile, il tutto ottenuto 
+selezionando il Film per il quale si desidera conoscere la cifra.
 
 ```sql 
-	    select @stipendi :=  sum(retribuzioneOraria * oreLavorate) as Stipendi 
-	    from BustaPaga 
-	    where mese = ?;
+	    select @stipendi :=  sum(retribuzioneOraria * oreLavorate) as CostoTroupe_Mese from 
+        BustaPaga b join Retribuzione r on (b.codB = r.codB )
+        join Film_Membro_Troupe flm on (r.CF = flm.CF)  where mese = ?
+        and codF = ?;
 ```
 
 # 5.2 Elenco oggetti acquistati in magazzino
-Trova la posizione in un dato magazzino di tutti gli oggetti acquistati 
+Trova la posizione in un dato magazzino di tutti gli oggetti acquistati specificandone
+magazzino,percorso,scaffale.
+
 
 ```sql
     select *  from OggettoScena o join OggettiDiScena os on (o.codO=os.codO)
@@ -297,6 +348,10 @@ Trova la posizione in un dato magazzino di tutti gli oggetti acquistati
 ```
 
 # 5.3 Profitto finanziatori
+Query creata poter calcolare il profitto ottenuto dai finanziatori grazie al finanziamento
+di uno specifico film.
+Tale profitto è calcolato anche in base alla percentuale di guadagno stabilita.
+
 
 ```sql
     select @Denaro := sum(incasso) as money FROM Incasso;
@@ -306,6 +361,8 @@ Trova la posizione in un dato magazzino di tutti gli oggetti acquistati
 ```
 
 # 5.4 Luoghi riprese
+Query creata per poter definire in uno specifico giorno, durante la realizzazione di un film, dove i vari membri
+della troupe dovranno recarsi per effettuare una determinata scena.
 
 ```sql
     select distinct i.*
@@ -314,6 +371,9 @@ Trova la posizione in un dato magazzino di tutti gli oggetti acquistati
     where f.titolo=?;
 ```
 # 5.5 Costumi da usare per scena
+Query creata per definire i costumi che saranno da usare nella realizzazione di una determinate scena
+e che dovrà indossare un attore X
+
 ```sql
     select i.*
     from ScenaCiak sc join CostumeScena cs on (cs.codScena=sc.codScena)
@@ -339,6 +399,8 @@ Trova la posizione in un dato magazzino di tutti gli oggetti acquistati
     where sc.codScena=?;
 ```
 # 5.8 Stipendio netto dipendente
+Definisce lo stipendio di un determinato membro della troupe in un dato mese, calcolandolo 
+moltiplicando la retribuzione oraria stabilita mediante contratto e le ore lavorate
 ```sql
   select @stipendio := sum(retribuzioneOraria * oreLavorate) as Stipendio
   from BustaPaga bp join Retribuzione r on (bp.codB = r.codB)
@@ -346,7 +408,10 @@ Trova la posizione in un dato magazzino di tutti gli oggetti acquistati
 ```
 # 6 Il Progetto Logico
 
-# 6.1 Traduzione delle entita
+# 6.1 Frequenza e costo degli accessi
+![](/res/frequenzaEAccessi.PNG)
+
+# 6.2 Traduzione delle entita
 
 * SerieLetteraria(__*idSerie*__, titolo, genere, CF)
     + FK: CF REFERENCES __Membro_troupe__
