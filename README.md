@@ -53,8 +53,9 @@ La presente documentazione tratta nel dettaglio la progettazione e l’implement
 - [5.8 Stipendio netto dipendente](#58-stipendio-netto-dipendente)
 - [6 Il Progetto Logico](#6-il-progetto-logico)
 - [6.1 Frequenza e costo degli accessi](#62-frequenza-e-costo-degli-accessi)
-- [6.2 Traduzione delle entita](#62-traduzione-delle-entita)
-- [6.3 Creazione delle tables](#63-creazione-delle-tables)
+- [6.2 Volume dati del database](#62-volume-dati-del-database)
+- [6.3 Traduzione delle entita](#62-traduzione-delle-entita)
+- [6.4 Creazione delle tables](#63-creazione-delle-tables)
   - [# Special thanks](#-special-thanks)
   - [possibili query per noi](#possibili-query-per-noi)
 
@@ -411,10 +412,10 @@ moltiplicando la retribuzione oraria stabilita mediante contratto e le ore lavor
 # 6.1 Frequenza e costo degli accessi
 ![](/res/frequenzaEAccessi.PNG)
 
-# 6.2 Traduzione delle entita
+# 6.2 Volume dati del database
+![](/res/volume.PNG)
 
-* SerieLetteraria(__*idSerie*__, titolo, genere, CF)
-    + FK: CF REFERENCES __Membro_troupe__
+# 6.3 Traduzione delle entita
 
 * Film(__*codF*__, titolo, genere ,durata, dataUscita, idSerie[0-1])
     + FK: idSerie REFERENCES __Serie_Letteraria__
@@ -432,13 +433,10 @@ moltiplicando la retribuzione oraria stabilita mediante contratto e le ore lavor
     + FK: codInd REFERENCES __Indirizzo__
     + FK: P.IVA_ENTE REFERENCES __Ente__
 
-* Incasso(percentualeTrattenute, __*codF*__, __*indSede*__)
-    + FK: codFr REFERENCES __Film__
-    + FK: indSede REFERENCES __Sede__
+* Incasso(dataInizio, dataFine, incasso, __*codF*__, __*codInd*__)
+    + FK: codF REFERENCES __Film__
+    + FK: codInd REFERENCES __Indirizzo__
 
-* Incasso_settimanale(__*idIncasso*__, __*dataInizio*__, __*dataFine*__, incasso, codF, codInd)
-	+ FK: codF REFERENCES __Film__
-	+ FK: codInd REFERENCES __Indirizzo__
 
 * Fondo(__*codFondo*__, dataAccredito, patrimonio, P_IVA_SPONSOR[0, 1], P.IVA_FINANZIATORE[0, 1], CF, codF)
     + FK: P.IVA_SPONSOR REFERENCES __Sponsor__
@@ -524,7 +522,7 @@ moltiplicando la retribuzione oraria stabilita mediante contratto e le ore lavor
 * Ditta(__*P.IVA_DITTA*__, nome,codInd)
     + FK: codInd REFERENCES __Indirizzo__
 
-# 6.2 Creazione delle tables
+# 6.4 Creazione delle tables
 ```sql
 CREATE TABLE if not exists Indirizzo(
         codInd int primary key,
