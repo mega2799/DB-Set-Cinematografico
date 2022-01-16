@@ -189,7 +189,7 @@
                                  <Separator prefHeight="0.0" prefWidth="206.0" />
                                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                                     <children>
-                                       <MenuButton mnemonicParsing="false" text="Seleziona Film" />
+                                       <MenuButton fx:id="filmSelection_finanziatore" mnemonicParsing="false" text="Seleziona Film" />
                                        <Button mnemonicParsing="false" text="Button" />
                                     </children>
                                  </HBox>
@@ -216,7 +216,7 @@
                                  <Separator prefHeight="0.0" prefWidth="206.0" />
                                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                                     <children>
-                                       <MenuButton mnemonicParsing="false" text="Seleziona Film" />
+                                       <MenuButton fx:id="filmSelection_incasso" mnemonicParsing="false" text="Seleziona Film" />
                                        <Button mnemonicParsing="false" text="Button" />
                                     </children>
                                  </HBox>
@@ -226,9 +226,7 @@
                                  <DatePicker fx:id="dataFine_field" />
                                  <Label text="Incasso" />
                                  <TextField fx:id="incasso_field" />
-                                 <Label layoutX="10.0" layoutY="94.0" text="Codice Film" />
-                                 <TextField fx:id="codFilmIncasso_field" layoutX="10.0" layoutY="111.0" />
-                                 <Label layoutX="10.0" layoutY="136.0" text="Codice Indirizzo" />
+                                 <Label layoutX="10.0" layoutY="136.0" text="Cod. Indirizzo sede t." />
                                  <TextField fx:id="codIndirizzoIncasso_field" layoutX="10.0" layoutY="153.0" />
                                  <Label />
                                  <Button fx:id="incasso_insertButton" mnemonicParsing="false" onMouseClicked="#incasso_insertButton_clicked" text="Insert" />

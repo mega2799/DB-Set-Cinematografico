@@ -131,11 +131,20 @@ public class InsertNew {
     }
 
 
-    public void incasso(final String dataInizio, final String dataFine, final int incasso, final String codF, final String codInd){
-        if(checkFilm(codF) && checkAddress(codInd)) {
+    public void incasso(final String dataInizio, final String dataFine, final int incasso, final String film, final String codInd){
+        ResultSet result = new QueryTeller().getCodF(film);
+        String codF = null;
+        try {
+            result.next();
+            codF = result.getString("codF");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(checkAddress(codInd)) {
             String query = "INSERT IGNORE INTO Incasso(dataInizio,dataFine,incasso, codF, codInd) " +
                     "VALUES (\'" + dataInizio + "\', \'" + dataFine + "\', \'" + incasso + "\', \'" + codF + "\', \'" + codInd + "\');";
             try (Statement statement = connection.createStatement()) {
+                System.out.println(query);
                 System.out.println("affected rows:" + statement.executeUpdate(query));
                 connection.commit();
             } catch (SQLException e) {
@@ -167,7 +176,16 @@ public class InsertNew {
         }
     }
 
-    public void finanziatore(final String partitaIva, final String nome, final String codInd, float pGuadagno){
+    public void finanziatore(final String partitaIva, final String nome, final String codInd, float pGuadagno,String film){
+        String codF = null;
+        try {
+            ResultSet result = new QueryTeller().getCodF(film);
+            result.next();
+            codF = result.getString(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return;
+        }
         if(checkIva(partitaIva)){
             if(!checkAddress(codInd)) {
                 showAlert(Alert.AlertType.ERROR, "Indirizzo non esistente");
@@ -179,6 +197,18 @@ public class InsertNew {
             try(Statement statement = connection.createStatement()) {
                 System.out.println("affected rows:" + statement.executeUpdate(query));
                 connection.commit();
+                query = "insert into fondo(dataAccredito, patrimonio, P_IVA_SPONSOR, P_IVA_FINANZIATORE, codF) values (?,?,?,?,?)";
+                try( PreparedStatement stmt = connection.prepareStatement(query)){
+                    stmt.setDate(1,Date.valueOf(LocalDate.now()));
+                    stmt.setFloat(2,0);
+                    stmt.setNull(3,Types.VARCHAR);
+                    stmt.setString(4,partitaIva);
+                    stmt.setInt(5,Integer.parseInt(codF));
+                    stmt.executeUpdate();
+                    connection.commit();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
             }catch (SQLException e){
                 e.printStackTrace();
             }

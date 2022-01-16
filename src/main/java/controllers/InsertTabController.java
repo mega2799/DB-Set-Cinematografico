@@ -37,170 +37,117 @@ public class InsertTabController {
     private VBox filmVBox;
     @FXML
     private Button operatore_insertButton;
-
     @FXML
     private TextField capIndirizzo_field;
-
     @FXML
     private TextField cfOperatore_field;
-
     @FXML
     private TextField cittaIndirizzo_field;
-
     @FXML
     private TextField civicoIndirizzo_field;
-
     @FXML
     private CheckMenuItem sceneggiatore_field;
-
     @FXML
     private CheckMenuItem produttore_field;
-
     @FXML
     private CheckMenuItem produttoreEsecutivo_field;
-
     @FXML
     private CheckMenuItem attore_field;
-
     @FXML
     private CheckMenuItem aiutoRegista_field;
-
     @FXML
     private CheckMenuItem capoRegista_field;
-
     @FXML
     private CheckMenuItem stilista_field;
-
     @FXML
     private CheckMenuItem operatoreFonico_field;
-
     @FXML
     private CheckMenuItem operatoreFotografico_field;
-
     @FXML
     private TextField codIndirizzoFinanziatore_field;
-
     @FXML
     private TextField codIndirizzoIndirizzo_field;
-
     @FXML
     private TextField codiceIndirizzoEnti_field;
-
     @FXML
     private TextField codiceIndirizzoOperatore_field;
-
     @FXML
     private TextField cognomeOperatore_field;
-
     @FXML
     private DatePicker dataNascitaOperatore_field;
-
     @FXML
     private DatePicker dataUscita_field;
-
     @FXML
     private TextField durata_field;
-
     @FXML
     private Button enti_insertButton;
-
     @FXML
     private Button film_insertButton;
-
     @FXML
     private Button incasso_insertButton;
-
     @FXML
     private Button finanziatore_insertButton;
-
     @FXML
     private TextField genere_field;
-
     @FXML
     private TextField ibanOperatore_field;
-
     @FXML
     private TextField idSerieLetteraria_field;
-
     @FXML
     private Button indirizzo_insertButton;
-
     @FXML
     private TextField nomeEnti_field;
-
     @FXML
     private TextField nomeFinanziatore_field;
-
     @FXML
     private TextField nomeOperatore_field;
-
     @FXML
     private TextField nomeSponsor_field;
-
     @FXML
     private TextField pIvaEnti_field;
-
     @FXML
     private TextField pIvaFinanziatore_field;
-
     @FXML
     private TextField pIvaSponsor_field;
-
     @FXML
     private TextField percentualeContributoOperatore_field;
-
     @FXML
     private TextField percentualeGuadagnoFinanziatore_field;
-
     @FXML
     private MenuButton ruoloOperatore_field;
-
     @FXML
     private Button sponsor_insertButton;
-
     @FXML
     private TextField telefonoOperatore_field;
-
     @FXML
     private TextField tipoOperatore_field;
-
     @FXML
     private TextField titolo_field;
-
     @FXML
     private TextField viaIndirizzo_field;
-
     @FXML
     private DatePicker dataInizio_field;
-
     @FXML
     private DatePicker dataFine_field;
-
     @FXML
     private TextField incasso_field;
-
     @FXML
     private TextField codIndirizzoIncasso_field;
-
-    @FXML
-    private TextField codFilmIncasso_field;
-
     @FXML
     private TabPane tabPane;
     @FXML
     private MenuButton filmSelection_operatoreTroupe;
     @FXML
     private MenuButton filmSelection_sponsor;
-
+    @FXML
+    private MenuButton filmSelection_incasso;
+    @FXML
+    private MenuButton filmSelection_finanziatore;
 
     private DBConnection DbC;
-
     private InsertNew insertNew;
-
     private Tab visualization1;
-
     private Tab query;
-
     private Stage stage;
     private List<VBox> listVBox;
 
@@ -248,7 +195,12 @@ public class InsertTabController {
 
     @FXML
     void finanziatore_insertButton_clicked(MouseEvent event) {
-        this.insertNew.finanziatore(pIvaFinanziatore_field.getText(),nomeFinanziatore_field.getText(), codIndirizzoFinanziatore_field.getText(), Float.parseFloat(percentualeGuadagnoFinanziatore_field.getText()));
+        Optional<String> selectedFilm = filmSelection_finanziatore.getItems().stream().filter((MenuItem x)->((RadioMenuItem)x).isSelected()).map(x->x.getText()).findFirst();
+        if(selectedFilm.isEmpty()){
+            insertNew.showAlert(Alert.AlertType.ERROR,"film not selected");
+            return;
+        }
+        this.insertNew.finanziatore(pIvaFinanziatore_field.getText(),nomeFinanziatore_field.getText(), codIndirizzoFinanziatore_field.getText(), Float.parseFloat(percentualeGuadagnoFinanziatore_field.getText()),selectedFilm.get());
         pIvaFinanziatore_field.clear();
         nomeFinanziatore_field.clear();
         codIndirizzoFinanziatore_field.clear();
@@ -306,12 +258,16 @@ public class InsertTabController {
 
     @FXML
     void incasso_insertButton_clicked(MouseEvent event){
+        Optional<String> selectedFilm = filmSelection_incasso.getItems().stream().filter((MenuItem x)->((RadioMenuItem)x).isSelected()).map(x->x.getText()).findFirst();
+        if(selectedFilm.isEmpty()){
+            insertNew.showAlert(Alert.AlertType.ERROR,"film not selected");
+            return;
+        }
         this.insertNew.incasso(dataInizio_field.getValue().toString(), dataFine_field.getValue().toString(),
-                Integer.parseInt(incasso_field.getText()), codFilmIncasso_field.getText(), codIndirizzoIncasso_field.getText());
+                Integer.parseInt(incasso_field.getText()), selectedFilm.get(), codIndirizzoIncasso_field.getText());
         dataInizio_field.setValue(null);
         dataFine_field.setValue(null);
         incasso_field.clear();
-        codFilmIncasso_field.clear();
         codIndirizzoIncasso_field.clear();
     }
 
@@ -340,6 +296,8 @@ public class InsertTabController {
         QueryTeller queryTeller = new QueryTeller();
         queryTeller.setMenuButton(this.filmSelection_operatoreTroupe, "SELECT * FROM Film", "titolo");
         queryTeller.setMenuButton(this.filmSelection_sponsor, "SELECT * FROM Film", "titolo");
+        queryTeller.setMenuButton(this.filmSelection_finanziatore,"SELECT * FROM Film", "titolo");
+        queryTeller.setMenuButton(this.filmSelection_incasso,"SELECT * FROM Film", "titolo");
     }
 
     @FXML
