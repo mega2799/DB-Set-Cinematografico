@@ -63,12 +63,30 @@ public class InsertNew {
         alert.showAndWait();
     }
 
-    public void sponsor(final String partitaIva, final String nome){
+    public void sponsor( final String partitaIva, final String nome,String film){
+        String codF = null;
+        try {
+            ResultSet result = new QueryTeller().getCodF(film);
+            result.next();
+            codF = result.getString(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return;
+        }
         if(checkIva(partitaIva)) {
             String query = "INSERT IGNORE INTO Sponsor(P_IVA_SPONSOR, nome) VALUES(" + "\'" + partitaIva + "\', " + "\'" + nome + "\');";
             System.out.println(query);
             try(Statement statement = connection.createStatement()) {
                 System.out.println("affected rows:" + statement.executeUpdate(query));
+                connection.commit();
+                query = "insert into fondo(dataAccredito, patrimonio, P_IVA_SPONSOR, P_IVA_FINANZIATORE, codF) values (?,?,?,?,?)";
+                PreparedStatement stmt = connection.prepareStatement(query);
+                stmt.setDate(1,Date.valueOf(LocalDate.now()));
+                stmt.setFloat(2,0);
+                stmt.setString(3,partitaIva);
+                stmt.setNull(4,Types.VARCHAR);
+                stmt.setInt(5,Integer.parseInt(codF));
+                stmt.executeUpdate();
                 connection.commit();
             }catch (SQLException e){
                 e.printStackTrace();

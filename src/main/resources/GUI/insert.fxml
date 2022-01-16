@@ -12,6 +12,7 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -27,7 +28,18 @@
                   <content>
                         <AnchorPane prefHeight="720.0" prefWidth="1080.0">
                         <children>
-                           <VBox layoutX="37.0" layoutY="81.0" maxHeight="346.0" maxWidth="205.0" prefHeight="346.0" prefWidth="205.0" AnchorPane.bottomAnchor="354.0" AnchorPane.leftAnchor="37.0" AnchorPane.topAnchor="81.0">
+                           <ToolBar prefHeight="40.0" prefWidth="1080.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                             <items>
+                               <Button mnemonicParsing="false" onAction="#filmActionToolbar" text="Film" />
+                                 <Button mnemonicParsing="false" onAction="#indirizzoActionToolbar" text="Indirizzo" />
+                                 <Button mnemonicParsing="false" onAction="#entiActionToolbar" text="Enti" />
+                                 <Button mnemonicParsing="false" onAction="#operatoreActionToolbar" text="Operatore" />
+                                 <Button mnemonicParsing="false" onAction="#sponsorActionToolbar" text="Sponsor" />
+                                 <Button mnemonicParsing="false" onAction="#finanziatoreActionToolbar" text="Finanziatore" />
+                                 <Button mnemonicParsing="false" onAction="#incassoActionToolbar" text="Incasso" />
+                             </items>
+                           </ToolBar>
+                           <VBox fx:id="filmVBox" layoutX="37.0" layoutY="81.0" maxHeight="346.0" maxWidth="205.0" prefHeight="346.0" prefWidth="205.0" AnchorPane.bottomAnchor="354.0" AnchorPane.leftAnchor="37.0" AnchorPane.topAnchor="81.0">
                               <children>
                                  <Group />
                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="208.0" text="FILM" textAlignment="CENTER">
@@ -54,7 +66,7 @@
                                  </Button>
                               </children>
                            </VBox>
-                           <VBox layoutX="279.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="299.0" prefWidth="230.0" AnchorPane.topAnchor="81.0">
+                           <VBox fx:id="indirizzoVBox" layoutX="37.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="299.0" prefWidth="230.0" AnchorPane.leftAnchor="37.0" AnchorPane.topAnchor="81.0">
                               <children>
                                  <Group />
                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="208.0" text="INDIRIZZO" textAlignment="CENTER">
@@ -77,7 +89,7 @@
                                  <Button fx:id="indirizzo_insertButton" mnemonicParsing="false" onMouseClicked="#indirizzo_insertButton_clicked" text="Insert" />
                               </children>
                            </VBox>
-                           <VBox layoutX="814.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="493.0" prefWidth="252.0" AnchorPane.leftAnchor="814.0" AnchorPane.topAnchor="81.0">
+                           <VBox fx:id="operatoreVBox" layoutX="36.0" layoutY="84.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="493.0" prefWidth="252.0" AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="84.0">
                               <children>
                                  <Group />
                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="208.0" text="Operatore Troupe" textAlignment="CENTER">
@@ -125,7 +137,7 @@
                                  <Button fx:id="operatore_insertButton" mnemonicParsing="false" onMouseClicked="#operatore_insertButton_clicked" text="Insert" />
                               </children>
                            </VBox>
-                           <VBox layoutX="564.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="223.0" prefWidth="206.0" AnchorPane.leftAnchor="564.0" AnchorPane.topAnchor="81.0">
+                           <VBox fx:id="entiVBox" layoutX="36.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="223.0" prefWidth="206.0" AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="81.0">
                               <children>
                                  <Group />
                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="208.0" text="ENTI" textAlignment="CENTER">
@@ -144,7 +156,7 @@
                                  <Button fx:id="enti_insertButton" mnemonicParsing="false" onMouseClicked="#enti_insertButton_clicked" text="Insert" />
                               </children>
                            </VBox>
-                           <VBox layoutX="37.0" layoutY="450.0" maxHeight="180.0" maxWidth="206.0" prefHeight="180.0" prefWidth="206.0" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="37.0" AnchorPane.topAnchor="450.0">
+                           <VBox fx:id="sponsorVBox" layoutX="35.0" layoutY="81.0" maxHeight="180.0" maxWidth="206.0" prefHeight="180.0" prefWidth="206.0" AnchorPane.bottomAnchor="459.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="81.0">
                               <children>
                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="208.0" text="SPONSOR" textAlignment="CENTER">
                                     <font>
@@ -155,8 +167,7 @@
                                  <Separator prefHeight="0.0" prefWidth="206.0" />
                                  <HBox alignment="CENTER" prefHeight="36.0" prefWidth="206.0" spacing="30.0">
                                     <children>
-                                       <MenuButton mnemonicParsing="false" text="Seleziona Film" />
-                                       <Button mnemonicParsing="false" text="Button" />
+                                       <MenuButton fx:id="filmSelection_sponsor" mnemonicParsing="false" prefHeight="26.0" prefWidth="194.0" text="Seleziona Film" />
                                     </children>
                                  </HBox>
                                  <Label text="P.IVA" />
@@ -167,7 +178,7 @@
                                  <Button fx:id="sponsor_insertButton" mnemonicParsing="false" onMouseClicked="#sponsor_insertButton_clicked" text="Insert" />
                               </children>
                            </VBox>
-                           <VBox layoutX="279.0" layoutY="453.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="243.0" prefWidth="206.0" AnchorPane.leftAnchor="279.0">
+                           <VBox fx:id="finanziatoreVBox" layoutX="35.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="243.0" prefWidth="206.0" AnchorPane.leftAnchor="35.0">
                               <children>
                                  <Group />
                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="208.0" text="FINANZIATORE" textAlignment="CENTER">
@@ -194,7 +205,7 @@
                                  <Button fx:id="finanziatore_insertButton" mnemonicParsing="false" onMouseClicked="#finanziatore_insertButton_clicked" text="Insert" />
                               </children>
                            </VBox>
-                           <VBox layoutX="509.0" layoutY="449.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="303.0" prefWidth="290.0">
+                           <VBox fx:id="incassoVBox" layoutX="35.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="303.0" prefWidth="290.0">
                               <children>
                                  <Group />
                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="279.0" text="INCASSO SETTIMANALE" textAlignment="CENTER">

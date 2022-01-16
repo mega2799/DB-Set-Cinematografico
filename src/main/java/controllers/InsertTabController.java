@@ -2,21 +2,39 @@ package controllers;
 import application.DBConnection;
 import application.InsertNew;
 import application.QueryTeller;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javax.management.Query;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class InsertTabController {
-
+    @FXML
+    private VBox incassoVBox;
+    @FXML
+    private VBox finanziatoreVBox;
+    @FXML
+    private VBox sponsorVBox;
+    @FXML
+    private VBox operatoreVBox;
+    @FXML
+    private VBox entiVBox;
+    @FXML
+    private VBox indirizzoVBox;
+    @FXML
+    private VBox filmVBox;
     @FXML
     private Button operatore_insertButton;
 
@@ -171,6 +189,9 @@ public class InsertTabController {
     private TabPane tabPane;
     @FXML
     private MenuButton filmSelection_operatoreTroupe;
+    @FXML
+    private MenuButton filmSelection_sponsor;
+
 
     private DBConnection DbC;
 
@@ -181,6 +202,8 @@ public class InsertTabController {
     private Tab query;
 
     private Stage stage;
+    private List<VBox> listVBox;
+
 
 
     public void initialize(){
@@ -208,6 +231,8 @@ public class InsertTabController {
             e.printStackTrace();
         }
         this.refreshMenuFilm();
+        this.listVBox = new ArrayList<>(List.of(this.filmVBox,this.indirizzoVBox, this.entiVBox, this.operatoreVBox,this.sponsorVBox,this.finanziatoreVBox,this.incassoVBox));
+        this.hideVBoxes();
     }
 
     @FXML
@@ -292,7 +317,12 @@ public class InsertTabController {
 
     @FXML
     void sponsor_insertButton_clicked(MouseEvent event) {
-        this.insertNew.sponsor(pIvaSponsor_field.getText(),nomeSponsor_field.getText());
+        Optional<String> selectedFilm = filmSelection_sponsor.getItems().stream().filter((MenuItem x)->((RadioMenuItem)x).isSelected()).map(x->x.getText()).findFirst();
+        if(selectedFilm.isEmpty()){
+            insertNew.showAlert(Alert.AlertType.ERROR,"film not selected");
+            return;
+        }
+        this.insertNew.sponsor(pIvaSponsor_field.getText(),nomeSponsor_field.getText(),selectedFilm.orElse(null));
         pIvaSponsor_field.clear();
         nomeSponsor_field.clear();
     }
@@ -307,11 +337,56 @@ public class InsertTabController {
     }
 
     private void refreshMenuFilm(){
-        new QueryTeller().setMenuButton(this.filmSelection_operatoreTroupe, "SELECT * FROM Film", "titolo");
+        QueryTeller queryTeller = new QueryTeller();
+        queryTeller.setMenuButton(this.filmSelection_operatoreTroupe, "SELECT * FROM Film", "titolo");
+        queryTeller.setMenuButton(this.filmSelection_sponsor, "SELECT * FROM Film", "titolo");
     }
 
     @FXML
     void refreshButton_clicked(MouseEvent event){
         this.refreshMenuFilm();
+    }
+
+    @FXML
+    void filmActionToolbar(ActionEvent event) {
+        this.hideVBoxes();
+        this.filmVBox.setVisible(this.filmVBox.isVisible() ? false : true);
+    }
+    @FXML
+    void indirizzoActionToolbar(ActionEvent event) {
+        this.hideVBoxes();
+        this.indirizzoVBox.setVisible(this.indirizzoVBox.isVisible() ? false : true);
+    }
+
+    @FXML
+    void entiActionToolbar(ActionEvent event) {
+        this.hideVBoxes();
+        this.entiVBox.setVisible(this.entiVBox.isVisible() ? false : true);
+    }
+    @FXML
+    void operatoreActionToolbar(ActionEvent event) {
+        this.hideVBoxes();
+        this.operatoreVBox.setVisible(this.operatoreVBox.isVisible() ? false : true);
+    }
+    @FXML
+    void sponsorActionToolbar(ActionEvent event) {
+        this.hideVBoxes();
+        this.sponsorVBox.setVisible(this.sponsorVBox.isVisible() ? false : true);
+    }
+
+    @FXML
+    void finanziatoreActionToolbar(ActionEvent event) {
+        this.hideVBoxes();
+        this.finanziatoreVBox.setVisible(this.finanziatoreVBox.isVisible() ? false : true);
+    }
+
+    @FXML
+    void incassoActionToolbar(ActionEvent event) {
+        this.hideVBoxes();
+        this.incassoVBox.setVisible(this.incassoVBox.isVisible() ? false : true);
+    }
+
+    private void hideVBoxes(){
+        this.listVBox.forEach(x -> x.setVisible(false));
     }
 }

@@ -293,7 +293,7 @@ DROP TABLE IF EXISTS `Fondo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Fondo` (
-  `codFondo` varchar(13) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `codFondo` varchar(13) COLLATE utf8mb4_unicode_ci NOT NULL auto_increment,
   `dataAccredito` date NOT NULL,
   `patrimonio` float NOT NULL CHECK (`patrimonio` >= 0),
   `P_IVA_SPONSOR` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
