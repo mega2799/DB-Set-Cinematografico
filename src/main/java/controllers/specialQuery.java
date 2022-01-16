@@ -180,11 +180,6 @@ public class specialQuery {
         refreshTable();
     }
 
-    @FXML
-    void profitto_finanzziatori_clicked(MouseEvent e ){
-       return;
-    }
-
 
     @FXML
     void attori_in_scena_clicked(MouseEvent e ){
@@ -219,4 +214,24 @@ public class specialQuery {
         refreshTable();
     }
 
+
+    @FXML
+    void profitto_finanzziatori_clicked(MouseEvent e ){
+        if(filmCheck()){
+            showAlert(Alert.AlertType.ERROR,"Non hai selezionato il Film");
+            return;
+        }
+        rs = queryTeller.profittoFinanziatori(CODFILM);
+        refreshTable();
+    }
+
+    @FXML
+    void stipendio_prod_clicked(MouseEvent e){
+        if(filmCheck()){
+            showAlert(Alert.AlertType.ERROR,"Non hai selezionato il Film");
+            return;
+        }
+        rs = queryTeller.guadagnoProduttori(CODFILM);
+        refreshTable();
+    }
 }

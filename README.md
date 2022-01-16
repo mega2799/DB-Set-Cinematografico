@@ -357,8 +357,9 @@ Tale profitto è calcolato anche in base alla percentuale di guadagno stabilita.
 ```sql
     select @Denaro := sum(incasso) as money FROM Incasso;
     select distinct F.nome, F.percentualeGuadagno, (F.percentualeGuadagno / 100 * @Denaro ) as guadagno
-    from Finanziatore F
-    where F.percentualeGuadagno is not null;
+    from Finanziatore F join Fondo ff on (F.P_IVA_FINANZIATORE = ff.P_IVA_FINANZIATORE)
+    where F.percentualeGuadagno is not null
+    and codF = ?;
 ```
 
 # 5.4 Luoghi riprese
@@ -406,6 +407,16 @@ moltiplicando la retribuzione oraria stabilita mediante contratto e le ore lavor
   select @stipendio := sum(retribuzioneOraria * oreLavorate) as Stipendio
   from BustaPaga bp join Retribuzione r on (bp.codB = r.codB)
   where r.CF = ?; 
+```
+
+# 5.8 Profitto produttori 
+Server per poter calcolare quanti soldi riescono a ricavare dalla produzione di un film i produttori  
+e chiunque lavori all'interno e riceva una percentuale dagli incassi.
+```sql
+  select @Denaro := sum(incasso) as money FROM Incasso;
+  select distinct M.nome, M.cognome,M.percentualeContributo, (M.percentualeContributo / 100 * @Denaro ) as guadagno, Rm.nomeRuolo 
+  from Incasso I, MembroTroupe M, RuoloMembroTroupe Rm join Film_Membro_Troupe flm on (Rm.CF = flm.CF) 
+  where (M.CF = Rm.CF) and flm.codF = ? and M.percentualeContributo is not null; 
 ```
 # 6 Il Progetto Logico
 

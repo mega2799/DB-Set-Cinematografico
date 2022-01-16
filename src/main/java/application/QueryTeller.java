@@ -15,35 +15,24 @@ public class QueryTeller {
         this.connection = DBConnection.getConnection();
     }
 
-    public ResultSet guadagnoFinanziatoriProduttori(){
-        String query = "select @Denaro := sum(incasso) as money FROM Incasso;\n" +
-                "    select distinct M.nome, M.cognome,M.percentualeContributo, (M.percentualeContributo / 100 * @Denaro ) as guadagno, Rm.nomeRuolo\n" +
-                "    from Incasso I, MembroTroupe M, RuoloMembroTroupe Rm\n" +
-                "    where (M.CF = Rm.CF) and M.percentualeContributo is not null;";
+    public ResultSet guadagnoProduttori(final String codF){
+        String query = "select @Denaro := sum(incasso) as money FROM Incasso;\n";
+                String query2 = "select distinct M.nome, M.cognome,M.percentualeContributo, (M.percentualeContributo / 100 * @Denaro ) as guadagno, Rm.nomeRuolo \n" +
+                "from Incasso I, MembroTroupe M, RuoloMembroTroupe Rm join Film_Membro_Troupe flm on (Rm.CF = flm.CF) \n" +
+                "where (M.CF = Rm.CF) and flm.codF = ? and M.percentualeContributo is not null;";
         ResultSet result = null;
         try {
             PreparedStatement stmt = this.connection.prepareStatement(query);
-            result = stmt.executeQuery();
+            stmt.executeQuery();
+            PreparedStatement stmt2 = this.connection.prepareStatement(query2);
+            stmt2.setString(1, codF);
+            result = stmt2.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return result;
     }
 
-    public ResultSet guadagnoProduttori(){
-        String query = "select @Denaro := sum(incasso) as money FROM Incasso;\n" +
-                "    select distinct M.nome, M.cognome,M.percentualeContributo, (M.percentualeContributo / 100 * @Denaro ) as guadagno, Rm.nomeRuolo\n" +
-                "    from Incasso I, MembroTroupe M, RuoloMembroTroupe Rm\n" +
-                "    where (M.CF = Rm.CF) and M.percentualeContributo is not null;";
-        ResultSet result = null;
-        try {
-            PreparedStatement stmt = this.connection.prepareStatement(query);
-            result = stmt.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
 
     // TODO lavare questa query, fa schifo,  anche da README e da .fxml
     public ResultSet luoghiFilm(final String title){
@@ -158,6 +147,44 @@ public class QueryTeller {
         }
         return result;
     }
+
+    public ResultSet profittoFinanziatori(final String codF){
+        String query = "select @Denaro := sum(incasso) as money FROM Incasso;\n";
+        String query2 = "    select distinct F.nome, F.percentualeGuadagno, (F.percentualeGuadagno / 100 * @Denaro ) as guadagno\n" +
+                "    from Finanziatore F join Fondo ff on (F.P_IVA_FINANZIATORE = ff.P_IVA_FINANZIATORE)\n" +
+                "    where F.percentualeGuadagno is not null\n" +
+                "    and codF = ?;";
+        ResultSet result = null;
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(query);
+            stmt.executeQuery();
+            PreparedStatement stmt2 = this.connection.prepareStatement(query2);
+            stmt2.setString(1, codF);
+            result = stmt2.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+/*
+    public ResultSet profittoFinanziatori(final String codF){ // TODO queste con la variabile non funzionano shit
+        String query = "select @Denaro := sum(incasso) as money FROM Incasso;\n" +
+                "    select distinct F.nome, F.percentualeGuadagno, (F.percentualeGuadagno / 100 * @Denaro ) as guadagno\n" +
+                "    from Finanziatore F join Fondo ff on (F.P_IVA_FINANZIATORE = ff.P_IVA_FINANZIATORE)\n" +
+                "    where F.percentualeGuadagno is not null\n" +
+                "    and codF = ?;";
+        ResultSet result = null;
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(query);
+            stmt.setString(1, codF);
+            result = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+*/
 
     public ToggleGroup setMenuButton(MenuButton menu, String query, String column) {
         ToggleGroup tg = new ToggleGroup();
