@@ -22,7 +22,7 @@
                         <Button fx:id="okButton" mnemonicParsing="false" onMouseClicked="#filmSelOK" prefHeight="24.0" prefWidth="95.0" text="OK" />
                      </children>
                   </HBox>
-                  <Button layoutX="43.0" layoutY="81.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="203.0" text="Stipendio Membri Troupe" />
+                  <Button layoutX="43.0" layoutY="81.0" mnemonicParsing="false" onMouseClicked="#stipendio_troupe" prefHeight="24.0" prefWidth="203.0" text="Stipendio Membri Troupe" />
                   <Button layoutX="43.0" layoutY="38.0" mnemonicParsing="false" onMouseClicked="#profitto_finanzziatori_clicked" text="Profitto Finanziatori" />
                   <Button layoutX="334.0" layoutY="38.0" mnemonicParsing="false" text="Costumi Scena" />
                   <Button layoutX="517.0" layoutY="38.0" mnemonicParsing="false" onMouseClicked="#attori_in_scena_clicked" text="Dipendenti Scena" />
@@ -35,6 +35,7 @@
                     </buttons>
                   </ButtonBar>
                   <MenuButton fx:id="scene_menu_bar" layoutX="668.0" layoutY="57.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="124.0" text="Scene in film" />
+                  <MenuButton fx:id="month_sel" layoutX="254.0" layoutY="81.0" mnemonicParsing="false" text="mese" />
                </children>
             </AnchorPane>
             <TableView fx:id="queryView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#attori_in_scena_clicked" prefHeight="620.0" prefWidth="1080.0" />

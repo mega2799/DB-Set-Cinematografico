@@ -14,7 +14,8 @@ Risolvere i TODO in giro
 
 ## Struttura del progetto
 
-La presente documentazione tratta nel dettaglio la progettazione e l’implementazione dell’elaborato "Set cinematografico" di Michele Nardini ()  Santoro Matteo(881608)
+La presente documentazione tratta nel dettaglio la progettazione e l’implementazione dell’elaborato   
+"Set cinematografico" di Michele Nardini ()  Santoro Matteo(0000881608) Manuel Luzietti()
 
 ## Struttura:
 - [Set Cinematografico](#set-cinematografico)
@@ -280,12 +281,14 @@ VALUES(25588, 1, 2, 'S');
 
 ## 5.1 Stipendio membri della troupe
 Query creata per poter calcolare lo stipendio della troupe per un mese, ottenuta collezionando  
-le busta paga dei lavoratori.
+le busta paga dei lavoratori, in altre parole il costo della troupe mensile, il tutto ottenuto 
+selezionando il Film per il quale si desidera conoscere la cifra.
 
 ```sql 
-	    select @stipendi :=  sum(retribuzioneOraria * oreLavorate) as Stipendi 
-	    from BustaPaga 
-	    where mese = ?;
+	    select @stipendi :=  sum(retribuzioneOraria * oreLavorate) as CostoTroupe_Mese from 
+        BustaPaga b join Retribuzione r on (b.codB = r.codB )
+        join Film_Membro_Troupe flm on (r.CF = flm.CF)  where mese = ?
+        and codF = ?;
 ```
 
 # 5.2 Elenco oggetti acquistati in magazzino
