@@ -36,7 +36,7 @@ SPONSOR = []
 
 for i in range(VALUES + NumFinanziatori):
     INDIRIZZO.append([random_with_N_digits(5),f.city(),f.street_name(),f.building_number(), int(f.postcode())])
-# print(INDIRIZZO)
+    print(INDIRIZZO[i])
 
 
 def dateparse(d):
@@ -60,12 +60,13 @@ for i in range(VALUES):
 
 for i in range(NumFinanziatori):
     FINANZIATORE.append([f.iban(), random.choice(AZIENDE), INDIRIZZO[VALUES + i][0], random.random()])
+    print("ind finanziatore: " + str(FINANZIATORE[i][2]))
 
 file = open("fakeData.sql", "w")
 
 file.write("INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP) VALUES ") 
 for i in range(VALUES + NumFinanziatori): 
-    file.write("\n" + str(INDIRIZZO[i]).replace("[", "(").replace("]", ")") + ", ")
+    file.write("\n" + str(INDIRIZZO[i]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")
 
 file.write("INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono, codInd) VALUES ") 
@@ -109,12 +110,12 @@ file.write(";\n")
 
 file.write("INSERT IGNORE INTO Fondo(codFondo, dataAccredito, patrimonio, P_IVA_SPONSOR, P_IVA_FINANZIATORE, codF) VALUES ")
 for i in range(NumFinanziatori):
-    file.write("\n " + str([random_with_N_digits(5), f.date(), random_with_N_digits(6), NULL, FINANZIATORE[i][0], codFilm]).replace("[", "(").replace("]", ")") + ",")
+    file.write("\n " + str([random_with_N_digits(5), f.date(), random_with_N_digits(6), 'null', FINANZIATORE[i][0], codFilm]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")
 
 file.write("INSERT IGNORE INTO Fondo(codFondo, dataAccredito, patrimonio, P_IVA_SPONSOR, P_IVA_FINANZIATORE, codF) VALUES ")
 for i in SPONSOR:
-    file.write("\n " + str([random_with_N_digits(5), f.date(), random_with_N_digits(6), i[0] , NULL, codFilm]).replace("[", "(").replace("]", ")") + ",")
+    file.write("\n " + str([random_with_N_digits(5), f.date(), random_with_N_digits(6), i[0] , 'null', codFilm]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")
 
 file.write("INSERT IGNORE INTO MembroTroupeScena(codScena ,CF) VALUES ")
