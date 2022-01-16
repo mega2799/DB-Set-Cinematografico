@@ -14,7 +14,7 @@ import java.util.List;
 
 public class InsertNew {
 
-    private static final int P_IVA_LENGHT = 11;
+    private static final int P_IVA_LENGHT = 31;
 
     private Connection connection;
     private TellMe tellMe;
@@ -27,7 +27,7 @@ public class InsertNew {
     }
 
     private boolean checkIva(final String partitaIva){
-        return partitaIva.length() == P_IVA_LENGHT;
+        return partitaIva.length() <= P_IVA_LENGHT;
     }
 
     private boolean checkFilm(final String film) {
