@@ -234,4 +234,14 @@ public class specialQuery {
         rs = queryTeller.guadagnoProduttori(CODFILM);
         refreshTable();
     }
+    @FXML
+    void costumi_scena_clicked(MouseEvent e){
+        if(filmCheck()){
+            showAlert(Alert.AlertType.ERROR,"Non hai selezionato il Film");
+            return;
+        }
+        RadioMenuItem rb = (RadioMenuItem) noteScena.getSelectedToggle();
+        rs = queryTeller.costumiScena(rb.getText());
+        refreshTable();
+    }
 }

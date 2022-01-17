@@ -52,21 +52,16 @@ public class QueryTeller {
         return result;
     }
 
-    public ResultSet costumiScenaAttore(final String codScena,final  String nomeMembroTroupe,final  String cognomeMembroTroupe ){
-        String query = " select i.*\n" +
-                "    from ScenaCiak sc join CostumeScena cs on (cs.codScena=sc.codScena)\n" +
-                "    join MembroTroupeScena mts on (mts.codScena=sc.codScena)\n" +
-                "    join Membrotroupe mt on (mt.CF=mts.CF)\n" +
-                "    where sc.codScena= ? \n" +
-                "    and mt.nome = ?\n" +
-                "    and mt.cognome = ?;";
+    public ResultSet costumiScena(final String noteProduzione){
+        String query = " select c.descrizione, c.tipo\n" +
+                "                from ScenaCiak sc join CostumeScena cs on (cs.codScena=sc.codScena)\n" +
+                "                join Costume c on (c.codC = cs.codC)\n" +
+                "                where sc.noteDiProduzione = ?;";
 
         ResultSet result = null;
         try {
             PreparedStatement stmt = this.connection.prepareStatement(query);
-            stmt.setString(1, codScena);
-            stmt.setString(2, nomeMembroTroupe);
-            stmt.setString(3, cognomeMembroTroupe);
+            stmt.setString(1, noteProduzione);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();

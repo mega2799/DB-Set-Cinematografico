@@ -25,9 +25,9 @@
                   <Button layoutX="43.0" layoutY="81.0" mnemonicParsing="false" onMouseClicked="#stipendio_troupe" prefHeight="24.0" prefWidth="203.0" text="Stipendio Membri Troupe" />
                   <Button layoutX="43.0" layoutY="38.0" mnemonicParsing="false" onMouseClicked="#profitto_finanzziatori_clicked" text="Profitto Finanziatori" />
                   <Button layoutX="179.0" layoutY="38.0" mnemonicParsing="false" onMouseClicked="#stipendio_prod_clicked" text="Profitto Produttori" />
-                  <Button layoutX="334.0" layoutY="38.0" mnemonicParsing="false" text="Costumi Scena" />
-                  <Button layoutX="517.0" layoutY="38.0" mnemonicParsing="false" onMouseClicked="#attori_in_scena_clicked" text="Dipendenti Scena" />
-                  <Button layoutX="528.0" layoutY="69.0" mnemonicParsing="false" onMouseClicked="#queryScena_clicked" text="Oggetti Scena" />
+                  <Button layoutX="526.0" layoutY="85.0" mnemonicParsing="false" onMouseClicked="#costumi_scena_clicked" text="Costumi Scena" />
+                  <Button layoutX="519.0" layoutY="28.0" mnemonicParsing="false" onMouseClicked="#attori_in_scena_clicked" text="Dipendenti Scena" />
+                  <Button layoutX="528.0" layoutY="57.0" mnemonicParsing="false" onMouseClicked="#queryScena_clicked" text="Oggetti Scena" />
                   <Button layoutX="798.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#queryMagazzino_clicked" text="Oggetti in Magazzino" />
                   <MenuButton fx:id="selectMagazzino" layoutX="967.0" layoutY="15.0" mnemonicParsing="false" text="Magazzino" />
                   <ButtonBar layoutX="985.0" layoutY="81.0" prefHeight="32.0" prefWidth="80.0">

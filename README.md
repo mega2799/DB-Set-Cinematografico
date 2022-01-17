@@ -377,13 +377,10 @@ Query creata per definire i costumi che saranno da usare nella realizzazione di 
 e che dovrà indossare un attore X
 
 ```sql
-    select i.*
-    from ScenaCiak sc join CostumeScena cs on (cs.codScena=sc.codScena)
-    join MembroTroupeScena mts on (mts.codScena=sc.codScena)
-    join Membrotroupe mt on (mt.CF=mts.CF)
-    where sc.codScena= ? 
-    and mt.nome = ?
-    and mt.cognome = ?;
+   select c.descrizione, c.tipo
+   from ScenaCiak sc join CostumeScena cs on (cs.codScena=sc.codScena)
+   join Costume c on (c.codC = cs.codC)
+   where sc.noteDiProduzione = ?;
 ```
 # 5.6 Dipendenti in scena
 ```sql
