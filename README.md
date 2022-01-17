@@ -51,11 +51,12 @@ La presente documentazione tratta nel dettaglio la progettazione e l’implement
 - [5.6 Dipendenti in scena](#56-dipendenti-in-scena)
 - [5.7 Oggetti in scena](#57-oggetti-in-scena)
 - [5.8 Stipendio netto dipendente](#58-stipendio-netto-dipendente)
+- [5.9 Profitto Produttori](#59-profitto-produttori)
 - [6 Il Progetto Logico](#6-il-progetto-logico)
-- [6.1 Frequenza e costo degli accessi](#62-frequenza-e-costo-degli-accessi)
+- [6.1 Frequenza e costo degli accessi](#61-frequenza-e-costo-degli-accessi)
 - [6.2 Volume dati del database](#62-volume-dati-del-database)
-- [6.3 Traduzione delle entita](#62-traduzione-delle-entita)
-- [6.4 Creazione delle tables](#63-creazione-delle-tables)
+- [6.3 Traduzione delle entita](#63-traduzione-delle-entita)
+- [6.4 Creazione delle tables](#64-creazione-delle-tables)
   - [# Special thanks](#-special-thanks)
   - [possibili query per noi](#possibili-query-per-noi)
 
@@ -406,7 +407,7 @@ moltiplicando la retribuzione oraria stabilita mediante contratto e le ore lavor
   where r.CF = ?; 
 ```
 
-# 5.8 Profitto produttori 
+# 5.9 Profitto produttori 
 Server per poter calcolare quanti soldi riescono a ricavare dalla produzione di un film i produttori  
 e chiunque lavori all'interno e riceva una percentuale dagli incassi.
 ```sql
@@ -858,6 +859,7 @@ CREATE TABLE if not exists AcquistoCostume(
 
 # Special thanks 
 -------
+[libreria python per generare tutto](https://github.com/joke2k/faker)
 
 [generatore di indirizzi random](https://randommer.io/random-address)
 
@@ -868,6 +870,7 @@ CREATE TABLE if not exists AcquistoCostume(
 [generatore di P.IVA random](https://strumentidev.it/partita-iva/random/result)
 
 [indirizzo e persona](https://anytexteditor.com/it/fake-address-generator)
+
 ## possibili query per noi
 
 - calcolo percentuale contribuito caporegista e regista (ADDED)
