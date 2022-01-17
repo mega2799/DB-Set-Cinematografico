@@ -12,7 +12,7 @@ def random_with_N_digits(n):
     
 f = Faker('it_IT')
  
-codFilm = 2
+codFilm = 3
 
 INDIRIZZO = []
 
@@ -71,10 +71,10 @@ for i in range(NumFinanziatori):
     FINANZIATORE.append([f.iban(), random.choice(AZIENDE), INDIRIZZO[VALUES + i][0], random.random()])
 
 for i in range(VALUES):
-    COSTUME.append([random_with_N_digits(5), 'fantasia', 'costume di scena n.' + str(i + 1), random.choice(MembroTroupe)[0]])
-
-for i in range(NumFinanziatori):
     POSIZIONI.append([random_with_N_digits(5), CODMAGAZZINO, random_with_N_digits(1), 'A'])
+
+for i in range(VALUES):
+    COSTUME.append([random_with_N_digits(5), 'fantasia', 'costume di scena n.' + str(i + 1), random.choice(MembroTroupe)[0], POSIZIONI[i][0]])
 
 for i in range(NumFinanziatori):
     OGGETTI.append([random_with_N_digits(5), 'armi', 'oggetto di scena n.' + str(i + 1), POSIZIONI[i][0]])
