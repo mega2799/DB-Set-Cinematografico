@@ -55,8 +55,9 @@ La presente documentazione tratta nel dettaglio la progettazione e l’implement
 - [6 Il Progetto Logico](#6-il-progetto-logico)
 - [6.1 Frequenza e costo degli accessi](#61-frequenza-e-costo-degli-accessi)
 - [6.2 Volume dati del database](#62-volume-dati-del-database)
-- [6.3 Traduzione delle entita](#63-traduzione-delle-entita)
-- [6.4 Creazione delle tables](#64-creazione-delle-tables)
+- [6.3 Tabella degli accessi](#63-tabella-degli-accessi)
+- [6.4 Traduzione delle entita](#64-traduzione-delle-entita)
+- [6.5 Creazione delle tables](#65-creazione-delle-tables)
   - [# Special thanks](#-special-thanks)
   - [possibili query per noi](#possibili-query-per-noi)
 
@@ -426,7 +427,10 @@ Riportiamo in seguito la tabella dei volumi in cui sono elencante
 tutte le entità, le relazioni e i relativi volumi.
 ![](/res/volume.PNG)
 
-# 6.3 Traduzione delle entita
+# 6.3 Tabella degli accessi
+![](/res/accessi.PNG)
+
+# 6.4 Traduzione delle entita
 
 * Film(__*codF*__, titolo, genere ,durata, dataUscita, idSerie[0-1])
     + FK: idSerie REFERENCES __Serie_Letteraria__
@@ -533,7 +537,7 @@ tutte le entità, le relazioni e i relativi volumi.
 * Ditta(__*P.IVA_DITTA*__, nome,codInd)
     + FK: codInd REFERENCES __Indirizzo__
 
-# 6.4 Creazione delle tables
+# 6.5 Creazione delle tables
 ```sql
 CREATE TABLE if not exists Indirizzo(
         codInd int primary key,
