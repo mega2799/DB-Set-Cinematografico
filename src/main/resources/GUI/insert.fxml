@@ -11,6 +11,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -237,6 +238,7 @@
                                  <Font size="14.0" />
                               </font>
                            </Button>
+                           <TableView fx:id="tableView" layoutX="349.0" layoutY="94.0" prefHeight="440.0" prefWidth="711.0" AnchorPane.bottomAnchor="208.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="94.0" />
                         </children>
                      </AnchorPane>
                   </content>

@@ -2,7 +2,15 @@ package controllers;
 import application.DBConnection;
 import application.InsertNew;
 import application.QueryTeller;
+import application.TellMe;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,8 +18,10 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import javax.management.Query;
+import javax.swing.event.MenuEvent;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,8 +29,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 public class InsertTabController {
+    private final QueryTeller queryTeller = new QueryTeller();
     @FXML
     private VBox incassoVBox;
     @FXML
@@ -143,6 +155,8 @@ public class InsertTabController {
     private MenuButton filmSelection_incasso;
     @FXML
     private MenuButton filmSelection_finanziatore;
+    @FXML
+    private TableView tableView;
 
     private DBConnection DbC;
     private InsertNew insertNew;
@@ -150,8 +164,8 @@ public class InsertTabController {
     private Tab query;
     private Stage stage;
     private List<VBox> listVBox;
-
-
+    private ObservableList<ObservableList> data;
+    private TellMe  tellMe;
 
     public void initialize(){
         this.visualization1 = new Tab();
@@ -180,6 +194,42 @@ public class InsertTabController {
         this.refreshMenuFilm();
         this.listVBox = new ArrayList<>(List.of(this.filmVBox,this.indirizzoVBox, this.entiVBox, this.operatoreVBox,this.sponsorVBox,this.finanziatoreVBox,this.incassoVBox));
         this.hideVBoxes();
+        this.data = FXCollections.observableArrayList();
+        this.tellMe = new TellMe();
+    }
+
+    private void populateTable(ResultSet rs) {
+        try{
+            for(int i=0 ; i<rs.getMetaData().getColumnCount(); i++){
+                //We are using non property style for making dynamic table
+                final int j = i;
+                TableColumn col = new TableColumn<>(rs.getMetaData().getColumnName(i+1));
+                col.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList,String>, ObservableValue<String>>(){
+                    public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
+                        if(param.getValue().get(j)==null){
+                            return new SimpleStringProperty("null");
+                        } else {
+                            return new SimpleStringProperty(param.getValue().get(j).toString());
+                        }
+                    }
+                });
+                tableView.getColumns().addAll(col);
+            }
+
+            while(rs.next()){
+                ObservableList<String> row = FXCollections.observableArrayList();
+                for(int i=1 ; i<=rs.getMetaData().getColumnCount(); i++){
+                    row.add(rs.getString(i));
+                }
+                System.out.println("Row [1] added "+row );
+                data.add(row);
+            }
+
+            tableView.setItems(data);
+        }catch(Exception e){
+            e.printStackTrace();
+            System.out.println("Error on Building Data");
+        }
     }
 
     @FXML
@@ -191,6 +241,7 @@ public class InsertTabController {
         insertNew.film(params[0],params[1],params[2],dataUscita_field.getValue().format(DateTimeFormatter.ofPattern("yyyy MM dd")),params[3]);
         list.forEach(x->x.clear());
         dataUscita_field.setValue(null);
+        clearAndPopulateTable(tellMe.film());
     }
 
     @FXML
@@ -205,6 +256,7 @@ public class InsertTabController {
         nomeFinanziatore_field.clear();
         codIndirizzoFinanziatore_field.clear();
         percentualeGuadagnoFinanziatore_field.clear();
+        clearAndPopulateTable(tellMe.finanziatori(this.codFFromTitle(selectedFilm.get())));
     }
 
     @FXML
@@ -213,6 +265,7 @@ public class InsertTabController {
         String[] params = (String[]) list.stream().map(x->x.getText()).toArray(String[]::new);
         insertNew.indirizzo(params[0],params[1],params[2],params[3],params[4]);
         list.forEach(x->x.clear());
+        clearAndPopulateTable(tellMe.indirizzi());
     }
 
     @FXML
@@ -235,12 +288,13 @@ public class InsertTabController {
          if(!queryTeller.checkCF(cfOperatore_field.getText())){
              insertNew.operatore(cfOperatore_field.getText(),nomeOperatore_field.getText(),cognomeOperatore_field.getText(),
              ibanOperatore_field.getText(),dataNascitaOperatore_field.getValue().format(DateTimeFormatter.ofPattern("yyyy MM dd")).replaceAll(" ","-"),telefonoOperatore_field.getText(),codiceIndirizzoOperatore_field.getText(),Float.parseFloat(percentualeContributoOperatore_field.getText()),ruoloOperatore_field.getText());
+             System.out.println("inserito");
          }
-
+        Integer codF = null;
         try {
             ResultSet resFilm = queryTeller.getCodF(selectedFilm.get());
             resFilm.next();
-            int codF = resFilm.getInt("codF");
+            codF = resFilm.getInt("codF");
             insertNew.operatore_film(codF,cfOperatore_field.getText());
         } catch (SQLException e) {
             e.printStackTrace();
@@ -253,6 +307,7 @@ public class InsertTabController {
         telefonoOperatore_field.clear();
         codiceIndirizzoOperatore_field.clear();
         percentualeContributoOperatore_field.clear();
+        clearAndPopulateTable(tellMe.troupeJoinAddress(String.valueOf(codF)));
         //items.stream().forEach(i -> i.setSelected(false));
     }
 
@@ -269,6 +324,7 @@ public class InsertTabController {
         dataFine_field.setValue(null);
         incasso_field.clear();
         codIndirizzoIncasso_field.clear();
+        clearAndPopulateTable(tellMe.incassiJoinIndirizzo(this.codFFromTitle(selectedFilm.get())));
     }
 
     @FXML
@@ -281,6 +337,7 @@ public class InsertTabController {
         this.insertNew.sponsor(pIvaSponsor_field.getText(),nomeSponsor_field.getText(),selectedFilm.orElse(null));
         pIvaSponsor_field.clear();
         nomeSponsor_field.clear();
+        clearAndPopulateTable(tellMe.sponsors(this.codFFromTitle(selectedFilm.get())));
     }
 
 
@@ -290,14 +347,16 @@ public class InsertTabController {
         pIvaEnti_field.clear();
         nomeEnti_field.clear();
         codiceIndirizzoEnti_field.clear();
+        clearAndPopulateTable(tellMe.enti());
     }
 
     private void refreshMenuFilm(){
         QueryTeller queryTeller = new QueryTeller();
-        queryTeller.setMenuButton(this.filmSelection_operatoreTroupe, "SELECT * FROM Film", "titolo");
-        queryTeller.setMenuButton(this.filmSelection_sponsor, "SELECT * FROM Film", "titolo");
+        this.refreshFilmSelection(this.filmSelection_operatoreTroupe,(String x) -> tellMe.troupeJoinAddress(x));
+        this.refreshFilmSelection(this.filmSelection_sponsor,(String x) -> tellMe.troupeJoinAddress(x));
         queryTeller.setMenuButton(this.filmSelection_finanziatore,"SELECT * FROM Film", "titolo");
         queryTeller.setMenuButton(this.filmSelection_incasso,"SELECT * FROM Film", "titolo");
+
     }
 
     @FXML
@@ -309,42 +368,94 @@ public class InsertTabController {
     void filmActionToolbar(ActionEvent event) {
         this.hideVBoxes();
         this.filmVBox.setVisible(this.filmVBox.isVisible() ? false : true);
+        this.clearAndPopulateTable(this.tellMe.film());
     }
     @FXML
     void indirizzoActionToolbar(ActionEvent event) {
         this.hideVBoxes();
         this.indirizzoVBox.setVisible(this.indirizzoVBox.isVisible() ? false : true);
+        this.clearAndPopulateTable(this.tellMe.indirizzi());
     }
 
     @FXML
     void entiActionToolbar(ActionEvent event) {
         this.hideVBoxes();
         this.entiVBox.setVisible(this.entiVBox.isVisible() ? false : true);
+        this.clearAndPopulateTable(this.tellMe.enti());
     }
+
     @FXML
     void operatoreActionToolbar(ActionEvent event) {
         this.hideVBoxes();
         this.operatoreVBox.setVisible(this.operatoreVBox.isVisible() ? false : true);
+        this.clearTable();
+        this.refreshFilmSelection(this.filmSelection_operatoreTroupe,(String x) -> tellMe.troupeJoinAddress(x));
     }
+
+    private void refreshFilmSelection(MenuButton menuButton, Function<String,ResultSet> function) {
+        queryTeller.setMenuButton(menuButton, "SELECT * FROM Film", "titolo");
+        menuButton.getItems().forEach((MenuItem x) -> {
+            x.setOnAction(y->{
+                try {
+                    ResultSet result = queryTeller.getCodF(x.getText());
+                    result.next();
+                    String codF = result.getString("codF");
+                    this.clearAndPopulateTable(function.apply(codF));
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            });
+        });
+    }
+
     @FXML
     void sponsorActionToolbar(ActionEvent event) {
         this.hideVBoxes();
+        QueryTeller queryTeller = new QueryTeller();
         this.sponsorVBox.setVisible(this.sponsorVBox.isVisible() ? false : true);
+        this.refreshFilmSelection(this.filmSelection_sponsor,(String x) -> tellMe.sponsors(x));
     }
 
     @FXML
     void finanziatoreActionToolbar(ActionEvent event) {
         this.hideVBoxes();
         this.finanziatoreVBox.setVisible(this.finanziatoreVBox.isVisible() ? false : true);
+        refreshFilmSelection(this.filmSelection_finanziatore,(String x) -> tellMe.finanziatori(x));
+
     }
 
     @FXML
     void incassoActionToolbar(ActionEvent event) {
         this.hideVBoxes();
         this.incassoVBox.setVisible(this.incassoVBox.isVisible() ? false : true);
+        this.refreshFilmSelection(this.filmSelection_incasso,(String x) -> tellMe.incassiJoinIndirizzo(x));
     }
 
     private void hideVBoxes(){
         this.listVBox.forEach(x -> x.setVisible(false));
     }
+
+    private void clearAndPopulateTable(ResultSet rs){
+        this.clearTable();
+        this.populateTable(rs);
+    }
+
+    private void clearTable(){
+        this.tableView.getItems().clear();
+        this.tableView.getColumns().clear();
+    }
+
+    private String codFFromTitle(String title){
+        ResultSet result = queryTeller.getCodF(title);
+        try {
+            result.next();
+            String codF = result.getString("codF");
+            return codF;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 }

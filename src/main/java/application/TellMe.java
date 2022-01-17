@@ -155,8 +155,22 @@ public class TellMe {
             e.printStackTrace();
         }
         return result;
-
     }
+    public ResultSet incassiJoinIndirizzo(final String codF) {
+        String query = "select inc.*,ind.citta,ind.via,ind.civico,ind.CAP from Incasso inc " +
+                "join indirizzo ind on (inc.codInd = ind.codInd) " +
+                "where codF = ?;";
+        ResultSet result = null;
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(query);
+            stmt.setString(1, codF);
+            result = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
 
     public ResultSet indirizzi() {
         return getTable("Indirizzo");
@@ -229,6 +243,26 @@ public class TellMe {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public ResultSet troupeJoinAddress(final String codF) {
+        String query = "select i.*,m.* from MembroTroupe m " +
+                "join Film_Membro_Troupe fmt on ( m.CF = fmt.CF) " +
+                "join indirizzo i on ( i.codInd = m.codInd) " +
+                "where codF = ?;";
+        ResultSet result = null;
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(query);
+            stmt.setString(1, codF);
+            result = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public ResultSet enti(){
+        return this.getTable("enti");
     }
 
 
