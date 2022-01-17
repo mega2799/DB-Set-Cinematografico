@@ -93,7 +93,6 @@ CREATE TABLE IF NOT EXISTS Film (
   PRIMARY KEY (codF)
 );
 
--- TODO il nome non coincide su gituhb
 CREATE TABLE IF NOT EXISTS SediTerritoriali (
   P_IVA varchar(31) NOT NULL,
   FOREIGN KEY (P_IVA) REFERENCES Enti (P_IVA)

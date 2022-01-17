@@ -162,25 +162,6 @@ public class QueryTeller {
         return result;
     }
 
-/*
-    public ResultSet profittoFinanziatori(final String codF){ // TODO queste con la variabile non funzionano shit
-        String query = "select @Denaro := sum(incasso) as money FROM Incasso;\n" +
-                "    select distinct F.nome, F.percentualeGuadagno, (F.percentualeGuadagno / 100 * @Denaro ) as guadagno\n" +
-                "    from Finanziatore F join Fondo ff on (F.P_IVA_FINANZIATORE = ff.P_IVA_FINANZIATORE)\n" +
-                "    where F.percentualeGuadagno is not null\n" +
-                "    and codF = ?;";
-        ResultSet result = null;
-        try {
-            PreparedStatement stmt = this.connection.prepareStatement(query);
-            stmt.setString(1, codF);
-            result = stmt.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-*/
-
     public ToggleGroup setMenuButton(MenuButton menu, String query, String column) {
         ToggleGroup tg = new ToggleGroup();
         try {

@@ -17,7 +17,7 @@
          <items>
             <AnchorPane>
                <children>
-                  <VBox fx:id="vbox" alignment="TOP_CENTER" prefHeight="635.0" prefWidth="106.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox fx:id="vbox" alignment="TOP_CENTER" prefHeight="635.0" prefWidth="260.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Visualizza:">
                            <font>
@@ -68,7 +68,7 @@
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#fondi_mouseClicked" text="Fondi">
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#fondi_mouseClicked" prefWidth="363.0" text="Fondi">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
@@ -103,7 +103,7 @@
                   <Button fx:id="refreshButton" layoutY="686.0" mnemonicParsing="false" onMouseClicked="#refreshButtonClicked" prefHeight="32.0" prefWidth="106.0" text="Refresh" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                </children>
             </AnchorPane>
-            <TableView fx:id="tableView" editable="true" prefHeight="686.0" prefWidth="966.0" />
+            <TableView fx:id="tableView" editable="true" maxWidth="-Infinity" prefHeight="718.0" prefWidth="732.0" />
          </items>
       </SplitPane>
    </children>

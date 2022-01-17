@@ -1,5 +1,6 @@
+from time import strftime
 from faker import Faker 
-from random import randint, random
+from random import choice, randint, random
 import random
 from codicefiscale import codicefiscale
 import datetime 
@@ -23,7 +24,6 @@ NumFinanziatori = 4
 
 RUOLI = ['sceneggiatore','produttore','produttore esecutivo','aiuto regista','capo regista','regista','attore','stilista','operatore fonico','operatore fotografico']
 
-
 BUSTAPAGA = [] 
 
 AZIENDE = ['Adobe','Boeing','Wells Fargo','PepsiCo','Comcast','Cisco Systems','Chevron','Pfizer','Merck & Co.','Verizon','The Coca-Cola Company','The Walt Disney Company','The Home Depot','ExxonMobil','UnitedHealth Group','AT&T','Intel','Bank of America','Procter & Gamble','Mastercard','Walmart','Johnson & Johnson','JPMorgan Chase','Visa','Berkshire Hathaway','Facebook','Alphabet','Amazon','Apple','Microsoft']
@@ -34,9 +34,13 @@ FINANZIATORE = []
 
 SPONSOR = []
 
+CODINDSEDE = 16395
+
+COSTUME = []
+
+
 for i in range(VALUES + NumFinanziatori):
     INDIRIZZO.append([random_with_N_digits(5),f.city(),f.street_name(),f.building_number(), int(f.postcode())])
-    print(INDIRIZZO[i])
 
 
 def dateparse(d):
@@ -60,7 +64,9 @@ for i in range(VALUES):
 
 for i in range(NumFinanziatori):
     FINANZIATORE.append([f.iban(), random.choice(AZIENDE), INDIRIZZO[VALUES + i][0], random.random()])
-    print("ind finanziatore: " + str(FINANZIATORE[i][2]))
+
+for i in range(VALUES):
+    COSTUME.append([random_with_N_digits(5), 'fantasia', 'costume di scena n.' + str(i + 1), random.choice(MembroTroupe)[0]])
 
 file = open("fakeData.sql", "w")
 
@@ -78,7 +84,7 @@ file.write("INSERT IGNORE INTO RuoloMembroTroupe(CF, nomeRuolo) VALUES ")
 for i in range(VALUES):
     file.write("\n" + str([MembroTroupe[i][0], random.choice(RUOLI)]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")
-
+# TODO  oggetti scena,
 file.write("INSERT IGNORE INTO Film_Membro_Troupe(codF, CF) VALUES ")
 for i in range(VALUES):
     file.write("\n" + str([codFilm, str(MembroTroupe[i][0])]).replace("[", "(").replace("]", ")") + ",")
@@ -89,6 +95,17 @@ for i in range(VALUES):
     file.write("\n " + str(SCENE[i]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")
 
+
+file.write("INSERT IGNORE INTO Costume(codC, tipo, descrizione, CF, codP) VALUES ")
+for i in range(VALUES):
+    file.write("\n " + str(COSTUME[i]).replace("[", "(").replace("]", ")") + ",")
+file.write(";\n")
+
+file.write("INSERT IGNORE INTO CostumeScena(codC, codScena) VALUES ")
+for i in range(VALUES):
+    file.write("\n" + str([random.choice(SCENE)[0], random.choice(COSTUME)[0]]).replace("[", "(").replace("]", ")") + ",")
+file.write(";\n")
+    
 
 file.write("INSERT IGNORE INTO MembroTroupeScena(codScena ,CF) VALUES ")
 for i in range(VALUES):
@@ -108,6 +125,17 @@ for i in range(NumFinanziatori):
     file.write("\n " + str(FINANZIATORE[i]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")
 
+
+file.write("INSERT IGNORE INTO Incasso(dataInizio, dataFine, incasso, codF, codInd) VALUES ")
+incDate = f.date()
+for i in range(NumFinanziatori * 2):
+    strpdate = datetime.datetime.strptime(incDate, '%Y-%m-%d')
+    incDate2 = strpdate + datetime.timedelta(7)
+    strincDate2 = incDate2.strftime('%Y-%m-%d')
+    file.write("\n " + str([incDate, strincDate2, random_with_N_digits(7), codFilm, CODINDSEDE]).replace("[", "(").replace("]", ")") + ",")
+    incDate = strincDate2
+file.write(";\n")
+
 file.write("INSERT IGNORE INTO Fondo(codFondo, dataAccredito, patrimonio, P_IVA_SPONSOR, P_IVA_FINANZIATORE, codF) VALUES ")
 for i in range(NumFinanziatori):
     file.write("\n " + str([random_with_N_digits(5), f.date(), random_with_N_digits(6), 'null', FINANZIATORE[i][0], codFilm]).replace("[", "(").replace("]", ")") + ",")
@@ -124,6 +152,7 @@ for i in range(VALUES):
         file.write("\n "+ str([SCENE[i][0], str(j[0])]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")
 
+
 file.write("INSERT IGNORE INTO BustaPaga(codB, retribuzioneOraria, oreLavorate, mese) VALUES ")
 for i in range(VALUES):
     file.write("\n" + str(BUSTAPAGA[i]).replace("[", "(").replace("]", ")") + ",")
@@ -133,5 +162,7 @@ file.write("INSERT IGNORE INTO Retribuzione(CF, CodB) VALUES")
 for i in range(VALUES):
     file.write("\n" + str([MembroTroupe[i][0], BUSTAPAGA[i][0]]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")
+
+file.write("\n \n \n \n \n incollarlo sotto le insert di star wars e soprattutto per farlo andare sostituire ,; con ;        e       \'null\' con null ")
 
 file.close()
