@@ -495,7 +495,23 @@ INSERT IGNORE INTO Finanziatore(P_IVA_FINANZIATORE, nome,codInd ,percentualeGuad
  ('IT85D8480723018259764571146', 'Verizon', 33495, 0.7078305796488082),
  ('IT80I4835146438187680793356', 'PepsiCo', 30807, 0.46855177220529853);
 
- INSERT IGNORE INTO Incasso(dataInizio, dataFine, incasso, codF, codInd) VALUES
+INSERT IGNORE INTO PosizioneMagazzino(codP, numMagazzino, scaffale, percorso) VALUES
+ (67898, 1, 3, 'A'),
+ (40493, 1, 1, 'A'),
+ (35413, 1, 7, 'A'),
+ (26745, 1, 8, 'A');
+INSERT IGNORE INTO OggettiDiScena(codO, tipo, descrizione, codP) VALUES 
+ (90251, 'armi', 'oggetto di scena n.1', 67898),
+ (98393, 'armi', 'oggetto di scena n.2', 40493),
+ (88587, 'armi', 'oggetto di scena n.3', 35413),
+ (82292, 'armi', 'oggetto di scena n.4', 26745);
+INSERT IGNORE INTO OggettoScena(codO,codScena) VALUES
+(98393, 35181),
+(82292, 61110),
+(98393, 61110),
+(88587, 61110);
+
+INSERT IGNORE INTO Incasso(dataInizio, dataFine, incasso, codF, codInd) VALUES
   ('2015-05-27', '2015-06-03', 688908, 2, 16395),
   ('2015-06-03', '2015-06-10', 210940, 2, 16395),
   ('2015-06-10', '2015-06-17', 483898, 2, 16395),
