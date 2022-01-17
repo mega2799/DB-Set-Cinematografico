@@ -17,7 +17,8 @@ import java.lang.reflect.Method;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+ 
+//TODO  abbellire un po i risultati della view, togliendo le robe inutili o ridondanti (es codF, date e cagate)
 
 public class Visualization1Controller {
 
