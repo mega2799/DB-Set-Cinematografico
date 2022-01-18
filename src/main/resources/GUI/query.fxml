@@ -28,7 +28,7 @@
                   <Button layoutX="526.0" layoutY="85.0" mnemonicParsing="false" onMouseClicked="#costumi_scena_clicked" text="Costumi Scena" />
                   <Button layoutX="519.0" layoutY="28.0" mnemonicParsing="false" onMouseClicked="#attori_in_scena_clicked" text="Dipendenti Scena" />
                   <Button layoutX="528.0" layoutY="57.0" mnemonicParsing="false" onMouseClicked="#queryScena_clicked" text="Oggetti Scena" />
-                  <Button layoutX="798.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#queryMagazzino_clicked" text="Oggetti in Magazzino" />
+                  <Button layoutX="817.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#queryMagazzino_clicked" text="Oggetti in Magazzino" />
                   <MenuButton fx:id="selectMagazzino" layoutX="967.0" layoutY="15.0" mnemonicParsing="false" text="Magazzino" />
                   <ButtonBar layoutX="985.0" layoutY="81.0" prefHeight="32.0" prefWidth="80.0">
                     <buttons>
@@ -37,6 +37,7 @@
                   </ButtonBar>
                   <MenuButton fx:id="scene_menu_bar" layoutX="668.0" layoutY="57.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="124.0" text="Scene in film" />
                   <MenuButton fx:id="month_sel" layoutX="254.0" layoutY="81.0" mnemonicParsing="false" text="mese" />
+                  <Button layoutX="328.0" layoutY="38.0" mnemonicParsing="false" onMouseClicked="#incasso_tot_clicked" text="Incasso Film" />
                </children>
             </AnchorPane>
             <TableView fx:id="queryView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#attori_in_scena_clicked" prefHeight="620.0" prefWidth="1080.0" />

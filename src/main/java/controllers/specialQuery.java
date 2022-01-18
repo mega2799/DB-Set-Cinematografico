@@ -244,4 +244,13 @@ public class specialQuery {
         rs = queryTeller.costumiScena(rb.getText());
         refreshTable();
     }
+    @FXML
+    void incasso_tot_clicked(MouseEvent e){
+        if(filmCheck()){
+            showAlert(Alert.AlertType.ERROR,"Non hai selezionato il Film");
+            return;
+        }
+        rs = queryTeller.incassoTot(CODFILM);
+        refreshTable();
+    }
 }

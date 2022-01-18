@@ -253,4 +253,20 @@ public class QueryTeller {
         }
         return true;
     }
+
+    public ResultSet incassoTot(String codfilm) {
+        String query = "select sum(incasso) as TotaleIncasso\n" +
+                "from Incasso\n" +
+                "where codF = ?;";
+        ResultSet result = null;
+        try(Statement statement = connection.createStatement()) {
+            PreparedStatement stmt = this.connection.prepareStatement(query);
+            stmt.setString(1,codfilm);
+            result = stmt.executeQuery();
+        }catch (SQLException e){
+            System.out.println(result);
+            e.printStackTrace();
+        }
+        return result;
+    }
 }
