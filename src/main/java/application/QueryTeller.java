@@ -108,19 +108,18 @@ public class QueryTeller {
         return result;
     }
 
-    public ResultSet stipendioMensileTroupeTotale(final String mese, final String codF){
-        String query = "select @stipendi :=  sum(retribuzioneOraria * oreLavorate) as CostoTroupe_" + mese + " from \n" +
-               "BustaPaga b join Retribuzione r on (b.codB = r.codB )" +
-                " join Film_Membro_Troupe flm on (r.CF = flm.CF)  where mese = ? " +
-                "and codF = ?;\n";
+    public ResultSet stipendioMensileTroupeTotale(final String codF){
+        String query = "select @stipendi := sum(retribuzioneOraria * oreLavorate ) as CostoTroupe, mese from BustaPaga b " + 
+        "join Retribuzione r on (b.codB = r.codB) " + 
+        "join Film_Membro_Troupe flm on (r.CF = flm.CF) " +
+        "where codF = ? group by mese;";
                // "\t    from BustaPaga \n" +
                // "\t    where mese = ?;";
 
         ResultSet result = null;
         try {
             PreparedStatement stmt = this.connection.prepareStatement(query);
-            stmt.setString(1, mese);
-            stmt.setString(2, codF);
+            stmt.setString(1, codF);
             result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();

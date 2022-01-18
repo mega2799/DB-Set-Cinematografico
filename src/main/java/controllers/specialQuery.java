@@ -49,10 +49,6 @@ public class specialQuery {
     private ToggleGroup noteScena;
 
 
-
-    @FXML
-    private MenuButton month_sel;
-
     QueryTeller queryTeller;
 
     private String CODFILM;
@@ -71,7 +67,6 @@ public class specialQuery {
         data = FXCollections.observableArrayList();
         refreshFilmBar();
         this.tgMagazzino = queryTeller.setMenuButton(selectMagazzino, "SELECT numMagazzino FROM Magazzino", "numMagazzino");
-        this.tgMonth = queryTeller.setMenuButton(month_sel, List.of("gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"));
     }
 
     private void refreshFilmBar(){
@@ -209,8 +204,7 @@ public class specialQuery {
             showAlert(Alert.AlertType.ERROR,"Non hai selezionato il Film");
             return;
         }
-        RadioMenuItem rb = (RadioMenuItem) tgMonth.getSelectedToggle();
-        rs = queryTeller.stipendioMensileTroupeTotale(rb.getText(), CODFILM);
+        rs = queryTeller.stipendioMensileTroupeTotale(CODFILM);
         refreshTable();
     }
 

@@ -36,7 +36,6 @@
                     </buttons>
                   </ButtonBar>
                   <MenuButton fx:id="scene_menu_bar" layoutX="668.0" layoutY="57.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="124.0" text="Scene in film" />
-                  <MenuButton fx:id="month_sel" layoutX="254.0" layoutY="81.0" mnemonicParsing="false" text="mese" />
                   <Button layoutX="328.0" layoutY="38.0" mnemonicParsing="false" onMouseClicked="#incasso_tot_clicked" text="Incasso Film" />
                </children>
             </AnchorPane>
