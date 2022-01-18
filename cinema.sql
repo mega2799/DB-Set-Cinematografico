@@ -212,7 +212,7 @@ DROP TABLE IF EXISTS `Film`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Film` (
   `codF` int(11) NOT NULL AUTO_INCREMENT,
-  `titolo` varchar(51) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `titolo` varchar(51) COLLATE utf8mb4_unicode_ci NOT NULL UNIQUE,
   `genere` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL CHECK (`genere` = 'Animazione' or `genere` = 'Avventura' or `genere` = 'Azione' or `genere` = 'Biografico' or `genere` = 'Commedia' or `genere` = 'Documentario' or `genere` = 'Drammatico' or `genere` = 'Pornografico' or `genere` = 'Fantascienza' or `genere` = 'Fantasy' or `genere` = 'Guerra' or `genere` = 'Horror' or `genere` = 'Musical' or `genere` = 'Storico' or `genere` = 'Thriller' or `genere` = 'Western'),
   `durata` int(3) NOT NULL CHECK (`durata` > 0),
   `dataUscita` date DEFAULT NULL,

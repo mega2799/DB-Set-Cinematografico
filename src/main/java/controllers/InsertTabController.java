@@ -23,8 +23,10 @@ import javafx.util.Callback;
 import javax.management.Query;
 import javax.swing.event.MenuEvent;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -234,11 +236,16 @@ public class InsertTabController {
 
     @FXML
     void film_insertButton_clicked(MouseEvent event) {
+        if(titolo_field.getText().equals("")||genere_field.getText().equals("")||durata_field.getText().equals("")){
+            insertNew.showAlert(Alert.AlertType.WARNING,"titolo,genere and durata can't be null");
+            return;
+        }
         List<TextField> list = List.of(titolo_field,genere_field,durata_field,idSerieLetteraria_field);
         String[] params = (String[]) list.stream().map(x->{
             return (x.getText().equals("")) ? null: x.getText();
         }).toArray(String[]::new);
-        insertNew.film(params[0],params[1],params[2],dataUscita_field.getValue().format(DateTimeFormatter.ofPattern("yyyy MM dd")),params[3]);
+        LocalDate date = dataUscita_field.getValue();
+        insertNew.film(params[0],params[1],params[2],date==null ? null: date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),params[3]);
         list.forEach(x->x.clear());
         dataUscita_field.setValue(null);
         clearAndPopulateTable(tellMe.film());
@@ -251,6 +258,14 @@ public class InsertTabController {
             insertNew.showAlert(Alert.AlertType.ERROR,"film not selected");
             return;
         }
+        if(pIvaFinanziatore_field.getText().equals("")||nomeFinanziatore_field.getText().equals("")||codIndirizzoFinanziatore_field.getText().equals("")||percentualeGuadagnoFinanziatore_field.getText().equals("")){
+            insertNew.showAlert(Alert.AlertType.WARNING,"fields can't be null");
+            return;
+        }
+        if(Float.parseFloat(percentualeGuadagnoFinanziatore_field.getText())<0 || Float.parseFloat(percentualeGuadagnoFinanziatore_field.getText())>100){
+            insertNew.showAlert(Alert.AlertType.WARNING,"percentuale guadagno must be between 0 and 100");
+            return;
+        }
         this.insertNew.finanziatore(pIvaFinanziatore_field.getText(),nomeFinanziatore_field.getText(), codIndirizzoFinanziatore_field.getText(), Float.parseFloat(percentualeGuadagnoFinanziatore_field.getText()),selectedFilm.get());
         pIvaFinanziatore_field.clear();
         nomeFinanziatore_field.clear();
@@ -261,6 +276,14 @@ public class InsertTabController {
 
     @FXML
     void indirizzo_insertButton_clicked(MouseEvent event) {
+        if(codIndirizzoIndirizzo_field.getText().equals("")||cittaIndirizzo_field.getText().equals("")||viaIndirizzo_field.getText().equals("")||civicoIndirizzo_field.getText().equals("")||capIndirizzo_field.getText().equals("")){
+            insertNew.showAlert(Alert.AlertType.WARNING,"codIndirizzo, citta, via, civico and cap can't be null");
+            return;
+        }
+        if(codIndirizzoIndirizzo_field.getText().length()>5 || capIndirizzo_field.getText().length()!=5){
+            insertNew.showAlert(Alert.AlertType.WARNING,"codInd length must be <=5 and cap length = 5");
+            return;
+        }
         List<TextField> list = List.of(codIndirizzoIndirizzo_field,cittaIndirizzo_field,viaIndirizzo_field,civicoIndirizzo_field,capIndirizzo_field);
         String[] params = (String[]) list.stream().map(x->x.getText()).toArray(String[]::new);
         insertNew.indirizzo(params[0],params[1],params[2],params[3],params[4]);
@@ -275,31 +298,20 @@ public class InsertTabController {
             insertNew.showAlert(Alert.AlertType.ERROR,"film not selected");
             return;
         }
-        //System.out.println(selectedFilm.get());
-
-        /*
-        List<CheckMenuItem> items = Arrays.asList(sceneggiatore_field, aiutoRegista_field, capoRegista_field, produttore_field, produttoreEsecutivo_field, attore_field, stilista_field, operatoreFonico_field, operatoreFotografico_field);
-        this.insertNew.operatore(cfOperatore_field.getText(), nomeOperatore_field.getText(), cognomeOperatore_field.getText(), ibanOperatore_field.getText(),
-                dataNascitaOperatore_field.getValue().toString(), telefonoOperatore_field.getText(),codiceIndirizzoOperatore_field.getText(),
-                Float.parseFloat(percentualeContributoOperatore_field.getText()), items.stream().filter(e -> e.isSelected()).map(e -> e.getText()).collect(Collectors.toList()));
-        cfOperatore_field.clear();
-         */
-         QueryTeller queryTeller = new QueryTeller();
-         if(!queryTeller.checkCF(cfOperatore_field.getText())){
-             insertNew.operatore(cfOperatore_field.getText(),nomeOperatore_field.getText(),cognomeOperatore_field.getText(),
-             ibanOperatore_field.getText(),dataNascitaOperatore_field.getValue().format(DateTimeFormatter.ofPattern("yyyy MM dd")).replaceAll(" ","-"),telefonoOperatore_field.getText(),codiceIndirizzoOperatore_field.getText(),Float.parseFloat(percentualeContributoOperatore_field.getText()),ruoloOperatore_field.getText());
-             System.out.println("inserito");
-         }
-        Integer codF = null;
-        try {
-            ResultSet resFilm = queryTeller.getCodF(selectedFilm.get());
-            resFilm.next();
-            codF = resFilm.getInt("codF");
-            insertNew.operatore_film(codF,cfOperatore_field.getText());
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if(cfOperatore_field.getText().equals("")||nomeOperatore_field.getText().equals("")||cognomeOperatore_field.getText().equals("")||ibanOperatore_field.getText().equals("")
+            || dataNascitaOperatore_field.getValue()==null || telefonoOperatore_field.getText().equals("") || codiceIndirizzoOperatore_field.getText().equals("")
+            || (!percentualeContributoOperatore_field.getText().equals("") && (Float.parseFloat(percentualeContributoOperatore_field.getText())>100 ||Float.parseFloat(percentualeContributoOperatore_field.getText())<0))){
+            insertNew.showAlert(Alert.AlertType.WARNING,"fields can't be null and percentualeContributo must be between 0 and 100");
+            return;
         }
-
+        QueryTeller queryTeller = new QueryTeller();
+        if(!queryTeller.checkCF(cfOperatore_field.getText())){
+            insertNew.operatore(cfOperatore_field.getText(),nomeOperatore_field.getText(),cognomeOperatore_field.getText(),
+                ibanOperatore_field.getText(),dataNascitaOperatore_field.getValue().format(DateTimeFormatter.ofPattern("yyyy MM dd")).replaceAll(" ","-"),telefonoOperatore_field.getText(),codiceIndirizzoOperatore_field.getText(),Float.parseFloat(percentualeContributoOperatore_field.getText()));
+            System.out.println("inserito");
+        }
+        String codF = codFFromTitle(selectedFilm.get());
+        insertNew.operatore_film(Integer.parseInt(codF),cfOperatore_field.getText());
         nomeOperatore_field.clear();
         cognomeOperatore_field.clear();
         ibanOperatore_field.clear();
@@ -308,7 +320,6 @@ public class InsertTabController {
         codiceIndirizzoOperatore_field.clear();
         percentualeContributoOperatore_field.clear();
         clearAndPopulateTable(tellMe.troupeJoinAddress(String.valueOf(codF)));
-        //items.stream().forEach(i -> i.setSelected(false));
     }
 
     @FXML
@@ -317,6 +328,9 @@ public class InsertTabController {
         if(selectedFilm.isEmpty()){
             insertNew.showAlert(Alert.AlertType.ERROR,"film not selected");
             return;
+        }
+        if(dataInizio_field.getValue()==null||dataFine_field.getValue()==null||incasso_field.getText().equals("")||codIndirizzoIncasso_field.getText().equals("")){
+            insertNew.showAlert(Alert.AlertType.ERROR,"fields can't be null");
         }
         this.insertNew.incasso(dataInizio_field.getValue().toString(), dataFine_field.getValue().toString(),
                 Integer.parseInt(incasso_field.getText()), selectedFilm.get(), codIndirizzoIncasso_field.getText());
@@ -332,6 +346,10 @@ public class InsertTabController {
         Optional<String> selectedFilm = filmSelection_sponsor.getItems().stream().filter((MenuItem x)->((RadioMenuItem)x).isSelected()).map(x->x.getText()).findFirst();
         if(selectedFilm.isEmpty()){
             insertNew.showAlert(Alert.AlertType.ERROR,"film not selected");
+            return;
+        }
+        if(pIvaSponsor_field.getText().equals("")||nomeSponsor_field.getText().equals("")){
+            insertNew.showAlert(Alert.AlertType.WARNING,"pIva and name can't be null");
             return;
         }
         this.insertNew.sponsor(pIvaSponsor_field.getText(),nomeSponsor_field.getText(),selectedFilm.orElse(null));
@@ -356,7 +374,6 @@ public class InsertTabController {
         this.refreshFilmSelection(this.filmSelection_sponsor,(String x) -> tellMe.troupeJoinAddress(x));
         queryTeller.setMenuButton(this.filmSelection_finanziatore,"SELECT * FROM Film", "titolo");
         queryTeller.setMenuButton(this.filmSelection_incasso,"SELECT * FROM Film", "titolo");
-
     }
 
     @FXML
@@ -445,7 +462,7 @@ public class InsertTabController {
         this.tableView.getColumns().clear();
     }
 
-    private String codFFromTitle(String title){
+    private   String codFFromTitle(String title){
         ResultSet result = queryTeller.getCodF(title);
         try {
             result.next();

@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS SerieLetteraria(
 
 CREATE TABLE IF NOT EXISTS Film (
   codF int NOT NULL AUTO_INCREMENT,
-  titolo varchar(51) NOT NULL,
+  titolo varchar(51) NOT NULL UNIQUE,
   genere varchar(40) NOT NULL CHECK (genere = 'Animazione' or genere = 'Avventura' or genere = 'Azione' or genere = 'Biografico' or genere = 'Commedia' or genere = 'Documentario' or genere = 'Drammatico' or genere = 'Pornografico' or genere = 'Fantascienza' or genere = 'Fantasy' or genere = 'Guerra' or genere = 'Horror' or genere = 'Musical' or genere = 'Storico' or genere = 'Thriller' or genere = 'Western'),
   durata int NOT NULL CHECK (durata > 0),
   dataUscita date DEFAULT NULL,
@@ -152,7 +152,7 @@ CREATE TABLE if not exists Finanziatore(
 
 
 CREATE TABLE if not exists Fondo(
-    codFondo INT primary key,
+    codFondo INT primary key auto_increment,
     dataAccredito date NOT NULL,
     patrimonio float(14) NOT NULL CHECK(patrimonio >= 0),
     P_IVA_SPONSOR varchar(31),

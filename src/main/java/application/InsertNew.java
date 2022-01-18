@@ -77,7 +77,7 @@ public class InsertNew {
             String query = "INSERT IGNORE INTO Sponsor(P_IVA_SPONSOR, nome) VALUES(" + "\'" + partitaIva + "\', " + "\'" + nome + "\');";
             System.out.println(query);
             try(Statement statement = connection.createStatement()) {
-                System.out.println("affected rows:" + statement.executeUpdate(query));
+                this.executeStmtWithConstraintsCheck(statement,query);
                 connection.commit();
                 query = "insert into fondo(dataAccredito, patrimonio, P_IVA_SPONSOR, P_IVA_FINANZIATORE, codF) values (?,?,?,?,?)";
                 PreparedStatement stmt = connection.prepareStatement(query);
@@ -86,7 +86,7 @@ public class InsertNew {
                 stmt.setString(3,partitaIva);
                 stmt.setNull(4,Types.VARCHAR);
                 stmt.setInt(5,Integer.parseInt(codF));
-                stmt.executeUpdate();
+                this.executeStmtWithConstraintsCheck(stmt);
                 connection.commit();
             }catch (SQLException e){
                 e.printStackTrace();
@@ -101,10 +101,9 @@ public class InsertNew {
             statement.setString(1,titolo);
             statement.setString(2,genere);
             statement.setInt(3,Integer.parseInt(durata));
-            statement.setDate(4,Date.valueOf(dataUscita.replaceAll(" ","-")));
+            this.setOptionalElement(statement,4,Types.DATE,dataUscita);
             this.setOptionalElement(statement,5,Types.INTEGER,idSerie);
-            System.out.println(statement.toString());
-            System.out.println(statement.executeUpdate());
+            this.executeStmtWithConstraintsCheck(statement);
             connection.commit();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -113,7 +112,7 @@ public class InsertNew {
 
     public void indirizzo(final String codInd, final String citta, final String via, final String civico, final String CAP){
         if(checkAddress(codInd)){
-            showAlert(Alert.AlertType.ERROR,"CodIndirizzo gia presente");
+            showAlert(Alert.AlertType.WARNING,"CodIndirizzo gia presente");
             return;
         }
         String query = "INSERT INTO indirizzo(codInd,citta,via,civico,CAP) VALUES (?,?,?,?,?);";
@@ -144,14 +143,13 @@ public class InsertNew {
             String query = "INSERT IGNORE INTO Incasso(dataInizio,dataFine,incasso, codF, codInd) " +
                     "VALUES (\'" + dataInizio + "\', \'" + dataFine + "\', \'" + incasso + "\', \'" + codF + "\', \'" + codInd + "\');";
             try (Statement statement = connection.createStatement()) {
-                System.out.println(query);
-                System.out.println("affected rows:" + statement.executeUpdate(query));
+                this.executeStmtWithConstraintsCheck(statement,query);
                 connection.commit();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }else{
-            showAlert(Alert.AlertType.ERROR,"Inserimento errato");
+            showAlert(Alert.AlertType.WARNING,"cod Indirizzo doesn't exist");
         }
     }
 
@@ -166,7 +164,7 @@ public class InsertNew {
                     "VALUES (\'" + partitaIva + "\', \'" + nome +"\', \'"+ codInd+"\');";
             System.out.println(query);
             try(Statement statement = connection.createStatement()) {
-                System.out.println("affected rows:" + statement.executeUpdate(query));
+                this.executeStmtWithConstraintsCheck(statement,query);
                 connection.commit();
             }catch (SQLException e){
                 e.printStackTrace();
@@ -195,7 +193,7 @@ public class InsertNew {
                     "VALUES (\'" + partitaIva + "\', \'" + nome +"\', \'"+ codInd +"\', \'"+ pGuadagno+"\');";
             System.out.println(query);
             try(Statement statement = connection.createStatement()) {
-                System.out.println("affected rows:" + statement.executeUpdate(query));
+                this.executeStmtWithConstraintsCheck(statement,query);
                 connection.commit();
                 query = "insert into fondo(dataAccredito, patrimonio, P_IVA_SPONSOR, P_IVA_FINANZIATORE, codF) values (?,?,?,?,?)";
                 try( PreparedStatement stmt = connection.prepareStatement(query)){
@@ -204,7 +202,7 @@ public class InsertNew {
                     stmt.setNull(3,Types.VARCHAR);
                     stmt.setString(4,partitaIva);
                     stmt.setInt(5,Integer.parseInt(codF));
-                    stmt.executeUpdate();
+                    this.executeStmtWithConstraintsCheck(stmt);
                     connection.commit();
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
@@ -217,23 +215,9 @@ public class InsertNew {
         }
     }
 
-    public void operatore(final String cf, final String nome, final String cognome, final String iban, final String data, final String telefono, final String codInd, float pContributo, final String ruolo){
-        //List<String> queries = new ArrayList<>();
+    public void operatore(final String cf, final String nome, final String cognome, final String iban, final String data, final String telefono, final String codInd, float pContributo){
         String query = "INSERT IGNORE INTO MembroTroupe(CF,nome,cognome,IBAN,dataNascita,telefono,codInd, percentualeContributo) " +
                 "VALUES (?,?,?,?,?,?,?,?)";
-        /*System.out.println(query);
-        queries.add(query);
-        ruolo.stream().forEach(r -> queries.add("INSERT IGNORE INTO RuoloMembroTroupe(CF, nomeRuolo) " + "VALUES (\'" + cf + "\', \'" + r+"\');"));
-        System.out.println(queries.get(1));
-        try(Statement statement = connection.createStatement()) {
-            for(String q : queries) {
-                System.out.println("affected rows:" + statement.executeUpdate(q));
-                connection.commit();
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-         */
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1,cf);
             statement.setString(2,nome);
@@ -243,8 +227,7 @@ public class InsertNew {
             statement.setString(6,telefono);
             statement.setInt(7,Integer.parseInt(codInd));
             statement.setFloat(8,pContributo);
-            System.out.println(statement.toString());
-            System.out.println(statement.executeUpdate());
+            this.executeStmtWithConstraintsCheck(statement);
             connection.commit();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -276,15 +259,41 @@ public class InsertNew {
                 //incluso solo stringhe e int per ora, forse ci vuole anche data
                 switch (sqlType){
                     case Types.INTEGER:
-                        stmt.setInt(index,(Integer)value);
+                        stmt.setInt(index,Integer.parseInt((String)value));
                         break;
                     case Types.VARCHAR:
                         stmt.setString(index,(String)value);
                         break;
+                    case Types.DATE:
+                        stmt.setDate(index, Date.valueOf((String) value));
+                        break;
+
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+    }
+    private boolean executeStmtWithConstraintsCheck(PreparedStatement statement) throws SQLException {
+        int num = statement.executeUpdate();
+        System.out.println(statement.toString());
+        System.out.println(num);
+        if(num==0){
+            System.out.println(statement.getWarnings().getMessage());
+            showAlert(Alert.AlertType.WARNING, statement.getWarnings().getMessage());
+            return false;
+        }
+        return true;
+    }
+    private boolean executeStmtWithConstraintsCheck(Statement statement,String query) throws SQLException {
+        int num = statement.executeUpdate(query);
+        System.out.println(statement.toString());
+        System.out.println(num);
+        if(num==0){
+            System.out.println(statement.getWarnings().getMessage());
+            showAlert(Alert.AlertType.WARNING, statement.getWarnings().getMessage());
+            return false;
+        }
+        return true;
     }
 }

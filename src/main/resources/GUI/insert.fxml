@@ -4,7 +4,6 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.Scene?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
@@ -119,22 +118,10 @@
                                  <Label layoutX="10.0" layoutY="278.0" text="Codice Indirizzo " />
                                  <TextField fx:id="codiceIndirizzoOperatore_field" layoutX="10.0" layoutY="295.0" />
                                  <Label layoutX="10.0" layoutY="320.0" text="Percentuale Contributo" />
-                                 <TextField fx:id="percentualeContributoOperatore_field" layoutX="10.0" layoutY="337.0" />
-                                 <Label layoutX="10.0" layoutY="387.0" />
-                                 <MenuButton fx:id="ruoloOperatore_field" mnemonicParsing="false" prefHeight="25.0" prefWidth="282.0" text="Ruolo">
-                                    <items>
-                                       <CheckMenuItem fx:id="sceneggiatore_field" mnemonicParsing="false" text="Sceneggiatore" />
-                                       <CheckMenuItem fx:id="produttore_field" mnemonicParsing="false" text="Produttore" />
-                                       <CheckMenuItem fx:id="produttoreEsecutivo_field" mnemonicParsing="false" text="Produttore Esecutivo" />
-                                       <CheckMenuItem fx:id="aiutoRegista_field" mnemonicParsing="false" text="Aiuto Regista" />
-                                       <CheckMenuItem fx:id="capoRegista_field" mnemonicParsing="false" text="Capo Regista" />
-                                       <CheckMenuItem fx:id="attore_field" mnemonicParsing="false" text="Attore" />
-                                       <CheckMenuItem fx:id="stilista_field" mnemonicParsing="false" text="Stilista" />
-                                       <CheckMenuItem fx:id="operatoreFonico_field" mnemonicParsing="false" text="Operatore Fonico" />
-                                       <CheckMenuItem fx:id="operatoreFotografico_field" mnemonicParsing="false" text="Operatore Fotografico" />
-                                    </items>
-                                 </MenuButton>
-                                 <Label />
+                                 <TextField fx:id="percentualeContributoOperatore_field" layoutX="10.0" layoutY="337.0">
+                                    <VBox.margin>
+                                       <Insets bottom="10.0" />
+                                    </VBox.margin></TextField>
                                  <Button fx:id="operatore_insertButton" mnemonicParsing="false" onMouseClicked="#operatore_insertButton_clicked" text="Insert" />
                               </children>
                            </VBox>
@@ -190,8 +177,7 @@
                                  <Separator prefHeight="0.0" prefWidth="206.0" />
                                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                                     <children>
-                                       <MenuButton fx:id="filmSelection_finanziatore" mnemonicParsing="false" text="Seleziona Film" />
-                                       <Button mnemonicParsing="false" text="Button" />
+                                       <MenuButton fx:id="filmSelection_finanziatore" mnemonicParsing="false" prefHeight="25.0" prefWidth="190.0" text="Seleziona Film" />
                                     </children>
                                  </HBox>
                                  <Label text="P.IVA" />
@@ -238,7 +224,7 @@
                                  <Font size="14.0" />
                               </font>
                            </Button>
-                           <TableView fx:id="tableView" layoutX="349.0" layoutY="94.0" prefHeight="440.0" prefWidth="711.0" AnchorPane.bottomAnchor="208.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="94.0" />
+                           <TableView fx:id="tableView" layoutX="349.0" layoutY="94.0" prefHeight="440.0" prefWidth="711.0" AnchorPane.bottomAnchor="208.0" AnchorPane.leftAnchor="349.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="94.0" />
                         </children>
                      </AnchorPane>
                   </content>
