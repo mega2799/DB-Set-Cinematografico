@@ -19,7 +19,8 @@ public class QueryTeller {
         String query = "select @Denaro := sum(incasso) as money FROM Incasso;\n";
                 String query2 = "select distinct M.nome, M.cognome,M.percentualeContributo, (M.percentualeContributo / 100 * @Denaro ) as guadagno, Rm.nomeRuolo \n" +
                 "from Incasso I, MembroTroupe M, RuoloMembroTroupe Rm join Film_Membro_Troupe flm on (Rm.CF = flm.CF) \n" +
-                "where (M.CF = Rm.CF) and flm.codF = ? and M.percentualeContributo is not null;";
+                "where (M.CF = Rm.CF) and flm.codF = ? and M.percentualeContributo is not null" +
+                "order by guadagno DESC;";
         ResultSet result = null;
         try {
             PreparedStatement stmt = this.connection.prepareStatement(query);
@@ -147,7 +148,8 @@ public class QueryTeller {
         String query2 = "    select distinct F.nome, F.percentualeGuadagno, (F.percentualeGuadagno / 100 * @Denaro ) as guadagno\n" +
                 "    from Finanziatore F join Fondo ff on (F.P_IVA_FINANZIATORE = ff.P_IVA_FINANZIATORE)\n" +
                 "    where F.percentualeGuadagno is not null\n" +
-                "    and codF = ?;";
+                "    and codF = ?" +
+                "    order by guadagno DESC;";
         ResultSet result = null;
         try {
             PreparedStatement stmt = this.connection.prepareStatement(query);
@@ -211,7 +213,8 @@ public class QueryTeller {
     public ResultSet oggettiInMagazzino(final int nM){
         //String query = "select oggettidiscena.tipo, oggettidiscena.descrizione, posizionemagazzino.scaffale, posizionemagazzino.percorso " +
            //            "from posizionemagazzino inner join oggettidiscena on posizionemagazzino.codP = oggettidiscena.codP where posizionemagazzino.numMagazzino = "+nM+";";
-        String query = "    select *  from OggettoScena o join OggettiDiScena os on (o.codO=os.codO)\n" +
+        String query = "select os.tipo, os.descrizione, pm.scaffale, pm.percorso" +
+                "  from OggettoScena o join OggettiDiScena os on (o.codO=os.codO)\n" +
                 "    join PosizioneMagazzino pm on (pm.codP=os.codP)     where pm.numMagazzino = ?;";
         ResultSet result = null;
         try(Statement statement = connection.createStatement()) {

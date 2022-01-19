@@ -361,7 +361,8 @@ Tale profitto è calcolato anche in base alla percentuale di guadagno stabilita.
     select distinct F.nome, F.percentualeGuadagno, (F.percentualeGuadagno / 100 * @Denaro ) as guadagno
     from Finanziatore F join Fondo ff on (F.P_IVA_FINANZIATORE = ff.P_IVA_FINANZIATORE)
     where F.percentualeGuadagno is not null
-    and codF = ?;
+    and codF = ?
+    order by guadagno DESC;
 ```
 
 # 5.4 Luoghi riprese
@@ -415,7 +416,8 @@ e chiunque lavori all'interno e riceva una percentuale dagli incassi.
   select @Denaro := sum(incasso) as money FROM Incasso;
   select distinct M.nome, M.cognome,M.percentualeContributo, (M.percentualeContributo / 100 * @Denaro ) as guadagno, Rm.nomeRuolo 
   from Incasso I, MembroTroupe M, RuoloMembroTroupe Rm join Film_Membro_Troupe flm on (Rm.CF = flm.CF) 
-  where (M.CF = Rm.CF) and flm.codF = ? and M.percentualeContributo is not null; 
+  where (M.CF = Rm.CF) and flm.codF = ? and M.percentualeContributo is not null
+  order by guadagno DESC; 
 ```
 # 6 Il Progetto Logico
 

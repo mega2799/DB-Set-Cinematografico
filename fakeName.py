@@ -2,6 +2,7 @@ from time import strftime
 from faker import Faker 
 from random import choice, randint, random
 import random
+import string
 from codicefiscale import codicefiscale
 import datetime 
 
@@ -44,6 +45,10 @@ CODMAGAZZINO = 1
 
 POSIZIONI = [] 
 
+TIPOOGGETTI = ['arredo','maschere','armi','mobili','strumentoMusicale','motori']
+
+TIPOCOSTUME = ['epoca', 'contemporaneo', 'fantasia']
+
 for i in range(VALUES + NumFinanziatori):
     INDIRIZZO.append([random_with_N_digits(5),f.city(),f.street_name(),f.building_number(), int(f.postcode())])
 
@@ -71,13 +76,13 @@ for i in range(NumFinanziatori):
     FINANZIATORE.append([f.iban(), random.choice(AZIENDE), INDIRIZZO[VALUES + i][0], random.random()])
 
 for i in range(VALUES):
-    POSIZIONI.append([random_with_N_digits(5), CODMAGAZZINO, random_with_N_digits(1), 'A'])
+    POSIZIONI.append([random_with_N_digits(5), CODMAGAZZINO, random_with_N_digits(1), random.choice(string.ascii_letters).capitalize()])
 
 for i in range(VALUES):
-    COSTUME.append([random_with_N_digits(5), 'fantasia', 'costume di scena n.' + str(i + 1), random.choice(MembroTroupe)[0], POSIZIONI[i][0]])
+    COSTUME.append([random_with_N_digits(5), random.choice(TIPOCOSTUME), 'costume di scena n.' + str(i + 1), random.choice(MembroTroupe)[0], POSIZIONI[i][0]])
 
 for i in range(NumFinanziatori):
-    OGGETTI.append([random_with_N_digits(5), 'armi', 'oggetto di scena n.' + str(i + 1), POSIZIONI[i][0]])
+    OGGETTI.append([random_with_N_digits(5), random.choice(TIPOOGGETTI), 'oggetto di scena n.' + str(i + 1), POSIZIONI[i][0]])
 
 file = open("fakeData.sql", "w")
 

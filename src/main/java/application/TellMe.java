@@ -211,7 +211,15 @@ public class TellMe {
     }
 
     public ResultSet film() {
-        return getTable("Film");
+        String query = "select codF, titolo, genere, durata, dataUscita from Film;";
+        ResultSet result = null;
+        try {
+            PreparedStatement stmt = this.connection.prepareStatement(query);
+            result = stmt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     public ResultSet sponsors(final String codF) {
