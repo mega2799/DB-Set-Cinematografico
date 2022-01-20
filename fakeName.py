@@ -13,7 +13,7 @@ def random_with_N_digits(n):
     
 f = Faker('it_IT')
  
-codFilm = 3
+codFilm = 2
 
 INDIRIZZO = []
 
@@ -70,7 +70,7 @@ for i in range(VALUES):
     BUSTAPAGA.append( [random_with_N_digits(5), randint(7, 54), randint(45, 198), f.month_name()])
 
 for i in range(VALUES):
-    SCENE.append([random_with_N_digits(5), "Scena n. " + str(i), random_with_N_digits(2), random_with_N_digits(3), random_with_N_digits(3), random_with_N_digits(2),codFilm])
+    SCENE.append([random_with_N_digits(5), "Scena n. " + str(i), random_with_N_digits(2), random_with_N_digits(2), random_with_N_digits(2), random_with_N_digits(2),codFilm])
 
 for i in range(NumFinanziatori):
     FINANZIATORE.append([f.iban(), random.choice(AZIENDE), INDIRIZZO[VALUES + i][0], random.random()])
@@ -81,10 +81,12 @@ for i in range(VALUES):
 for i in range(VALUES):
     COSTUME.append([random_with_N_digits(5), random.choice(TIPOCOSTUME), 'costume di scena n.' + str(i + 1), random.choice(MembroTroupe)[0], POSIZIONI[i][0]])
 
-for i in range(NumFinanziatori):
+for i in range(VALUES):
     OGGETTI.append([random_with_N_digits(5), random.choice(TIPOOGGETTI), 'oggetto di scena n.' + str(i + 1), POSIZIONI[i][0]])
 
 file = open("fakeData.sql", "w")
+
+print(POSIZIONI)
 
 file.write("INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP) VALUES ") 
 for i in range(VALUES + NumFinanziatori): 
@@ -111,29 +113,29 @@ for i in range(VALUES):
     file.write("\n " + str(SCENE[i]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")
 
+file.write("INSERT IGNORE INTO PosizioneMagazzino(codP, numMagazzino, scaffale, percorso) VALUES") 
+for i in range(VALUES):
+    file.write("\n " + str(POSIZIONI[i]).replace("[", "(").replace("]", ")") + ",")
+file.write(";\n")
+
 file.write("INSERT IGNORE INTO Costume(codC, tipo, descrizione, CF, codP) VALUES ")
 for i in range(VALUES):
     file.write("\n " + str(COSTUME[i]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")
 
 file.write("INSERT IGNORE INTO CostumeScena(codC, codScena) VALUES ")
-for i in range(VALUES):
-    file.write("\n" + str([random.choice(SCENE)[0], random.choice(COSTUME)[0]]).replace("[", "(").replace("]", ")") + ",")
+for i in range(VALUES * 3):
+    file.write("\n" + str([random.choice(COSTUME)[0], random.choice(SCENE)[0]]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")
  
-file.write("INSERT IGNORE INTO PosizioneMagazzino(codP, numMagazzino, scaffale, percorso) VALUES") 
-for i in range(NumFinanziatori):
-    file.write("\n " + str(POSIZIONI[i]).replace("[", "(").replace("]", ")") + ",")
-file.write(";\n")
-
 # il codP e il codice magazzino 
 file.write("INSERT IGNORE INTO OggettiDiScena(codO, tipo, descrizione, codP) VALUES ")
-for i in range(NumFinanziatori):
+for i in range(VALUES):
     file.write("\n " + str(OGGETTI[i]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")
 
 file.write("INSERT IGNORE INTO OggettoScena(codO,codScena) VALUES")
-for i in range(NumFinanziatori):
+for i in range(VALUES * 3):
     file.write("\n" + str([random.choice(OGGETTI)[0], random.choice(SCENE)[0]]).replace("[", "(").replace("]", ")") + ",")
 file.write(";\n")
     

@@ -7,19 +7,13 @@ creare il file .sql
 mysqldump -u studente -p cinema > cinema.sql
 ```
 
-#### Note personali
-Ma siamo sicuri di voler rendere l'indirizzo obbligatorio per tutti ?
-Risolvere i TODO in giro
-
-
 ## Struttura del progetto
 
 La presente documentazione tratta nel dettaglio la progettazione e l’implementazione dell’elaborato   
-"Set cinematografico" di Michele Nardini ()  Santoro Matteo(0000881608) Manuel Luzietti()
+"Set cinematografico" di Michele Nardini()  Santoro Matteo(0000881608) Manuel Luzietti()
 
 ## Struttura:
 - [Set Cinematografico](#set-cinematografico)
-      - [Note personali](#note-personali)
   - [Struttura del progetto](#struttura-del-progetto)
   - [Struttura:](#struttura)
   - [Introduzione](#introduzione)
@@ -46,12 +40,11 @@ La presente documentazione tratta nel dettaglio la progettazione e l’implement
   - [5.1 Stipendio membri della troupe](#51-stipendio-membri-della-troupe)
 - [5.2 Elenco oggetti acquistati in magazzino](#52-elenco-oggetti-acquistati-in-magazzino)
 - [5.3 Profitto finanziatori](#53-profitto-finanziatori)
-- [5.4 Luoghi riprese](#54-luoghi-riprese)
-- [5.5 Costumi da usare per scena](#55-costumi-da-usare-per-scena)
-- [5.6 Dipendenti in scena](#56-dipendenti-in-scena)
-- [5.7 Oggetti in scena](#57-oggetti-in-scena)
-- [5.8 Stipendio netto dipendente](#58-stipendio-netto-dipendente)
-- [5.9 Profitto Produttori](#59-profitto-produttori)
+- [5.4 Costumi da usare per scena](#54-costumi-da-usare-per-scena)
+- [5.5 Dipendenti in scena](#55-dipendenti-in-scena)
+- [5.6 Oggetti in scena](#56-oggetti-in-scena)
+- [5.7 Stipendio netto dipendente](#57-stipendio-netto-dipendente)
+- [5.8 Profitto Produttori](#57-profitto-produttori)
 - [6 Il Progetto Logico](#6-il-progetto-logico)
 - [6.1 Frequenza e costo degli accessi](#61-frequenza-e-costo-degli-accessi)
 - [6.2 Volume dati del database](#62-volume-dati-del-database)
@@ -342,12 +335,14 @@ selezionando il Film per il quale si desidera conoscere la cifra.
 
 # 5.2 Elenco oggetti acquistati in magazzino
 Trova la posizione in un dato magazzino di tutti gli oggetti acquistati specificandone
-magazzino,percorso,scaffale.
+magazzino.
 
 
 ```sql
-    select *  from OggettoScena o join OggettiDiScena os on (o.codO=os.codO)
-    join PosizioneMagazzino pm on (pm.codP=os.codP)     where pm.numMagazzino = ?;
+    select ods.tipo, ods.descrizione, pm.scaffale, pm.percorso
+    from PosizioneMagazzino pm, OggettiDiScena ods
+    where pm.codP = ods.codP
+    and pm.numMagazzino = ?;
 ```
 
 # 5.3 Profitto finanziatori
@@ -365,17 +360,7 @@ Tale profitto è calcolato anche in base alla percentuale di guadagno stabilita.
     order by guadagno DESC;
 ```
 
-# 5.4 Luoghi riprese
-Query creata per poter definire in uno specifico giorno, durante la realizzazione di un film, dove i vari membri
-della troupe dovranno recarsi per effettuare una determinata scena.
-
-```sql
-    select distinct i.*
-    from ScenaCiak sc join Film f on (sc.codF=f.codF)
-    join Indirizzo i on (i.codInd=sc.codInd)
-    where f.titolo=?;
-```
-# 5.5 Costumi da usare per scena
+# 5.4 Costumi da usare per scena
 Query creata per definire i costumi che saranno da usare nella realizzazione di una determinate scena
 e che dovrà indossare un attore X
 
@@ -385,7 +370,7 @@ e che dovrà indossare un attore X
    join Costume c on (c.codC = cs.codC)
    where sc.noteDiProduzione = ?;
 ```
-# 5.6 Dipendenti in scena
+# 5.5 Dipendenti in scena
 ```sql
     select mt.*
     from ScenaCiak sc join MembroTroupeScena mts on (sc.codScena = mts.codScena)
@@ -393,14 +378,14 @@ e che dovrà indossare un attore X
     where sc.codScena = ?;
 ```
 
-# 5.7 Oggetti in scena
+# 5.6 Oggetti in scena
 ```sql
     select ods.*
     from ScenaCiak sc join OggettoScena os on (sc.codScena=os.codScena)
     join OggettiDiScena ods on (os.codO=ods.codO)
     where sc.codScena=?;
 ```
-# 5.8 Stipendio netto dipendente
+# 5.7 Stipendio netto dipendente
 Definisce lo stipendio di un determinato membro della troupe in un dato mese, calcolandolo 
 moltiplicando la retribuzione oraria stabilita mediante contratto e le ore lavorate
 ```sql
@@ -409,7 +394,7 @@ moltiplicando la retribuzione oraria stabilita mediante contratto e le ore lavor
   where r.CF = ?; 
 ```
 
-# 5.9 Profitto produttori 
+# 5.8 Profitto produttori 
 Server per poter calcolare quanti soldi riescono a ricavare dalla produzione di un film i produttori  
 e chiunque lavori all'interno e riceva una percentuale dagli incassi.
 ```sql

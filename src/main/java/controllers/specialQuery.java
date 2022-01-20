@@ -60,8 +60,6 @@ public class specialQuery {
     private Alert alert;
     private ToggleGroup tgMonth;
 
-
-    // TODO devi modificare anche qua in modo che si possa selezioanare i risultati in base al film, quindi passsare codF anche alle query speciali
     public void initialize() {
         queryTeller = new QueryTeller();
         data = FXCollections.observableArrayList();

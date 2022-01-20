@@ -6,6 +6,8 @@ import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class QueryTeller {
@@ -28,25 +30,6 @@ public class QueryTeller {
             PreparedStatement stmt2 = this.connection.prepareStatement(query2);
             stmt2.setString(1, codF);
             result = stmt2.executeQuery();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-
-    // TODO lavare questa query, fa schifo,  anche da README e da .fxml
-    public ResultSet luoghiFilm(final String title){
-        String query = "    select distinct i.*\n" +
-                "    from ScenaCiak sc join Film f on (sc.codF=f.codF)\n" +
-                "    join Indirizzo i on (i.codInd=sc.codInd)\n" +
-                "    where f.titolo=?;";
-
-        ResultSet result = null;
-        try {
-            PreparedStatement stmt = this.connection.prepareStatement(query);
-            stmt.setString(1, title);
-            result = stmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -213,9 +196,10 @@ public class QueryTeller {
     public ResultSet oggettiInMagazzino(final int nM){
         //String query = "select oggettidiscena.tipo, oggettidiscena.descrizione, posizionemagazzino.scaffale, posizionemagazzino.percorso " +
            //            "from posizionemagazzino inner join oggettidiscena on posizionemagazzino.codP = oggettidiscena.codP where posizionemagazzino.numMagazzino = "+nM+";";
-        String query = "select os.tipo, os.descrizione, pm.scaffale, pm.percorso" +
-                "  from OggettoScena o join OggettiDiScena os on (o.codO=os.codO)\n" +
-                "    join PosizioneMagazzino pm on (pm.codP=os.codP)     where pm.numMagazzino = ?;";
+        String query = "select ods.tipo, ods.descrizione, pm.scaffale, pm.percorso\n" +
+                "from PosizioneMagazzino pm, OggettiDiScena ods\n" +
+                "where pm.codP = ods.codP\n" +
+                "and pm.numMagazzino = ?;";
         ResultSet result = null;
         try(Statement statement = connection.createStatement()) {
             PreparedStatement stmt = this.connection.prepareStatement(query);
@@ -260,6 +244,25 @@ public class QueryTeller {
         String query = "select sum(incasso) as TotaleIncasso\n" +
                 "from Incasso\n" +
                 "where codF = ?;";
+        ResultSet result = null;
+        try(Statement statement = connection.createStatement()) {
+            PreparedStatement stmt = this.connection.prepareStatement(query);
+            stmt.setString(1,codfilm);
+            result = stmt.executeQuery();
+        }catch (SQLException e){
+            System.out.println(result);
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+
+    public ResultSet ricaviTotali(String codfilm) {
+        List<String> queries = new ArrayList<>(Arrays.asList("", ""));
+
+
+        String query = "";
         ResultSet result = null;
         try(Statement statement = connection.createStatement()) {
             PreparedStatement stmt = this.connection.prepareStatement(query);

@@ -1,5 +1,4 @@
 -- TODO incollare questo file alla fine nella relazione dopo aver ucciso i todo, me compreso :^ (
-
 CREATE TABLE if not exists Indirizzo(
     codInd int primary key check(length(codInd) <= 5),
     citta varchar(41) NOT NULL,
@@ -243,7 +242,7 @@ CREATE TABLE if not exists PosizioneMagazzino(
 
 CREATE TABLE if not exists Costume(
         codC int Primary Key,
-        tipo varchar(12) NOT NULL CHECK(tipo='epoca' OR tipo='contemporaneo' OR tipo='fantasia'),
+        tipo varchar(22) NOT NULL CHECK(tipo='epoca' OR tipo='contemporaneo' OR tipo='fantasia'),
         descrizione varchar(255) NOT NULL,
         CF varchar(18) NOT NULL,
         FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)

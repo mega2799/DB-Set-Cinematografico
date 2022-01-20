@@ -130,8 +130,9 @@ public class TellMe {
     }
 
     public ResultSet fondi(final String codF) {
-        String query = "select * from Fondo\n" +
-                "where codF = ?;";
+        String query = "select dataAccredito, patrimonio, P_IVA_SPONSOR, P_IVA_FINANZIATORE from Fondo\n" +
+                "where codF = ?" +
+                "order by dataAccredito;";
         ResultSet result = null;
         try {
             PreparedStatement stmt = this.connection.prepareStatement(query);
@@ -144,8 +145,9 @@ public class TellMe {
     }
 
     public ResultSet incassi(final String codF) {
-        String query = "select * from Incasso\n" +
-                "where codF = ?;";
+        String query = "select dataInizio, dataFine, incasso from Incasso\n" +
+                "where codF = ?" +
+                "order by dataInizio;";
         ResultSet result = null;
         try {
             PreparedStatement stmt = this.connection.prepareStatement(query);
@@ -197,8 +199,9 @@ public class TellMe {
     }
 
     public ResultSet scene(final String codF) {
-        String query = "select * from ScenaCiak\n" +
-                "where codF = ?;";
+        String query = "select codScena, noteDiProduzione, rullo, numRiprese, durataOre, costoAffittoGiornaliero from ScenaCiak\n" +
+                "where codF = ?" +
+                "order by durataOre desc;";
         ResultSet result = null;
         try {
             PreparedStatement stmt = this.connection.prepareStatement(query);
@@ -239,9 +242,10 @@ public class TellMe {
 
     //aggiungo troupe per problemi di delete,tolgo momentaneamente query troupeStaffOnly da gui:
     public ResultSet troupe(final String codF) {
-        String query = "select m.* from MembroTroupe m\n" +
+        String query = "select concat(nome, ' ', cognome) as dipendente, IBAN, dataNascita, telefono from MembroTroupe m\n" +
                 "join Film_Membro_Troupe fmt on ( m.CF = fmt.CF) \n" +
-                "where codF = ?;";
+                "where codF = ?" +
+                "order by dipendente asc;";
         ResultSet result = null;
         try {
             PreparedStatement stmt = this.connection.prepareStatement(query);
