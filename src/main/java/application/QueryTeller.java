@@ -256,22 +256,76 @@ public class QueryTeller {
         return result;
     }
 
-
-
+    //TODO query fatta e funzionante ma solo con il film con cod2...... debuggarla pls
     public ResultSet ricaviTotali(String codfilm) {
-        List<String> queries = new ArrayList<>(Arrays.asList("", ""));
-
-
-        String query = "";
+        List<String> queries = new ArrayList<>(Arrays.asList(
+                "  select @spesa := sum(costoAffittoGiornaliero * durataOre) as Spesa from ScenaCiak\n" +
+                        "  where codF = " + codfilm + ";",
+                "select @stipendi :=  sum(retribuzioneOraria * oreLavorate) as CostoTroupe_Mese from \n" +
+                        "        BustaPaga b join Retribuzione r on (b.codB = r.codB )\n" +
+                        "        join Film_Membro_Troupe flm on (r.CF = flm.CF) \n" +
+                        "        and codF = " + codfilm + ";",
+                "select @fatturato := sum(incasso) as Fatturato from Incasso\n" +
+                        "where codF = " + codfilm + ";",
+                "select @guadagno := sum(F.percentualeGuadagno / 100 * @fatturato ) as guadagno\n" +
+                        "    from Finanziatore F join Fondo ff on (F.P_IVA_FINANZIATORE = ff.P_IVA_FINANZIATORE)\n" +
+                        "    where F.percentualeGuadagno is not null\n" +
+                        "    and codF = " + codfilm + ";",
+                "select @detrazioni := (@stipendi + @spesa + @guadagno) as Det;\n",
+                "select @ricavo := @fatturato - @detrazioni as Ricavo;\n"));
         ResultSet result = null;
         try(Statement statement = connection.createStatement()) {
-            PreparedStatement stmt = this.connection.prepareStatement(query);
-            stmt.setString(1,codfilm);
-            result = stmt.executeQuery();
+            for (String query: queries) {
+                PreparedStatement stmt = this.connection.prepareStatement(query);
+                result = stmt.executeQuery();
+            }
         }catch (SQLException e){
             System.out.println(result);
             e.printStackTrace();
         }
         return result;
     }
+/* // debug per quella superiore, non funziona per tutti i film
+ public ResultSet ricaviTotali(String codfilm) {
+
+     String query = "  select @spesa := sum(costoAffittoGiornaliero * durataOre) as Spesa from ScenaCiak\n" +
+             "  where codF = " + codfilm + ";";
+     String query2 = "select @stipendi :=  sum(retribuzioneOraria * oreLavorate) as CostoTroupe_Mese from \n" +
+                     "        BustaPaga b join Retribuzione r on (b.codB = r.codB )\n" +
+                     "        join Film_Membro_Troupe flm on (r.CF = flm.CF) \n" +
+                     "        and codF = " + codfilm + ";";
+     String query5 =         "select @fatturato := sum(incasso) as Fatturato from Incasso\n" +
+             "where codF = " + codfilm + ";";
+     String query3 = "select @guadagno := sum(F.percentualeGuadagno / 100 * @fatturato ) as guadagno\n" +
+                     "    from Finanziatore F join Fondo ff on (F.P_IVA_FINANZIATORE = ff.P_IVA_FINANZIATORE)\n" +
+                     "    where F.percentualeGuadagno is not null\n" +
+                     "    and codF = " + codfilm + ";";
+     String query4 =         "select @detrazioni := (@stipendi + @spesa + @guadagno) as Det;\n";
+
+     String query6 = "select @ricavo := @fatturato - @detrazioni as Ricavo;\n";
+     ResultSet result = null;
+     try(Statement statement = connection.createStatement()) {
+             PreparedStatement stmt = this.connection.prepareStatement(query);
+              stmt.executeQuery();
+
+         PreparedStatement stmt2 = this.connection.prepareStatement(query2);
+         stmt2.executeQuery();
+
+         PreparedStatement stmt5 = this.connection.prepareStatement(query5);
+         stmt5.executeQuery();
+
+         PreparedStatement stmt3 = this.connection.prepareStatement(query3);
+         stmt3.executeQuery();
+
+         PreparedStatement stmt4 = this.connection.prepareStatement(query4);
+         stmt4.executeQuery();
+
+         PreparedStatement stmt6 = this.connection.prepareStatement(query6);
+         result = stmt6.executeQuery();
+     }catch (SQLException e){
+         System.out.println(result);
+         e.printStackTrace();
+     }
+     return result;
+ }*/
 }

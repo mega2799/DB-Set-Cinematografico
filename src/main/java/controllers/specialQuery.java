@@ -245,4 +245,13 @@ public class specialQuery {
         rs = queryTeller.incassoTot(CODFILM);
         refreshTable();
     }
+    @FXML
+    void ricavo_on_clicked(MouseEvent e){
+        if(filmCheck()){
+            showAlert(Alert.AlertType.ERROR,"Non hai selezionato il Film");
+            return;
+        }
+        rs = queryTeller.ricaviTotali(CODFILM);
+        refreshTable();
+    }
 }

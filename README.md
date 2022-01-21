@@ -891,34 +891,32 @@ o mettiamo 1% per ogni ruolo -> 3% totale oppure non mettiamo i ruoli
 - Fatturato Annuo (qui vanno aggiunte tutte le spese, gli stipendi etc etc, mancano le query) 
 lo componiamo di altre query utili a calcolare un eventuale fatturato
     ```sql
-      -- query sulle spese per location per ogni scena del film 
-      select @spesa := sum(costoAffittoGiornaliero * durataOre) as Spesa from ScenaCiak;
-    -- query su stipendio nei 5 mesi in cui e stato girato 
-    select @stipendi :=  sum(retribuzioneOraria * oreLavorate) as Stipendi from BustaPaga
-      -- query su spesa acquisto oggetti 
-    select @speseOggetti := sum(prezzoTotale) as SpeseOggetti from Acquisto;
-    ```
-    ```sql 
-     -- query per stimare un fatturato annuo a cui poi sottrarre le varie spese
-      select @fatturato := sum(incasso)/count(incasso) as Fatturato from Incasso;
-      select (@fatturato * 12) as FatturatoAnnuoStimato;
-    ```
- 
+    -- detrazioni 
 
-	select @spesa := sum(costoAffittoGiornaliero * durataOre) as Spesa from ScenaCiak;
-    select @stipendi :=  sum(retribuzioneOraria * oreLavorate) as Stipendi from BustaPaga;
-    select @speseOggetti := sum(prezzoTotale) as SpeseOggetti from Acquisto;
-	select @fatturato := sum(incasso)/count(incasso) as Fatturato from Incasso;
-	select @fatturatoAnnuoStimato := (@fatturato * 12) as FatturatoAnnuoStimato;
-	
-	QUESTA SOTTO NON FUNZIONA 
-	select @percentualeInvestitori := sum(guadagno) from (select @Denaro := sum(incasso) as money FROM Incasso
-    select distinct F.nome, F.percentualeGuadagno, (F.percentualeGuadagno / 100 * @Denaro ) as guadagno
-    from Finanziatore F
-    where F.percentualeGuadagno is not null)
-	
-	select @ProfittoStimato := @fatturatoAnnuoStimato - (@spesa + @stipendi + @speseOggetti) as Profitto;
+  -- query sulle spese per location per ogni scena del film 
+  select @spesa := sum(costoAffittoGiornaliero * durataOre) as Spesa from ScenaCiak
+  where codF = 2;
+-- query su stipendio nei mesi in cui e stato girato
+select @stipendi :=  sum(retribuzioneOraria * oreLavorate) as CostoTroupe_Mese from
+BustaPaga b join Retribuzione r on (b.codB = r.codB )
+join Film_Membro_Troupe flm on (r.CF = flm.CF)
+and codF = 2;
 
+-- sottrarre il guadagno di finanziatori con query specifiche
+select @guadagno := sum(F.percentualeGuadagno / 100 * @fatturato ) as guadagno
+from Finanziatore F join Fondo ff on (F.P_IVA_FINANZIATORE = ff.P_IVA_FINANZIATORE)
+where F.percentualeGuadagno is not null
+and codF = 2;
+select @detrazioni := (@stipendi + @spesa + @guadagno) as Det;
+
+-- Entrate
+select @fatturato := sum(incasso) as Fatturato from Incasso
+where codF = 2;
+
+-- Ricavo
+select @ricavo := @fatturato - @detrazioni as Ricavo;
+
+    ```
 
 - Controllo scena da riprendere in giornata
 

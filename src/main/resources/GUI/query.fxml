@@ -37,6 +37,7 @@
                   </ButtonBar>
                   <MenuButton fx:id="scene_menu_bar" layoutX="668.0" layoutY="57.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="124.0" text="Scene in film" />
                   <Button layoutX="328.0" layoutY="38.0" mnemonicParsing="false" onMouseClicked="#incasso_tot_clicked" text="Incasso Film" />
+                  <Button layoutX="883.0" layoutY="57.0" mnemonicParsing="false" onMouseClicked="#ricavo_on_clicked" text="Button" />
                </children>
             </AnchorPane>
             <TableView fx:id="queryView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#attori_in_scena_clicked" prefHeight="620.0" prefWidth="1080.0" />
