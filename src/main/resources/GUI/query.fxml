@@ -38,7 +38,7 @@
                   <Button layoutX="633.0" layoutY="129.0" mnemonicParsing="false" onMouseClicked="#queryScena_clicked" prefWidth="175.0" text="Oggetti Scena" AnchorPane.topAnchor="126.0" />
                   <Button layoutX="846.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#queryMagazzino_clicked" prefWidth="175.0" text="Oggetti in Magazzino" AnchorPane.topAnchor="126.0" />
                   <MenuButton fx:id="selectMagazzino" alignment="CENTER" layoutX="882.0" layoutY="92.0" mnemonicParsing="false" prefWidth="110.0" text="Magazzino" AnchorPane.topAnchor="92.0" />
-                <Button fx:id="refreshQuery" layoutX="936.0" layoutY="31.0" mnemonicParsing="false" text="Refresh" AnchorPane.topAnchor="31.0" />
+                <Button fx:id="refreshQuery" layoutX="954.0" layoutY="31.0" mnemonicParsing="false" text="Refresh" AnchorPane.topAnchor="31.0" />
                   <MenuButton fx:id="scene_menu_bar" alignment="CENTER" layoutX="447.0" layoutY="94.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="175.0" text="Scene in film" AnchorPane.topAnchor="92.0" />
                   <Button layoutX="231.0" layoutY="127.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#incasso_tot_clicked" prefHeight="0.0" prefWidth="175.0" text="Incasso Film" AnchorPane.leftAnchor="232.0" AnchorPane.topAnchor="126.0" />
                   <Button layoutX="536.0" layoutY="52.0" mnemonicParsing="false" onMouseClicked="#ricavo_on_clicked" prefWidth="175.0" text="Ricavi" AnchorPane.topAnchor="52.0" />
