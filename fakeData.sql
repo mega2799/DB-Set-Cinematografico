@@ -21,7 +21,7 @@ INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP) VALUES
 (68922, 'Martucci sardo', 'Strada Graziano', '41', 11617),
 (52117, 'Tornatore umbro', 'Canale Allegra', '983', 17729),
 (90901, 'Vergerio lido', 'Borgo Coriolano', '73', 66520),
-(68026, 'Settimo Claudia', 'Contrada Paltrinieri', '77', 18865),;
+(68026, 'Settimo Claudia', 'Contrada Paltrinieri', '77', 18865);
 INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono, codInd) VALUES 
 ('PPEPNI21T31L219B', 'Pepe', 'Pina', 'IT51K0023186606940484806011', '2021-12-31', '+39 25 0105562', 48324),
 ('TMMSLL21T31L219I', 'Tommaseo', 'Isabella', 'IT03J1131729714811719091875', '2021-12-31', '+39 677 83772342', 35571),
@@ -41,7 +41,7 @@ INSERT IGNORE INTO MembroTroupe(CF, nome, cognome, iban, dataNascita, telefono, 
 ('MNTGTN21T29L219D', 'Montesano', 'Gastone', 'IT58O5095621163088756686939', '2021-12-29', '+39 29 61903267', 28235),
 ('MRCMRN22A18L219J', 'Mercantini', 'Marina', 'IT17U2888760819763862492096', '2022-01-18', '+39 595 0316205', 16316),
 ('BDNNCL22A18L219O', 'Bodoni', 'Nicola', 'IT73W3421785660985123694079', '2022-01-18', '+39 5135 05079592', 80745),
-('FCNRTR21T31L219O', 'Foconi', 'Arturo', 'IT22V7896651667482064387567', '2021-12-31', '+39 825 6984708', 52528),;
+('FCNRTR21T31L219O', 'Foconi', 'Arturo', 'IT22V7896651667482064387567', '2021-12-31', '+39 825 6984708', 52528);
 INSERT IGNORE INTO RuoloMembroTroupe(CF, nomeRuolo) VALUES 
 ('PPEPNI21T31L219B', 'operatore fotografico'),
 ('TMMSLL21T31L219I', 'produttore'),
@@ -61,7 +61,7 @@ INSERT IGNORE INTO RuoloMembroTroupe(CF, nomeRuolo) VALUES
 ('MNTGTN21T29L219D', 'sceneggiatore'),
 ('MRCMRN22A18L219J', 'aiuto regista'),
 ('BDNNCL22A18L219O', 'operatore fotografico'),
-('FCNRTR21T31L219O', 'stilista'),;
+('FCNRTR21T31L219O', 'stilista');
 INSERT IGNORE INTO Film_Membro_Troupe(codF, CF) VALUES 
 (2, 'PPEPNI21T31L219B'),
 (2, 'TMMSLL21T31L219I'),
@@ -81,7 +81,7 @@ INSERT IGNORE INTO Film_Membro_Troupe(codF, CF) VALUES
 (2, 'MNTGTN21T29L219D'),
 (2, 'MRCMRN22A18L219J'),
 (2, 'BDNNCL22A18L219O'),
-(2, 'FCNRTR21T31L219O'),;
+(2, 'FCNRTR21T31L219O');
 INSERT IGNORE INTO ScenaCiak(codScena, noteDiProduzione, rullo, numRiprese, durataOre, costoAffittoGiornaliero, codF) VALUES
  (30366, 'Scena n. 0', 55, 980, 282, 75, 2),
  (36290, 'Scena n. 1', 22, 944, 162, 46, 2),
@@ -101,7 +101,7 @@ INSERT IGNORE INTO ScenaCiak(codScena, noteDiProduzione, rullo, numRiprese, dura
  (96686, 'Scena n. 15', 29, 599, 837, 86, 2),
  (10737, 'Scena n. 16', 62, 624, 674, 74, 2),
  (96961, 'Scena n. 17', 23, 850, 922, 79, 2),
- (12939, 'Scena n. 18', 27, 721, 606, 87, 2),;
+ (12939, 'Scena n. 18', 27, 721, 606, 87, 2);
 INSERT IGNORE INTO PosizioneMagazzino(codP, numMagazzino, scaffale, percorso) VALUES
  (41876, 1, 1, 'A'),
  (17066, 1, 6, 'M'),
@@ -121,7 +121,7 @@ INSERT IGNORE INTO PosizioneMagazzino(codP, numMagazzino, scaffale, percorso) VA
  (24874, 1, 5, 'K'),
  (15883, 1, 3, 'W'),
  (53333, 1, 9, 'G'),
- (62198, 1, 1, 'I'),;
+ (62198, 1, 1, 'I');
 INSERT IGNORE INTO Costume(codC, tipo, descrizione, CF, codP) VALUES 
  (30535, 'fantasia', 'costume di scena n.1', 'MRNNNL21T22L219I', 41876),
  (87873, 'epoca', 'costume di scena n.2', 'TMMSLL21T31L219I', 17066),
@@ -141,7 +141,7 @@ INSERT IGNORE INTO Costume(codC, tipo, descrizione, CF, codP) VALUES
  (34731, 'contemporaneo', 'costume di scena n.16', 'TZZGTV22S01L219E', 24874),
  (23202, 'fantasia', 'costume di scena n.17', 'FCNRTR21T31L219O', 15883),
  (55579, 'fantasia', 'costume di scena n.18', 'VRCNNT21T25L219B', 53333),
- (87284, 'contemporaneo', 'costume di scena n.19', 'MNDGLR22H01L219X', 62198),;
+ (87284, 'contemporaneo', 'costume di scena n.19', 'MNDGLR22H01L219X', 62198);
 INSERT IGNORE INTO CostumeScena(codC, codScena) VALUES 
 (23202, 89826),
 (29776, 47731),
@@ -199,7 +199,7 @@ INSERT IGNORE INTO CostumeScena(codC, codScena) VALUES
 (55579, 96686),
 (77846, 94933),
 (82891, 92272),
-(23202, 10377),;
+(23202, 10377);
 INSERT IGNORE INTO OggettiDiScena(codO, tipo, descrizione, codP) VALUES 
  (31957, 'strumentoMusicale', 'oggetto di scena n.1', 41876),
  (44162, 'motori', 'oggetto di scena n.2', 17066),
@@ -219,7 +219,7 @@ INSERT IGNORE INTO OggettiDiScena(codO, tipo, descrizione, codP) VALUES
  (77723, 'strumentoMusicale', 'oggetto di scena n.16', 24874),
  (44284, 'strumentoMusicale', 'oggetto di scena n.17', 15883),
  (35942, 'arredo', 'oggetto di scena n.18', 53333),
- (86164, 'mobili', 'oggetto di scena n.19', 62198),;
+ (86164, 'mobili', 'oggetto di scena n.19', 62198);
 INSERT IGNORE INTO OggettoScena(codO,codScena) VALUES
 (33447, 36290),
 (17515, 62135),
@@ -277,7 +277,7 @@ INSERT IGNORE INTO OggettoScena(codO,codScena) VALUES
 (33447, 36290),
 (17515, 74996),
 (40540, 74996),
-(40564, 36290),;
+(40564, 36290);
 INSERT IGNORE INTO MembroTroupeScena(codScena ,CF) VALUES 
 (30366, 'LPRGZN22A13L219T'),
 (30366, 'VRDGZN21T25L219T'),
@@ -354,14 +354,14 @@ INSERT IGNORE INTO MembroTroupeScena(codScena ,CF) VALUES
 (12939, 'TZZGTV22S01L219E'),
 (12939, 'TMMSLL21T31L219I'),
 (12939, 'PPEPNI21T31L219B'),
-(12939, 'MNDGLR22H01L219X'),;
+(12939, 'MNDGLR22H01L219X');
 INSERT IGNORE INTO Sponsor(P_IVA_SPONSOR, nome) VALUES 
-('IT64A3586692220111081233032', 'Facebook'),;
+('IT64A3586692220111081233032', 'Facebook');
 INSERT IGNORE INTO Finanziatore(P_IVA_FINANZIATORE, nome,codInd ,percentualeGuadagno) VALUES
  ('IT28C5691061322926646213631', 'The Walt Disney Company', 68922, 0.47502393020847544),
  ('IT26T1896812335575376603094', 'Wells Fargo', 52117, 0.848984283871436),
  ('IT45L1848278153874223172987', 'Comcast', 90901, 0.8017190796932201),
- ('IT32C1939957617651498822468', 'Berkshire Hathaway', 68026, 0.3075192075319094),;
+ ('IT32C1939957617651498822468', 'Berkshire Hathaway', 68026, 0.3075192075319094);
 INSERT IGNORE INTO Incasso(dataInizio, dataFine, incasso, codF, codInd) VALUES 
  ('2006-01-10', '2006-01-17', 6464388, 2, 16395),
  ('2006-01-17', '2006-01-24', 5383317, 2, 16395),
@@ -370,14 +370,14 @@ INSERT IGNORE INTO Incasso(dataInizio, dataFine, incasso, codF, codInd) VALUES
  ('2006-02-07', '2006-02-14', 6532653, 2, 16395),
  ('2006-02-14', '2006-02-21', 3862953, 2, 16395),
  ('2006-02-21', '2006-02-28', 1143411, 2, 16395),
- ('2006-02-28', '2006-03-07', 1808331, 2, 16395),;
+ ('2006-02-28', '2006-03-07', 1808331, 2, 16395);
 INSERT IGNORE INTO Fondo(codFondo, dataAccredito, patrimonio, P_IVA_SPONSOR, P_IVA_FINANZIATORE, codF) VALUES 
- (67856, '1987-03-14', 913045, 'null', 'IT28C5691061322926646213631', 2),
- (54583, '2006-06-22', 389257, 'null', 'IT26T1896812335575376603094', 2),
- (29463, '2007-03-11', 799200, 'null', 'IT45L1848278153874223172987', 2),
- (64546, '1973-07-21', 971189, 'null', 'IT32C1939957617651498822468', 2),;
+ (67856, '1987-03-14', 913045, null, 'IT28C5691061322926646213631', 2),
+ (54583, '2006-06-22', 389257, null, 'IT26T1896812335575376603094', 2),
+ (29463, '2007-03-11', 799200, null, 'IT45L1848278153874223172987', 2),
+ (64546, '1973-07-21', 971189, null, 'IT32C1939957617651498822468', 2);
 INSERT IGNORE INTO Fondo(codFondo, dataAccredito, patrimonio, P_IVA_SPONSOR, P_IVA_FINANZIATORE, codF) VALUES 
- (29694, '1997-10-22', 880389, 'IT64A3586692220111081233032', 'null', 2),;
+ (29694, '1997-10-22', 880389, 'IT64A3586692220111081233032', null, 2);
 INSERT IGNORE INTO MembroTroupeScena(codScena ,CF) VALUES 
  (30366, 'VRCNNT21T25L219B'),
  (30366, 'MNDGLR22H01L219X'),
@@ -473,7 +473,7 @@ INSERT IGNORE INTO MembroTroupeScena(codScena ,CF) VALUES
  (12939, 'VRDGZN21T25L219T'),
  (12939, 'LPRGZN22A13L219T'),
  (12939, 'VTTRNN21T31L219Y'),
- (12939, 'LPRGZN22A13L219T'),;
+ (12939, 'LPRGZN22A13L219T');
 INSERT IGNORE INTO BustaPaga(codB, retribuzioneOraria, oreLavorate, mese) VALUES 
 (30880, 14, 71, 'giugno'),
 (89882, 31, 112, 'maggio'),
@@ -493,7 +493,7 @@ INSERT IGNORE INTO BustaPaga(codB, retribuzioneOraria, oreLavorate, mese) VALUES
 (22341, 30, 157, 'ottobre'),
 (91311, 45, 161, 'febbraio'),
 (63034, 14, 99, 'novembre'),
-(95896, 28, 136, 'marzo'),;
+(95896, 28, 136, 'marzo');
 INSERT IGNORE INTO Retribuzione(CF, CodB) VALUES
 ('PPEPNI21T31L219B', 30880),
 ('TMMSLL21T31L219I', 89882),
@@ -513,10 +513,10 @@ INSERT IGNORE INTO Retribuzione(CF, CodB) VALUES
 ('MNTGTN21T29L219D', 22341),
 ('MRCMRN22A18L219J', 91311),
 ('BDNNCL22A18L219O', 63034),
-('FCNRTR21T31L219O', 95896),;
+('FCNRTR21T31L219O', 95896);
 
  
  
  
  
- incollarlo sotto le insert di star wars e soprattutto per farlo andare sostituire ,; con ;        e       'null' con null 
+ incollarlo sotto le insert di star wars e soprattutto per farlo andare sostituire ; con ;        e       null con null 
