@@ -21,7 +21,7 @@
 
 <Stage minHeight="800.0" minWidth="1080.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.InsertTabController">
     <scene>
-        <Scene>
+        <Scene fx:id="insertScene">
          <TabPane fx:id="tabPane">
             <tabs>
                <Tab closable="false" text="Insert">
@@ -39,7 +39,7 @@
                                  <Button mnemonicParsing="false" onAction="#incassoActionToolbar" text="Incasso" />
                              </items>
                            </ToolBar>
-                           <VBox fx:id="filmVBox" layoutX="37.0" layoutY="81.0" maxHeight="346.0" maxWidth="205.0" prefHeight="346.0" prefWidth="205.0" AnchorPane.bottomAnchor="354.0" AnchorPane.leftAnchor="37.0" AnchorPane.topAnchor="81.0">
+                           <VBox fx:id="filmVBox" layoutX="37.0" layoutY="91.0" maxHeight="660.0" maxWidth="288.0" prefHeight="429.0" prefWidth="290.0" visible="false" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="94.0">
                               <children>
                                  <Group />
                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="208.0" text="FILM" textAlignment="CENTER">
@@ -48,15 +48,30 @@
                                     </font>
                                  </Label>
                                  <Separator prefHeight="0.0" prefWidth="206.0" />
-                                 <Label text="Ttolo" />
+                                 <Label text="Ttolo">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="titolo_field" />
-                                 <Label text="Genere" />
+                                 <Label text="Genere">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="genere_field" />
-                                 <Label layoutX="10.0" layoutY="94.0" text="Durata" />
+                                 <Label layoutX="10.0" layoutY="94.0" text="Durata">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="durata_field" layoutX="10.0" layoutY="111.0" />
-                                 <Label layoutX="10.0" layoutY="136.0" text="Data Usicta" />
+                                 <Label layoutX="10.0" layoutY="136.0" text="Data Usicta">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <DatePicker fx:id="dataUscita_field" prefHeight="26.0" prefWidth="206.0" />
-                                 <Label layoutX="10.0" layoutY="178.0" text="ID serie letteraria" />
+                                 <Label layoutX="10.0" layoutY="178.0" text="ID serie letteraria">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="idSerieLetteraria_field" layoutX="10.0" layoutY="195.0" />
                                  <Label />
                                  <Button fx:id="film_insertButton" mnemonicParsing="false" onMouseClicked="#film_insertButton_clicked" text="Insert">
@@ -65,8 +80,11 @@
                                     </VBox.margin>
                                  </Button>
                               </children>
+                              <padding>
+                                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                              </padding>
                            </VBox>
-                           <VBox fx:id="indirizzoVBox" layoutX="37.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="299.0" prefWidth="230.0" AnchorPane.leftAnchor="37.0" AnchorPane.topAnchor="81.0">
+                           <VBox fx:id="indirizzoVBox" layoutX="37.0" layoutY="92.0" maxHeight="660.0" maxWidth="288.0" prefHeight="429.0" prefWidth="290.0" visible="false" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="94.0">
                               <children>
                                  <Group />
                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="208.0" text="INDIRIZZO" textAlignment="CENTER">
@@ -75,21 +93,39 @@
                                     </font>
                                  </Label>
                                  <Separator prefHeight="0.0" prefWidth="206.0" />
-                                 <Label text="Codice Indirizzo" />
+                                 <Label text="Codice Indirizzo">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="codIndirizzoIndirizzo_field" />
-                                 <Label text="Cttà" />
+                                 <Label text="Cttà">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="cittaIndirizzo_field" />
-                                 <Label text="Via" />
+                                 <Label text="Via">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="viaIndirizzo_field" />
-                                 <Label layoutX="10.0" layoutY="94.0" text="Civico" />
+                                 <Label layoutX="10.0" layoutY="94.0" text="Civico">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="civicoIndirizzo_field" layoutX="10.0" layoutY="111.0" />
-                                 <Label layoutX="10.0" layoutY="136.0" text="CAP" />
+                                 <Label layoutX="10.0" layoutY="136.0" text="CAP">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="capIndirizzo_field" layoutX="10.0" layoutY="153.0" />
                                  <Label />
                                  <Button fx:id="indirizzo_insertButton" mnemonicParsing="false" onMouseClicked="#indirizzo_insertButton_clicked" text="Insert" />
                               </children>
+                              <padding>
+                                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                              </padding>
                            </VBox>
-                           <VBox fx:id="operatoreVBox" layoutX="36.0" layoutY="84.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="493.0" prefWidth="252.0" AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="84.0">
+                           <VBox fx:id="operatoreVBox" layoutX="36.0" layoutY="84.0" maxHeight="660.0" maxWidth="288.0" prefHeight="429.0" prefWidth="290.0" visible="false" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="94.0">
                               <children>
                                  <Group />
                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="208.0" text="Operatore Troupe" textAlignment="CENTER">
@@ -100,32 +136,62 @@
                                  <Separator prefHeight="0.0" prefWidth="206.0" />
                                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                                     <children>
-                                       <MenuButton fx:id="filmSelection_operatoreTroupe" mnemonicParsing="false" prefHeight="25.0" prefWidth="248.0" text="Seleziona Film" />
+                                       <MenuButton fx:id="filmSelection_operatoreTroupe" mnemonicParsing="false" prefHeight="25.0" prefWidth="248.0" text="Seleziona Film">
+                                          <HBox.margin>
+                                             <Insets top="5.0" />
+                                          </HBox.margin></MenuButton>
                                     </children>
                                  </HBox>
-                                 <Label text="CF" />
+                                 <Label text="CF">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="cfOperatore_field" />
-                                 <Label text="Nome" />
+                                 <Label text="Nome">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="nomeOperatore_field" />
-                                 <Label text="Cognome" />
+                                 <Label text="Cognome">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="cognomeOperatore_field" />
-                                 <Label layoutX="10.0" layoutY="94.0" text="IBAN" />
+                                 <Label layoutX="10.0" layoutY="94.0" text="IBAN">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="ibanOperatore_field" layoutX="10.0" layoutY="111.0" />
-                                 <Label layoutX="10.0" layoutY="136.0" text="Data Nascita" />
+                                 <Label layoutX="10.0" layoutY="136.0" text="Data Nascita">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <DatePicker fx:id="dataNascitaOperatore_field" />
-                                 <Label layoutX="10.0" layoutY="178.0" text="Telefono" />
+                                 <Label layoutX="10.0" layoutY="178.0" text="Telefono">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="telefonoOperatore_field" layoutX="10.0" layoutY="195.0" />
-                                 <Label layoutX="10.0" layoutY="278.0" text="Codice Indirizzo " />
+                                 <Label layoutX="10.0" layoutY="278.0" text="Codice Indirizzo ">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="codiceIndirizzoOperatore_field" layoutX="10.0" layoutY="295.0" />
-                                 <Label layoutX="10.0" layoutY="320.0" text="Percentuale Contributo" />
+                                 <Label layoutX="10.0" layoutY="320.0" text="Percentuale Contributo">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="percentualeContributoOperatore_field" layoutX="10.0" layoutY="337.0">
                                     <VBox.margin>
                                        <Insets bottom="10.0" />
                                     </VBox.margin></TextField>
                                  <Button fx:id="operatore_insertButton" mnemonicParsing="false" onMouseClicked="#operatore_insertButton_clicked" text="Insert" />
                               </children>
+                              <padding>
+                                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                              </padding>
                            </VBox>
-                           <VBox fx:id="entiVBox" layoutX="36.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="223.0" prefWidth="206.0" AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="81.0">
+                           <VBox fx:id="entiVBox" layoutX="36.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="300.0" prefWidth="290.0" visible="false" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="94.0">
                               <children>
                                  <Group />
                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="208.0" text="ENTI" textAlignment="CENTER">
@@ -134,17 +200,29 @@
                                     </font>
                                  </Label>
                                  <Separator prefHeight="0.0" prefWidth="206.0" />
-                                 <Label text="P.IVA" />
+                                 <Label text="P.IVA">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="pIvaEnti_field" />
-                                 <Label text="Nome" />
+                                 <Label text="Nome">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="nomeEnti_field" />
-                                 <Label text="Codice Indirizzo" />
+                                 <Label text="Codice Indirizzo">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="codiceIndirizzoEnti_field" />
                                  <Label />
                                  <Button fx:id="enti_insertButton" mnemonicParsing="false" onMouseClicked="#enti_insertButton_clicked" text="Insert" />
                               </children>
+                              <padding>
+                                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                              </padding>
                            </VBox>
-                           <VBox fx:id="sponsorVBox" layoutX="35.0" layoutY="81.0" maxHeight="180.0" maxWidth="206.0" prefHeight="180.0" prefWidth="206.0" AnchorPane.bottomAnchor="459.0" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="81.0">
+                           <VBox fx:id="sponsorVBox" layoutX="35.0" layoutY="81.0" maxHeight="280.0" maxWidth="300.0" prefHeight="280.0" prefWidth="290.0" visible="false" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="94.0">
                               <children>
                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="208.0" text="SPONSOR" textAlignment="CENTER">
                                     <font>
@@ -155,18 +233,30 @@
                                  <Separator prefHeight="0.0" prefWidth="206.0" />
                                  <HBox alignment="CENTER" prefHeight="36.0" prefWidth="206.0" spacing="30.0">
                                     <children>
-                                       <MenuButton fx:id="filmSelection_sponsor" mnemonicParsing="false" prefHeight="26.0" prefWidth="194.0" text="Seleziona Film" />
+                                       <MenuButton fx:id="filmSelection_sponsor" mnemonicParsing="false" prefHeight="26.0" prefWidth="194.0" text="Seleziona Film">
+                                          <HBox.margin>
+                                             <Insets top="5.0" />
+                                          </HBox.margin></MenuButton>
                                     </children>
                                  </HBox>
-                                 <Label text="P.IVA" />
+                                 <Label text="P.IVA">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="pIvaSponsor_field" />
-                                 <Label text="Nome" />
+                                 <Label text="Nome">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="nomeSponsor_field" />
                                  <Label />
                                  <Button fx:id="sponsor_insertButton" mnemonicParsing="false" onMouseClicked="#sponsor_insertButton_clicked" text="Insert" />
                               </children>
+                              <padding>
+                                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                              </padding>
                            </VBox>
-                           <VBox fx:id="finanziatoreVBox" layoutX="35.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="243.0" prefWidth="206.0" AnchorPane.leftAnchor="35.0">
+                           <VBox fx:id="finanziatoreVBox" layoutX="35.0" layoutY="81.0" maxHeight="400.0" maxWidth="350.0" prefHeight="342.0" prefWidth="290.0" visible="false" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="94.0">
                               <children>
                                  <Group />
                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="208.0" text="FINANZIATORE" textAlignment="CENTER">
@@ -177,47 +267,79 @@
                                  <Separator prefHeight="0.0" prefWidth="206.0" />
                                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                                     <children>
-                                       <MenuButton fx:id="filmSelection_finanziatore" mnemonicParsing="false" prefHeight="25.0" prefWidth="190.0" text="Seleziona Film" />
+                                       <MenuButton fx:id="filmSelection_finanziatore" mnemonicParsing="false" prefHeight="25.0" prefWidth="190.0" text="Seleziona Film">
+                                          <HBox.margin>
+                                             <Insets top="5.0" />
+                                          </HBox.margin></MenuButton>
                                     </children>
                                  </HBox>
                                  <Label text="P.IVA" />
                                  <TextField fx:id="pIvaFinanziatore_field" />
-                                 <Label text="Nome" />
+                                 <Label text="Nome">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="nomeFinanziatore_field" />
-                                 <Label layoutX="10.0" layoutY="110.0" text="Codice Indirizzo" />
+                                 <Label layoutX="10.0" layoutY="110.0" text="Codice Indirizzo">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="codIndirizzoFinanziatore_field" layoutX="10.0" layoutY="127.0" />
-                                 <Label layoutX="10.0" layoutY="177.0" text="Percentuale Guadagno" />
+                                 <Label layoutX="10.0" layoutY="177.0" text="Percentuale Guadagno">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="percentualeGuadagnoFinanziatore_field" layoutX="10.0" layoutY="194.0" />
                                  <Label />
                                  <Button fx:id="finanziatore_insertButton" mnemonicParsing="false" onMouseClicked="#finanziatore_insertButton_clicked" text="Insert" />
                               </children>
+                              <padding>
+                                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                              </padding>
                            </VBox>
-                           <VBox fx:id="incassoVBox" layoutX="35.0" layoutY="81.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="303.0" prefWidth="290.0">
+                           <VBox fx:id="incassoVBox" layoutX="35.0" layoutY="81.0" maxHeight="400.0" maxWidth="320.0" prefHeight="303.0" prefWidth="290.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="94.0">
                               <children>
                                  <Group />
                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="38.0" prefWidth="279.0" text="INCASSO SETTIMANALE" textAlignment="CENTER">
                                     <font>
-                                       <Font size="26.0" />
+                                       <Font size="23.0" />
                                     </font>
                                  </Label>
                                  <Separator prefHeight="0.0" prefWidth="206.0" />
                                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                                     <children>
-                                       <MenuButton fx:id="filmSelection_incasso" mnemonicParsing="false" text="Seleziona Film" />
-                                       <Button mnemonicParsing="false" text="Button" />
+                                       <MenuButton fx:id="filmSelection_incasso" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="189.0" text="Seleziona Film">
+                                          <HBox.margin>
+                                             <Insets top="5.0" />
+                                          </HBox.margin></MenuButton>
                                     </children>
                                  </HBox>
-                                 <Label text="Data Inizio" />
+                                 <Label text="Data Inizio">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <DatePicker fx:id="dataInizio_field" />
-                                 <Label text="Data Fine" />
+                                 <Label text="Data Fine">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <DatePicker fx:id="dataFine_field" />
-                                 <Label text="Incasso" />
+                                 <Label text="Incasso">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="incasso_field" />
-                                 <Label layoutX="10.0" layoutY="136.0" text="Cod. Indirizzo sede t." />
+                                 <Label layoutX="10.0" layoutY="136.0" text="Cod. Indirizzo sede t.">
+                                    <VBox.margin>
+                                       <Insets top="5.0" />
+                                    </VBox.margin></Label>
                                  <TextField fx:id="codIndirizzoIncasso_field" layoutX="10.0" layoutY="153.0" />
                                  <Label />
                                  <Button fx:id="incasso_insertButton" mnemonicParsing="false" onMouseClicked="#incasso_insertButton_clicked" text="Insert" />
                               </children>
+                              <padding>
+                                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                              </padding>
                            </VBox>
                            <Button layoutX="994.0" layoutY="716.0" mnemonicParsing="false" onMouseClicked="#refreshButton_clicked" prefHeight="30.0" prefWidth="102.0" text="Refresh" AnchorPane.bottomAnchor="36.0" AnchorPane.rightAnchor="34.0">
                               <font>

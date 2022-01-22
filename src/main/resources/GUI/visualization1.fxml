@@ -11,13 +11,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Visualization1Controller">
+<AnchorPane fx:id="anchorPaneVisualization" minHeight="0.0" minWidth="0.0" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Visualization1Controller">
    <children>
-      <SplitPane dividerPositions="0.16975881261595546" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane fx:id="splitPaneVisualization" dividerPositions="0.16975881261595546" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
-            <AnchorPane>
+            <AnchorPane fx:id="visualizzaPane1" minWidth="350.0" prefHeight="719.0" prefWidth="334.0">
                <children>
-                  <VBox fx:id="vbox" alignment="TOP_CENTER" prefHeight="635.0" prefWidth="260.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox fx:id="visualizzaVBox" alignment="TOP_CENTER" layoutX="27.0" layoutY="65.0" prefHeight="553.0" prefWidth="285.0" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="41.0">
                      <children>
                         <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Visualizza:">
                            <font>
@@ -33,77 +33,77 @@
                               <Button fx:id="okButton" mnemonicParsing="false" onMouseClicked="#filmSelOK" text="OK" />
                            </children>
                         </HBox>
-                        <Button fx:id="sponsor_button" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#sponsor_buttonClicked" text="Sponsor">
+                        <Button fx:id="sponsor_button" maxHeight="1.7976931348623157E308" maxWidth="232.0" mnemonicParsing="false" onMouseClicked="#sponsor_buttonClicked" prefHeight="26.0" prefWidth="278.0" text="Sponsor">
                            <VBox.margin>
                               <Insets bottom="10.0" top="10.0" />
                            </VBox.margin>
                         </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#film_mouseClicked" text="Film">
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="232.0" mnemonicParsing="false" onMouseClicked="#film_mouseClicked" text="Film">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#troupe_mouseClicked" text="Troupe">
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="232.0" mnemonicParsing="false" onMouseClicked="#troupe_mouseClicked" text="Troupe">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#actors_mouseClicked" text="Actors">
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="232.0" mnemonicParsing="false" onMouseClicked="#actors_mouseClicked" text="Actors">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#ditte_mouseClicked" text="Ditte">
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="232.0" mnemonicParsing="false" onMouseClicked="#ditte_mouseClicked" text="Ditte">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#costumi_mouseClicked" text="Costumi">
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="232.0" mnemonicParsing="false" onMouseClicked="#costumi_mouseClicked" text="Costumi">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#finanziatori_mouseClicked" text="Finanziatori">
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="232.0" mnemonicParsing="false" onMouseClicked="#finanziatori_mouseClicked" text="Finanziatori">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#fondi_mouseClicked" prefWidth="363.0" text="Fondi">
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="232.0" mnemonicParsing="false" onMouseClicked="#fondi_mouseClicked" prefWidth="363.0" text="Fondi">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#incassi_mouseClicked" text="Incassi">
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="232.0" mnemonicParsing="false" onMouseClicked="#incassi_mouseClicked" text="Incassi">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#indirizzi_mouseClicked" text="Indirizzi">
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="232.0" mnemonicParsing="false" onMouseClicked="#indirizzi_mouseClicked" text="Indirizzi">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#magazzini_mouseClicked" text="Magazzini">
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="232.0" mnemonicParsing="false" onMouseClicked="#magazzini_mouseClicked" text="Magazzini">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#oggettiScena_mouseClicked" text="Oggetti di Scena">
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="232.0" mnemonicParsing="false" onMouseClicked="#oggettiScena_mouseClicked" text="Oggetti di Scena">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onMouseClicked="#scene_mouseClicked" text="Scene">
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="232.0" mnemonicParsing="false" onMouseClicked="#scene_mouseClicked" text="Scene">
                            <VBox.margin>
                               <Insets bottom="10.0" />
                            </VBox.margin>
                         </Button>
                      </children></VBox>
-                  <Button fx:id="deleteRowButton" layoutY="647.0" mnemonicParsing="false" onMouseClicked="#deleteRowButtonClicked" prefHeight="32.0" prefWidth="106.0" text="Delete Row" AnchorPane.bottomAnchor="40.200000000000045" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                  <Button fx:id="refreshButton" layoutY="686.0" mnemonicParsing="false" onMouseClicked="#refreshButtonClicked" prefHeight="32.0" prefWidth="106.0" text="Refresh" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Button fx:id="deleteRowButton" layoutX="84.0" layoutY="634.0" mnemonicParsing="false" onMouseClicked="#deleteRowButtonClicked" prefHeight="32.0" prefWidth="170.0" text="Delete Row" AnchorPane.bottomAnchor="75.20000000000005" AnchorPane.leftAnchor="84.0" />
+                  <Button fx:id="refreshButton" layoutX="85.0" layoutY="673.0" mnemonicParsing="false" onMouseClicked="#refreshButtonClicked" prefHeight="32.0" prefWidth="170.0" text="Refresh" AnchorPane.bottomAnchor="32.200000000000045" AnchorPane.leftAnchor="84.0" />
                </children>
             </AnchorPane>
-            <TableView fx:id="tableView" editable="true" maxWidth="-Infinity" prefHeight="718.0" prefWidth="732.0" />
+            <TableView fx:id="tableView" editable="true" maxHeight="1080.0" maxWidth="1920.0" minWidth="300.0" prefHeight="719.0" prefWidth="719.0" />
          </items>
       </SplitPane>
    </children>

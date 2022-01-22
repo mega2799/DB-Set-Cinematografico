@@ -8,22 +8,16 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-import javax.management.Query;
-import javax.swing.event.MenuEvent;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -168,10 +162,15 @@ public class InsertTabController {
     private List<VBox> listVBox;
     private ObservableList<ObservableList> data;
     private TellMe  tellMe;
+    @FXML
+    private Scene insertScene;
+
 
     public void initialize(){
         this.visualization1 = new Tab();
+        this.visualization1.setId("tabVisualization");
         this.query = new Tab();
+        this.query.setId("tabQuery");
         this.dataInizio_field.getEditor().setDisable(true);
         this.dataFine_field.getEditor().setDisable(true);
         this.dataInizio_field.getEditor().setOpacity(1);
@@ -195,9 +194,12 @@ public class InsertTabController {
         }
         this.refreshMenuFilm();
         this.listVBox = new ArrayList<>(List.of(this.filmVBox,this.indirizzoVBox, this.entiVBox, this.operatoreVBox,this.sponsorVBox,this.finanziatoreVBox,this.incassoVBox));
-        this.hideVBoxes();
         this.data = FXCollections.observableArrayList();
         this.tellMe = new TellMe();
+        this.hideVBoxes();
+        this.filmVBox.setVisible(true);
+        this.populateTable(tellMe.film());
+        insertScene.getStylesheets().add(this.getClass().getResource("/GUI/CSS/Style.css").toString());
     }
 
     private void populateTable(ResultSet rs) {
@@ -228,6 +230,7 @@ public class InsertTabController {
             }
 
             tableView.setItems(data);
+
         }catch(Exception e){
             e.printStackTrace();
             System.out.println("Error on Building Data");
@@ -386,6 +389,7 @@ public class InsertTabController {
         this.hideVBoxes();
         this.filmVBox.setVisible(this.filmVBox.isVisible() ? false : true);
         this.clearAndPopulateTable(this.tellMe.film());
+
     }
     @FXML
     void indirizzoActionToolbar(ActionEvent event) {

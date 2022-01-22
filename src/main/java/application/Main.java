@@ -4,7 +4,9 @@ import controllers.InsertTabController;
 import controllers.Visualization1Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -47,7 +49,8 @@ public class Main extends Application{
         TellMe tellMe = new TellMe();
 
         Stage stage = new FXMLLoader(this.getClass().getResource("/GUI/insert.fxml")).load();
-
+        stage.setTitle("Database Cinematografico");
+        stage.getIcons().add(new Image(this.getClass().getResource("/images/cinema.png").toString()));
 //        InsertNew insertNew = new InsertNew(stage);
 //        insertNew.sponsor("29218600223", "BHo SPA");
 

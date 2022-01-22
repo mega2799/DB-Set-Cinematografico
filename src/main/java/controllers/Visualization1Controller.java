@@ -60,6 +60,7 @@ public class Visualization1Controller {
        // sponsor_buttonClicked(null);
         this.queryTeller = new QueryTeller();
         this.refreshFilmBar();
+        this.film_mouseClicked_action();
     }
 
     private void refreshFilmBar(){
@@ -160,6 +161,11 @@ public class Visualization1Controller {
 
     @FXML
     void film_mouseClicked(MouseEvent event) {
+        this.film_mouseClicked_action();
+    }
+
+    //per non ripetere troppo codice ^ visto che devo usarlo in initialization
+    private void film_mouseClicked_action(){
         rs = tell.film();
         setLastQuery("film");
         this.deleteRowButton.setVisible(true);
