@@ -412,7 +412,7 @@ e chiunque lavori all'interno e riceva una percentuale dagli incassi.
 # 6.2 Volume dati del database
 Riportiamo in seguito la tabella dei volumi in cui sono elencante
 tutte le entità, le relazioni e i relativi volumi.
-![](/res/volume.PNG)
+![](https://github.com/mega2799/DB-Set-Cinematografico/blob/main/res/volume.PNG)
 
 # 6.3 Tabella degli accessi
 ![](/res/accessi.PNG)
