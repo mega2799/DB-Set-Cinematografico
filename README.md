@@ -407,7 +407,7 @@ e chiunque lavori all'interno e riceva una percentuale dagli incassi.
 # 6 Il Progetto Logico
 
 # 6.1 Frequenza e costo degli accessi
-![](/res/frequenzaEAccessi.PNG)
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/frequenzaEAccessi.PNG)
 
 # 6.2 Volume dati del database
 Riportiamo in seguito la tabella dei volumi in cui sono elencante
@@ -415,7 +415,7 @@ tutte le entità, le relazioni e i relativi volumi.
 ![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/volume.PNG)
 
 # 6.3 Tabella degli accessi
-![](/res/accessi.PNG)
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/accessi.PNG)
 
 # 6.4 Traduzione delle entita
 
