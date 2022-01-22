@@ -1,12 +1,21 @@
 Set Cinematografico
 ===================
 
-creare il file .sql 
-
 ```bash
 mysqldump -u studente -p cinema > cinema.sql
 ```
 
+# Istruzioni 
+Per poter utilizzare l'applicativo si deve disporre di un database denominato cinema in mysql, basta utilizzare la seguente query sql
+```sql
+CREATE DATABASE cinema;
+USE cinema;
+```
+Per poter funzionare l'applicativo utlizza gradle, quindi si usa il comando run da IDEA oppure eclipse, o **piu' comodamente da terminale** con il comando 
+
+```sh
+./gradlew run
+```
 ## Struttura del progetto
 
 La presente documentazione tratta nel dettaglio la progettazione e l’implementazione dell’elaborato   
