@@ -256,7 +256,6 @@ public class QueryTeller {
         return result;
     }
 
-    //TODO query fatta e funzionante ma solo con il film con cod2...... debuggarla pls
     public ResultSet ricaviTotali(String codfilm) {
         List<String> queries = new ArrayList<>(Arrays.asList(
                 "  select @spesa := sum(costoAffittoGiornaliero * durataOre) as Spesa from ScenaCiak\n" +
