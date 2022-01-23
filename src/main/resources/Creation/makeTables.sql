@@ -51,8 +51,6 @@ CREATE TABLE if not exists Retribuzione(
     PRIMARY KEY(CF, codB)
 );
 
--- TODO aggiornare ER con le due tabelle qui sotto
-
 CREATE TABLE IF NOT EXISTS Ruolo(
     nomeRuolo varchar(41) Primary KEY
 );
@@ -181,21 +179,9 @@ CREATE TABLE if not exists Film_Membro_Troupe(
         PRIMARY KEY(codF, CF)
         );
 
--- TODO la questione supervisore andrebbe anche risolta
--- CREATE TABLE if not exists Supervisione(
--- supervisore INT NOT NULL,
--- FOREIGN KEY (supervisore) REFERENCES Supervisione(supervisore)
--- ON DELETE CASCADE
--- ON UPDATE NO ACTION,
--- subalterno INT NOT NULL,
---  FOREIGN KEY (subalterno) REFERENCES Supervisione(subalterno)
--- ON DELETE CASCADE
--- ON UPDATE NO ACTION,
--- PRIMARY KEY(subalterno)
--- );
 
 CREATE TABLE if not exists ScenaCiak(
-        -- TODO cambiare ER e relazione....
+        -- TODO relazione....
         codScena int primary key,
         noteDiProduzione varchar(255),
         rullo int NOT NULL,

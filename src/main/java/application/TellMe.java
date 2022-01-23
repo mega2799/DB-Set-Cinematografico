@@ -37,18 +37,6 @@ public class TellMe {
      *
      * @return String
      */
-//DA QUI INIZIANO QUERY CHE RESTITUISCONO RESULTSETS
- //TODO: 07/12/2021 rendere coerente metodi get di tabelle usando getTable come sotto
-//    public ResultSet sponsors(){
-//        String query = "select * from Sponsor;";
-//        try {
-//            ResultSet result = connection.createStatement().executeQuery(query);
-//            return result;
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
 
 
     public ResultSet troupeStaffOnly(){

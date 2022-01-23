@@ -142,8 +142,6 @@ INSERT IGNORE INTO Film_Membro_Troupe(codF, CF)
     -- operatore fotografico
     (1, 'DVDCLLOE03S18');
 
--- TODO cambiare enti-sediTerritoriali su README.md
-
 INSERT IGNORE INTO Enti(P_IVA,nome,codInd)
     -- ente di distribuizone
     VALUES (40365320379, "UCI Milano", 18302);

@@ -152,7 +152,7 @@ Ogni Film ha bisogno di un ente specifico che si occupi della distribuzione,
 come ad esempio l'azienda UCI che dopo aver comprato i diritti per la riproduzione  
 porta nelle sue sedi la pellicola, ogni ente da noi gestito attraverso  
 un entita composta da nome, indirizzo, P.IVA ha poi una dislocazione locale.
-![](/res/distribuzioneIncasso.png)
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/distribuzioneIncasso.png)
 
 3.2 Inspirazione e Sceneggiatura
 --------
@@ -162,7 +162,7 @@ che un dato film sia tratto da una Serie Letteraria che abbiamo modellato come
 un entita, spesso capita nell' ambiente cinematografico che lo Scenegiatore  
 sia anche l'autore della Serie
 
-![](/res/serie.png)
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/serie.png)
 
 3.3 Gestione Fondi
 ---------
@@ -179,7 +179,7 @@ A livello concettuale avremo una gerarchia con entità padre il fondo ed entità
 i corrispettivi fondo_sponsor e fondo_finanziatore che erediteranno gli attributi  
 di fondo con la chiave esterna di sponsor o finanziatore.
 
-![](/res/fondo.png)
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/fondo.png)
 
 3.4 Membro della Troupe
 -------
@@ -187,7 +187,7 @@ In un set cinematografico le persone che lavorano alle realizzazione di un film
 sono tante e compiono lavori diversi, ma abbiamo deciso di utilizzare una   
 gerarchia per poter più comodamente rappresentarle.
 
-![](/res/gerarchia.png)
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/gerarchia.png)
 
 
 3.5 Stipendio
@@ -197,17 +197,17 @@ attraverso un entità nella quale vengono registrati i codici singoli per busta
 paga, le ore accumulate sul set, i contributi e il periodo sul quale poi verrà 
 calcolato un vero e proprio stipendio.
 
-![](/res/stipendio.png)
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/stipendio.png)
 
 3.6 Scena 
 -----
 
-![](/res/scena.png)
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/scena.png)
 
 
 Schema Completo
 ----------
-![](/res/schemaCompleto.png)
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/schemaCompleto.png)
 
 4 Il progetto Logico
 ---------------
@@ -428,7 +428,7 @@ tutte le entità, le relazioni e i relativi volumi.
 
 # 6.4 Traduzione delle entita
 
-* Film(__*codF*__, titolo, genere ,durata, dataUscita, idSerie[0-1])
+* Film(__*codF*__, titolo, genere, durata, dataUscita, idSerie[0-1])
     + FK: idSerie REFERENCES __Serie_Letteraria__
 
 * Indirizzo(__*codInd*__, città, via, civico, CAP)
@@ -440,19 +440,17 @@ tutte le entità, le relazioni e i relativi volumi.
     + FK: P.IVA_ENTE REFERENCES __Ente__
     + FK: codF REFERENCES __Film__
 
-* Sedi_Territoriali(__*codInd*__, P.IVA_ENTE)
+* Sedi_Territoriali(P_IVA, __*codInd*__ )
     + FK: codInd REFERENCES __Indirizzo__
-    + FK: P.IVA_ENTE REFERENCES __Ente__
 
-* Incasso(dataInizio, dataFine, incasso, __*codF*__, __*codInd*__)
+* Incasso(dataInizio, __*dataFine*__, __*incasso*__, __*codF*__, codInd)
     + FK: codF REFERENCES __Film__
     + FK: codInd REFERENCES __Indirizzo__
 
 
-* Fondo(__*codFondo*__, dataAccredito, patrimonio, P_IVA_SPONSOR[0, 1], P.IVA_FINANZIATORE[0, 1], CF, codF)
+* Fondo(__*codFondo*__, dataAccredito, patrimonio, P_IVA_SPONSOR[0, 1], P.IVA_FINANZIATORE[0, 1], codF)
     + FK: P.IVA_SPONSOR REFERENCES __Sponsor__
     + FK: P.IVA_FINANZIATORE REFERENCES __Finanziatore__
-    + FK: CF REFERENCES __Membro_troupe__
     + FK: codF REFERENCES __Film__
 
 * Sponsor(__*P.IVA_SPONSOR*__, nome)
@@ -460,10 +458,10 @@ tutte le entità, le relazioni e i relativi volumi.
 * Finanziatore(__*P.IVA_FINANZIATORE*__, nome, codInd, percentuale_guadagno)
     + FK: codInd REFERENCES __Indirizzo__
 
-* Serie_Letteraria(__*idSerie*__, titolo, genere, volumi, CF)
+* SerieLetteraria(__*idSerie*__, titolo, genere, CF)
     + FK: CF REFERENCES __Membro_troupe__
 
-* Membro_Troupe(__*CF*__, nome, cognome, IBAN, dataNascita, telefono, codInd, percentuale_contributo[0-1], ruolo, tipoOperatore[0-1])
+* MembroTroupe(__*CF*__, nome, cognome, IBAN, dataNascita, telefono, codInd, percentualeContributo[0-1])
     + FK: codInd REFERENCES __Indirizzo__
 
 * Ruolo(__*nomeRuolo*__)
@@ -478,7 +476,7 @@ tutte le entità, le relazioni e i relativi volumi.
     + FK: CF REFERENCES __Membro_Troupe__
     + FK: codB REFERENCES __BustaPaga__
 
-* Film_Membro_Troupe(__*codF*__, __*CF*__)
+* FilmMembroTroupe(__*codF*__, __*CF*__)
     + FK: codF REFERENCES __Film__
     + FK: CF REFERENCES __Membro_troupe__
 
@@ -486,8 +484,7 @@ tutte le entità, le relazioni e i relativi volumi.
     + FK: Supervisore REFERENCES __Membro_troupe__
     + FK: Subalterno REFERENCES __Membro_troupe__
 
-* ScenaCiak(__*codScena*__, note_di_produzione, rullo, numRiprese, durataOre, costo_affitto_giornaliero[0-1], codInd, codF)
-    + FK: codInd REFERENCES __Indirizzo__
+* ScenaCiak(__*codScena*__, noteDiProduzione, rullo, numRiprese, durataOre, costoAffittoGiornaliero[0-1], codF)
     + FK: codF REFERENCES __Film__
 
 * MembroTroupeScena(__*codScena*__, __*CF*__)
@@ -504,29 +501,29 @@ tutte le entità, le relazioni e i relativi volumi.
     + FK: CF REFERENCES __Membro_troupe__
     + FK: codP REFERENCES __PosizioneMagazzino__
 
-* Stilista_Costume(__*CF*__, __*codC*__)
+* StilistaCostume(__*CF*__, __*codC*__)
     + FK: CF REFERENCES __Membro_troupe__
     + FK: codC REFERENCES __Costume__
 
-* Costume_Scena(__*codC*__, __*codScena*__)
+* CostumeScena(__*codC*__, __*codScena*__)
     + FK: codC REFERENCES __Costume__
     + FK: codScena REFERENCES __Scena-Ciak__
 
-* Oggetti_di_scena(__*codO*__, tipo, descrizione, codP)
+* OggettiDiScena(__*codO*__, tipo, descrizione, codP)
     + FK: numMagazzino REFERENCES __PosizioneMagazzino__
 
-* Oggetto_Scena(__*codO*__, __*codScena*__)
+* OggettoScena(__*codO*__, __*codScena*__)
     + FK: codO REFERENCES __Oggetto_di_scena__
     + FK: codScena REFERENCES __ScenaCiak__
 
 * Acquisto(__*idAcquisto*__, data, prezzoTotale, P.IVA_DITTA)
     + FK: P.IVA_DITTA REFERENCES __Ditta__
 
-* Acquisto_Costume(__*codC*__, __*idAcquisto*__, prezzo)
+* AcquistoCostume(__*codC*__, __*idAcquisto*__, prezzo)
     + FK: codC REFERENCES __Costume__
     + FK: idAcquisto REFERENCES __Acquisto__
 
-* Acquisto_Oggetto(__*codO*__, __*idAcquisto*__, prezzo)
+* AcquistoOggetto(__*codO*__, __*idAcquisto*__, prezzo)
     + FK: codO REFERENCES __Oggetto_di_scena__
     + FK: idAcquisto REFERENCES __Acquisto__
 
