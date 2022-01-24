@@ -65,7 +65,11 @@ La presente documentazione tratta nel dettaglio la progettazione e l’implement
 - [6.3 Tabella degli accessi](#63-tabella-degli-accessi)
 - [6.4 Traduzione delle entita](#64-traduzione-delle-entita)
 - [6.5 Creazione delle tables](#65-creazione-delle-tables)
-- [7 Interfaccia grafica](#65-interfaccia-grafica)
+- [7 Interfaccia grafica](#7-interfaccia-grafica)
+    - [7.1 Descrizione dell'architettura utilizzata](#71-descrizione-dell'architettura-utilizzata)
+    - [7.2 Interfaccia di inserimento](#72-interfaccia-di-inserimento)
+    - [7.3 Interfaccia di visualizzazione](#73-interfaccia-di visualizzazione)
+    - [7.4 Interfaccia per operazioni specifiche](#74-interfaccia-per-operazioni-specifiche)
   - [# Special thanks](#-special-thanks)
   - [possibili query per noi](#possibili-query-per-noi)
 
@@ -924,6 +928,16 @@ in database di un film che andrà a comporre quello che sarà il catalogo e visu
 # 7.2 Interfaccia di inserimento
 L'applicativo si avvierà con quella che è la schermata di inserimento dei dati, che permetterà all'amministratore
 l'inserimento di tutti i dati riguardante un film, oltre ai film stessi.
+In questa schermata sarà possibile inserire:
+
+-Film
+-Enti
+-Finanziatori
+-Incassi
+-Indirizzi
+-MembriTroupe
+-Sponsor
+
 
 Schermata inserimento di un film
 ![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/InserimentoFilm.PNG)
@@ -945,6 +959,53 @@ Schermata inserimento di un operatore
 
 Schermata inserimento di uno sponsor
 ![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/InserimentoSponsor.PNG)
+
+# 7.3 Interfaccia di visualizzazione
+In questa interfaccia sarà possibile per l'amministratore visualizzare tutti i dati contenuti nel database
+per un determinato film 
+Come esempio prenderemo la visualizzazione dei dati riguardanti il film Star wars.
+Qui l'utente sarà in grando di visualizzare i dati relativi a:
+
+-Film
+-Enti
+-Finanziatori
+-Incassi
+-Indirizzi
+-MembriTroupe
+-Sponsor
+-Attori
+-Ditte
+-Costumi
+-Oggetti
+-Magazzini
+-Scene
+
+Schermata di visualizzazione
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/visualizzazione.PNG)
+
+
+# 7.4 Interfaccia per operazioni specifiche
+In questa interfaccia l'amministratore potrà effettuare tutte quelle operazioni specifiche di visualizzazione
+di dati perticolare.
+
+Qui l'utente sarà in grado di visualizzare:
+
+-Stipendio totale mensile dei membri della troupe per un determinato film
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/queryStipendio.PNG)
+-Incasso di film
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/queryIncasso.PNG)
+-Profitto finanziatori per un film
+-Profitto produttori per un film
+-Ricavi di un film
+-Dipendenti che hanno partecipato scena di un film
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/queryDipScena.PNG)
+-Oggetti presenti in una scena
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/queryOggetti.PNG)
+-Costumi presenti in una scena
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/queryCostumiScena.PNG)
+-Oggetti presenti in magazzino
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/magazzino.PNG)
+
 
 
 # Special thanks 
