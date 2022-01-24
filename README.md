@@ -461,21 +461,21 @@ Ricavo totale di un determinato film -> Ricavo = Guadagno - Spese
 ```sql
     select (
     (select @fatturato := sum(incasso) as Fatturato from Incasso
-	where codF = codiceFilm) -
+	where codF = ?) -
     (SELECT SUM(ricavo) ricavo
 	from
 	(
-		select sum(costoAffittoGiornaliero * durataOre) ricavo from ScenaCiak where codF = codiceFilm
+		select sum(costoAffittoGiornaliero * durataOre) ricavo from ScenaCiak where codF = ?
     	UNION
     	select sum(retribuzioneOraria * oreLavorate) ricavo from
 		BustaPaga b join Retribuzione r on (b.codB = r.codB )
 		join Film_Membro_Troupe flm on (r.CF = flm.CF)
-		and codF = codiceFilm
+		and codF = ?
     	UNION
     	select sum(F.percentualeGuadagno / 100 * @fatturato ) ricavo
 		from Finanziatore F join Fondo ff on (F.P_IVA_FINANZIATORE = ff.P_IVA_FINANZIATORE)
 		where F.percentualeGuadagno is not null
-		and codF = codiceFilm
+		and codF = ?
 	) s)
 ) as ricavo;
 ```
@@ -979,8 +979,9 @@ Qui l'utente sarà in grando di visualizzare i dati relativi a:
 - Oggetti
 - Magazzini
 - Scene
+ 
 
-Schermata di visualizzazione
+- Schermata di visualizzazione
 ![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/visualizzazione.PNG)
 
 
@@ -1024,64 +1025,3 @@ Qui l'utente sarà in grado di visualizzare:
 [generatore di P.IVA random](https://strumentidev.it/partita-iva/random/result)
 
 [indirizzo e persona](https://anytexteditor.com/it/fake-address-generator)
-
-## possibili query per noi
-
-- calcolo percentuale contribuito caporegista e regista (ADDED)
-    ```sql
-    select @Denaro := sum(incasso) as money FROM Incasso;
-    select distinct M.nome, M.cognome,M.percentualeContributo, (M.percentualeContributo / 100 * @Denaro ) as Guadagno
-    from Incasso I, MembroTroupe M
-    where M.percentualeContributo is not null;
-    ```
- TODO !!!!!!!!
-
-- la query sopra va bene, ma potrebbe essere meglio facendo vedere anche i ruoli  
-che si possono in teoria vedere cosi, ma george lucas appare 3 volte....   
-o mettiamo 1% per ogni ruolo -> 3% totale oppure non mettiamo i ruoli
-     ```sql
-    select @Denaro := sum(incasso) as money FROM Incasso;
-    select distinct M.nome, M.cognome,M.percentualeContributo, (M.percentualeContributo / 100 * @Denaro ) as guadagno, Rm.nomeRuolo
-    from Incasso I, MembroTroupe M, RuoloMembroTroupe Rm
-    where (M.CF = Rm.CF) and M.percentualeContributo is not null;
-    ```
-
-- calcolo trattenute sede territoriale
-
-  
-- Spese mensili totali
-
-- Fatturato Annuo (qui vanno aggiunte tutte le spese, gli stipendi etc etc, mancano le query) 
-lo componiamo di altre query utili a calcolare un eventuale fatturato
-    ```sql
-    -- detrazioni 
-
-  -- query sulle spese per location per ogni scena del film 
-  select @spesa := sum(costoAffittoGiornaliero * durataOre) as Spesa from ScenaCiak
-  where codF = 2;
--- query su stipendio nei mesi in cui e stato girato
-select @stipendi :=  sum(retribuzioneOraria * oreLavorate) as CostoTroupe_Mese from
-BustaPaga b join Retribuzione r on (b.codB = r.codB )
-join Film_Membro_Troupe flm on (r.CF = flm.CF)
-and codF = 2;
-
--- sottrarre il guadagno di finanziatori con query specifiche
-select @guadagno := sum(F.percentualeGuadagno / 100 * @fatturato ) as guadagno
-from Finanziatore F join Fondo ff on (F.P_IVA_FINANZIATORE = ff.P_IVA_FINANZIATORE)
-where F.percentualeGuadagno is not null
-and codF = 2;
-select @detrazioni := (@stipendi + @spesa + @guadagno) as Det;
-
--- Entrate
-select @fatturato := sum(incasso) as Fatturato from Incasso
-where codF = 2;
-
--- Ricavo
-select @ricavo := @fatturato - @detrazioni as Ricavo;
-
-    ```
-
-- Controllo scena da riprendere in giornata
-
-- /* l'applicativo deve quindi anche poter ordinare gli oggetti e i costumi temporalmente utilizzati nelle riprese*/
-

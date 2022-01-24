@@ -204,7 +204,6 @@ CREATE TABLE if not exists MembroTroupeScena(
         ON DELETE CASCADE
         ON UPDATE NO ACTION,
         PRIMARY KEY(codScena, CF)
-        -- todo qua le primary key si ripetono, almeno cosi mi dice mysqlWorkbench
         );
 
 CREATE TABLE if not exists Magazzino(
