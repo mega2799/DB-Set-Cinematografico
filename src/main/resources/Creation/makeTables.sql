@@ -1,4 +1,3 @@
--- TODO incollare questo file alla fine nella relazione dopo aver ucciso i todo, me compreso :^ (
 CREATE TABLE if not exists Indirizzo(
     codInd int primary key check(length(codInd) <= 5),
     citta varchar(41) NOT NULL,
@@ -181,7 +180,6 @@ CREATE TABLE if not exists Film_Membro_Troupe(
 
 
 CREATE TABLE if not exists ScenaCiak(
-        -- TODO relazione....
         codScena int primary key,
         noteDiProduzione varchar(255),
         rullo int NOT NULL,

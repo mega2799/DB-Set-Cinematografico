@@ -46,40 +46,39 @@ La presente documentazione tratta nel dettaglio la progettazione e l’implement
     - [4.15 Sponsor, Finanziatori e Fondo](#415-sponsor-finanziatori-e-fondo)
     - [4.16 Retribuzione Membro_Troupe](#416-retribuzione-membro-troupe)
 - [5 Specifiche funzionali](#5-specifiche-funzionali)
-  - [5.01 Stipendio membri della troupe](#51-stipendio-membri-della-troupe)
-- [5.02 Elenco oggetti acquistati in magazzino](#52-elenco-oggetti-acquistati-in-magazzino)
-- [5.03 Profitto finanziatori](#53-profitto-finanziatori)
-- [5.04 Costumi da usare per scena](#54-costumi-da-usare-per-scena)
-- [5.05 Dipendenti in scena](#55-dipendenti-in-scena)
-- [5.06 Oggetti in scena](#56-oggetti-in-scena)
-- [5.07 Stipendio netto dipendente](#57-stipendio-netto-dipendente)
-- [5.08 Profitto Produttori](#58-profitto-produttori)
-- [5.09  Costo affitto location per film](#59-costo-affitto-location-per-film)
-- [5.10 Costo stipendi troupe per film](#59.1-costo-stipendi-troupe-per-film)
-- [5.11 Guadagno finanziatori](#59.2-guadagno-finanziatori)
-- [5.12 Fatturato](#59.3-fatturato)
-- [5.13 Ricavo](#59.3-ricavo)
+  - [5.01 Stipendio membri della troupe](#501-stipendio-membri-della-troupe)
+  - [5.02 Elenco oggetti acquistati in magazzino](#502-elenco-oggetti-acquistati-in-magazzino)
+  - [5.03 Profitto finanziatori](#503-profitto-finanziatori)
+  - [5.04 Costumi da usare per scena](#504-costumi-da-usare-per-scena)
+  - [5.05 Dipendenti in scena](#505-dipendenti-in-scena)
+  - [5.06 Oggetti in scena](#506-oggetti-in-scena)
+  - [5.07 Stipendio netto dipendente](#507-stipendio-netto-dipendente)
+  - [5.08 Profitto Produttori](#508-profitto-produttori)
+  - [5.09  Costo affitto location per film](#509-costo-affitto-location-per-film)
+  - [5.10 Costo stipendi troupe per film](#510-costo-stipendi-troupe-per-film)
+  - [5.11 Guadagno finanziatori](#511-guadagno-finanziatori)
+  - [5.12 Fatturato](#512-fatturato)
+  - [5.13 Ricavo](#513-ricavo)
 - [6 Il Progetto Logico](#6-il-progetto-logico)
-- [6.1 Frequenza e costo degli accessi](#61-frequenza-e-costo-degli-accessi)
-- [6.2 Volume dati del database](#62-volume-dati-del-database)
-- [6.3 Tabella degli accessi](#63-tabella-degli-accessi)
-- [6.4 Traduzione delle entita](#64-traduzione-delle-entita)
-- [6.5 Creazione delle tables](#65-creazione-delle-tables)
+  - [6.1 Frequenza e costo degli accessi](#61-frequenza-e-costo-degli-accessi)
+  - [6.2 Volume dati del database](#62-volume-dati-del-database)
+  - [6.3 Tabella degli accessi](#63-tabella-degli-accessi)
+  - [6.4 Traduzione delle entita](#64-traduzione-delle-entita)
+  - [6.5 Creazione delle tables](#65-creazione-delle-tables)
 - [7 Interfaccia grafica](#7-interfaccia-grafica)
-    - [7.1 Descrizione dell'architettura utilizzata](#71-descrizione-dell'architettura-utilizzata)
+    - [7.1 Descrizione dell'architettura utilizzata](#71-descrizione-dellarchitettura-utilizzata)
     - [7.2 Interfaccia di inserimento](#72-interfaccia-di-inserimento)
-    - [7.3 Interfaccia di visualizzazione](#73-interfaccia-di visualizzazione)
+    - [7.3 Interfaccia di visualizzazione](#73-interfaccia-di-visualizzazione)
     - [7.4 Interfaccia per operazioni specifiche](#74-interfaccia-per-operazioni-specifiche)
-  - [# Special thanks](#-special-thanks)
-  - [possibili query per noi](#possibili-query-per-noi)
+- [# Special thanks](#-special-thanks)
 
 Introduzione
 -----------
 Il gruppo si pone come obbiettivo quello di realizzare un database per la gestione  
 di un set cinematografico coprendone tutti gli aspetti.  
 Saranno memorizzate all'interno del database le varie figure che partecipano  
-alle realizzazione di un girato, gli enti che si occuperanno della distribuzione  
-la gesione delle scene e dei ciak quindi gli stipendi e gli incassi.  
+alla realizzazione di un girato, gli enti che si occuperanno della distribuzione  
+la gestione delle scene e dei ciak quindi gli stipendi e gli incassi.  
 
 # 2 Analisi requisiti
 
@@ -90,7 +89,7 @@ la gesione delle scene e dei ciak quindi gli stipendi e gli incassi.
 Netflix Italia possiede un sistema software da per la gestione delle persone e 
 cose coinvolte della realizzazione di serie Tv e film, tale sistema necessità  
 di una nuova versione. Si richiede quindi la progettazione di una database che  
-possa gestire gli aspetti fondamentali per girare uno seceneggiato, il database  
+possa gestire gli aspetti fondamentali per girare uno sceneggiato, il database  
 sarà utilizzato da persone che si occuperanno della gestione.  
 Saranno memorizzate tutte le informazioni sui membri della troupe che lavorano  
 alla realizzazione di un film, il quale sarà il fulcro attorno al quale gira l'  
@@ -102,19 +101,19 @@ stanziati dei finanziamenti che possono provenire principalmente da sponsor o
 finanziatori, ossia persone che possiedono un enorme capitale che effettuano  
 un investimento nella riuscita di un film e che dal quale ricaveranno un guadagno  
 che è calcolato in percentuale al guadagno del film. Le figure professionali che  
-routano attorno la creazione di un girato sono fondamentali e vanno inserite all'  
-interno dell'applicativo tramite un'interfaccia di inserimento, ruoli come  
+ruotano attorno la creazione di un girato sono fondamentali e vanno inserite all'  
+interno dell'applicativo tramite un'interfaccia d'inserimento, ruoli come  
 sceneggiatore, produttore(con annessa percentuale guadagno), produttore esecutivo
-,aiuto regista, capo regista (con annessa percentuale guadagno),regista,
+,aiuto regista, capo regista (con annessa percentuale guadagno), regista,
 attore, stilista, operatore fonico e operatore fotografico e di loro  
 memorizzare l'anagrafica, telefono e IBAN che sarà poi utilizzato per l'accredito  
 della paga mensile calcolata nel software, che dovrà poi contenere uno storico  
 delle buste paga. Si dovrà poi indicare l'indirizzo di residenza dei vari membri  
-della troupe per il loro recapito, gli attori utilizzeranno costumi progrettati  
+della troupe per il loro recapito, gli attori utilizzeranno costumi progettati  
 da stilisti che vengono conservati in magazzini assieme agli oggetti di scena.  
-Saranno infine regsitrati nell'applicativo i ciak presi durante le riprese del  
+Saranno infine registrati nell'applicativo i ciak presi durante le riprese del  
 film, nello specifico il rullo su cui è impresso, il numero del ciak, la location  
-nel quale viene girato e i costumi ed oggetti di scena presenti nel ciak.  
+nel quale viene girato e i costumi e oggetti di scena presenti nel ciak.  
 /* l'applicativo deve quindi anche poter ordinare gli oggetti e i costumi temporalmente utilizzati nelle riprese*/   
 
 # 2.2 Estrazione Concetti Fondamentali (va cambiato se cambiamo il paragrafo sopra)
@@ -122,31 +121,31 @@ nel quale viene girato e i costumi ed oggetti di scena presenti nel ciak.
 Netflix Italia possiede un sistema software da per la gestione delle persone e  
 cose coinvolte della realizzazione di serie Tv e **film**, tale sistema necessità  
 di una nuova versione. Si richiede quindi la progettazione di una database che  
-possa gestire gli aspetti fondamentali per girare uno seceneggiato, il database  
+possa gestire gli aspetti fondamentali per girare uno sceneggiato, il database  
 sarà utilizzato da persone che si occuperanno della gestione.  
 Saranno memorizzate tutte le informazioni sui **membri della troupe** che lavorano  
 alla realizzazione di un film, il quale sarà il fulcro attorno al quale gira l'  
 applicativo, di cui memorizzeremo le principali informazioni e al quale uniremo  
 un eventuale **serie letterarie** da cui è tratto. Sarà fondamentale anche l'**ente** che  
 si occuperà della **distribuzione** e gli **incassi** che verranno generati.
-Come accade spesso in questo ambiente, per poter esistere acluni film vengono  
+Come accade spesso in questo ambiente, per poter esistere alcuni film vengono  
 stanziati dei **finanziamenti** che possono provenire principalmente da **sponsor** o  
 **finanziatori**, ossia persone che possiedono un enorme capitale che effettuano  
 un investimento nella riuscita di un film e che dal quale ricaveranno un **guadagno  
 che è calcolato in percentuale** al guadagno del film. Le figure professionali che  
-routano attorno la creazione di un girato sono fondamentali e vanno inserite all'  
-interno dell'applicativo tramite un'interfaccia di inserimento, ruoli come  
+ruotano attorno la creazione di un girato sono fondamentali e vanno inserite all'  
+interno dell'applicativo tramite un'interfaccia d'inserimento, ruoli come  
 **sceneggiatore, produttore(con annessa percentuale guadagno), produttore esecutivo
-,aiuto regista, capo regista (con annessa percentuale guadagno),regista,
+,aiuto regista, capo regista (con annessa percentuale guadagno), regista,
 attore, stilista, operatore fonico e operatore fotografico** e di loro  
 memorizzare l'anagrafica, telefono e IBAN che sarà poi utilizzato per l'accredito  
 della **paga mensile** calcolata nel software, che dovrà poi contenere uno storico  
 delle **buste paga**. Si dovrà poi indicare l'**indirizzo** di residenza dei vari membri  
 della troupe per il loro recapito, gli attori utilizzeranno **costumi** progrettati  
 da **stilisti** che vengono conservati in **magazzini** assieme agli **oggetti di scena**.  
-Saranno infine regsitrati nell'applicativo i **ciak** presi durante le riprese del  
+Saranno infine registration nell'applicativo i **ciak** presi durante le riprese del  
 film, nello specifico il rullo su cui è impresso, il numero del ciak, la location  
-nel quale viene girato e i costumi ed oggetti di scena presenti nel ciak.  
+nel quale viene girato e i costumi e oggetti di scena presenti nel ciak.  
 /* l'applicativo deve quindi anche poter ordinare gli oggetti e i costumi temporalmente utilizzati nelle riprese*/
 
 
@@ -161,15 +160,15 @@ scena-Ciak fondamentale per la realizzazione di un film
 Ogni Film ha bisogno di un ente specifico che si occupi della distribuzione,  
 come ad esempio l'azienda UCI che dopo aver comprato i diritti per la riproduzione  
 porta nelle sue sedi la pellicola, ogni ente da noi gestito attraverso  
-un entita composta da nome, indirizzo, P.IVA ha poi una dislocazione locale.
+un entita' composta da nome, indirizzo, P.IVA ha poi una dislocazione locale.
 ![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/distribuzioneIncasso.png)
 
 3.2 Inspirazione e Sceneggiatura
 --------
 E' comune che i film siano stati inspirati da alcune serie letterarie, come ad  
-esempio la saga di Harry Potter, abbiamo quindi deciso di inserire la possibilità  
+esempio la saga di Harry Potter, abbiamo quindi deciso d'inserire la possibilità  
 che un dato film sia tratto da una Serie Letteraria che abbiamo modellato come  
-un entita, spesso capita nell' ambiente cinematografico che lo Scenegiatore  
+un entita, spesso capita nell' ambiente cinematografico che lo Sceneggiatore  
 sia anche l'autore della Serie
 
 ![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/serie.png)
@@ -181,9 +180,9 @@ dato che i costi sono molti, spesso questo patrimonio si crea dagli investimenti
 che la pellicola riesce a raccogliere, abbiamo creato le entità Sponsor che   
 rappresentano le possibili aziende che possono in cambio di una sponsorizzazione  
 del loro prodotto pagare una somma di denaro e l' entità Finanziatore per la   
-persona o azienda che decidono di investire una somma di denaro per poi poter   
-guadagnare grazie ad una percentuale una volta ricevuti gli incassi del film tramite  un associazione che ha come  
-attributo la data di investimento e il Produttore esecutivo abbiamo modellato la gestione
+persona o azienda che decidono d'investire una somma di denaro per poi poter   
+guadagnare grazie a una percentuale una volta ricevuti gli incassi del film tramite  un associazione che ha come  
+attributo la data d'investimento e il Produttore esecutivo abbiamo modellato la gestione
 dei fondi.
 A livello concettuale avremo una gerarchia con entità padre il fondo ed entità figlie  
 i corrispettivi fondo_sponsor e fondo_finanziatore che erediteranno gli attributi  
@@ -193,7 +192,7 @@ di fondo con la chiave esterna di sponsor o finanziatore.
 
 3.4 Membro della Troupe
 -------
-In un set cinematografico le persone che lavorano alle realizzazione di un film  
+In un set cinematografico le persone che lavorano alla realizzazione di un film  
 sono tante e compiono lavori diversi, ma abbiamo deciso di utilizzare una   
 gerarchia per poter più comodamente rappresentarle.
 
@@ -226,7 +225,7 @@ Qui riportati gli schemi di navigazione delle operazioni
 # 4.1 Traduzione delle operazioni in query
 
 ### 4.11 Aggiunta Film
-Aggiungere un film consiste nell'aggiungere un instanza dell' entità FILM
+Aggiungere un film consiste nell'aggiungere un'istanza dell' entità FILM
 ```sql 
 INSERT IGNORE INTO Film(codF, titolo, genere, durata, dataUscita, idSerie) 
 
@@ -235,7 +234,7 @@ VALUES (00001, 'Star Wars: Episodio VI - Il ritorno dello Jedi',
 ```
 
 ### 4.12 Aggiunta Membro Troupe
-Aggiungiamo prima al database un membro generico, il quale verra poi collegato al film  
+Aggiungiamo prima al database un membro generico, il quale verra' poi collegato al film  
 tramite la tupla Film_Membro_Troupe che rappresenta l'associazione _lavora_ e ad il lavoro   
 che svolgerà all' interno di questo progetto con una tupla della tabella RuoloMembroTroupe
 
@@ -273,11 +272,11 @@ INSERT IGNORE INTO SediTerritoriali(P_IVA, codInd)
 ```
 
 ### 4.14 Costumi e Magazzini
-Per poter procedere a realizzare i concetti dell'utlizzo e storage dei costumi si può inserire  
+Per poter procedere a realizzare i concetti dell'utilizzo e storage dei costumi si può inserire  
 l'entita Magazzino, le associazioni riportate nell ER collocazioni_costumi e assegnamento  
-attore vengono formalizzate utilizzando un Entità Posizione Magazzino che utlizza la primary  
+attore vengono formalizzate utilizzando un Entità Posizione Magazzino che utilizza la primary  
 key di Magazzino che viene legata a Costume con la foreign key codP e la seconda associazione  
-assegnando ad un costume una foreign key CF (codice fiscale) che viene importato da MembroTroupe.  
+assegnando a un costume una foreign key CF (codice fiscale) che viene importato da MembroTroupe.  
 
 ```sql 
 INSERT IGNORE INTO Magazzino(numMagazzino, codInd)
@@ -317,7 +316,7 @@ INSERT IGNORE INTO Fondo(codFondo, dataAccredito, patrimonio, P_IVA_SPONSOR, P_I
 
 ### 4.16 Retribuzione Membro Troupe
 Avendo creato in precedenza un membro troupe, ora potremo creare le varie busta paga per
-quel determinato membro troupe usando una entità busta paga contentente tutte le informazioni
+quel determinato membro troupe usando una entità busta paga contenente tutte le informazioni
 dello stipendio del dipendente e una entità retribuzione che avrà lo scopo di associare un membro troupe
 alla propria busta paga
 
@@ -597,15 +596,15 @@ tutte le entità, le relazioni e i relativi volumi.
 # 6.5 Creazione delle tables
 ```sql
 CREATE TABLE if not exists Indirizzo(
-        codInd int primary key,
-        citta varchar(21) NOT NULL,
+    codInd int primary key check(length(codInd) <= 5),
+    citta varchar(41) NOT NULL,
     via varchar(40) NOT NULL,
     civico int NOT NULL,
     CAP int NOT NULL check(length(CAP) = 5)
     );
 
 CREATE TABLE IF NOT EXISTS  Enti(
-  P_IVA varchar(11) NOT NULL,
+  P_IVA varchar(31) NOT NULL,
   nome varchar(40) NOT NULL,
   codInd INT NOT NULL,
   FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
@@ -615,29 +614,60 @@ CREATE TABLE IF NOT EXISTS  Enti(
 ) ;
    
 CREATE TABLE if not exists MembroTroupe(
-        CF varchar(12) primary key,
+    CF varchar(18) primary key,
     nome varchar(20) NOT NULL, 
     cognome varchar(20) NOT NULL, 
     IBAN varchar(30) NOT NULL, 
     dataNascita date NOT NULL,
-    telefono varchar(15) NOT NULL, 
+    telefono varchar(35) NOT NULL, 
     codInd INT NOT NULL,
     FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,
-    percentualeContributo float(3) check(percentualeContributo between 0  and 100),
-    ruolo varchar(41) NOT NULL check (ruolo in ('sceneggiatore', 'produttore',
-    'produttore esecutivo','aiuto regista', 'capo regista', 
-    'regista', 'attore', 'stilista', 'operatore')),
-    tipoOperatore varchar(31) check (tipoOperatore in ('fonico', 'fotografico'))
+    percentualeContributo float(3) check(percentualeContributo between 0  and 100)
 );
 
+CREATE TABLE if not exists BustaPaga(
+    codB INT,
+    retribuzioneOraria float NOT NULL,
+    oreLavorate float NOT NULL,
+    mese varchar(30) CHECK (mese in ('gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre')),
+    primary key(codB)
+);
+
+CREATE TABLE if not exists Retribuzione(
+    CF varchar(18),
+    FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+    codB INT,
+    FOREIGN KEY (codB) REFERENCES BustaPaga(codB)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+    PRIMARY KEY(CF, codB)
+);
+
+CREATE TABLE IF NOT EXISTS Ruolo(
+    nomeRuolo varchar(41) Primary KEY
+);
+
+CREATE TABLE IF NOT EXISTS RuoloMembroTroupe(
+    CF varchar(18),
+    FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
+           ON DELETE CASCADE
+           ON UPDATE NO ACTION,
+    nomeRuolo varchar(41),
+    FOREIGN KEY (nomeRuolo) REFERENCES Ruolo(nomeRuolo)
+           ON DELETE CASCADE
+           ON UPDATE NO ACTION,
+     PRIMARY KEY(CF, nomeRuolo)
+);
 
 CREATE TABLE IF NOT EXISTS SerieLetteraria(
     idSerie varchar(11) primary key,
     titolo varchar(51) NOT NULL,
     genere varchar(40) NOT NULL, 
-    CF  varchar(12) NOT NULL,
+    CF  varchar(18) NOT NULL,
         FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
         ON DELETE CASCADE
         ON UPDATE NO ACTION
@@ -645,7 +675,7 @@ CREATE TABLE IF NOT EXISTS SerieLetteraria(
 
 CREATE TABLE IF NOT EXISTS Film (
   codF int NOT NULL AUTO_INCREMENT,
-  titolo varchar(51) NOT NULL,
+  titolo varchar(51) NOT NULL UNIQUE,
   genere varchar(40) NOT NULL CHECK (genere = 'Animazione' or genere = 'Avventura' or genere = 'Azione' or genere = 'Biografico' or genere = 'Commedia' or genere = 'Documentario' or genere = 'Drammatico' or genere = 'Pornografico' or genere = 'Fantascienza' or genere = 'Fantasy' or genere = 'Guerra' or genere = 'Horror' or genere = 'Musical' or genere = 'Storico' or genere = 'Thriller' or genere = 'Western'),
   durata int NOT NULL CHECK (durata > 0),
   dataUscita date DEFAULT NULL,
@@ -656,9 +686,8 @@ CREATE TABLE IF NOT EXISTS Film (
   PRIMARY KEY (codF)
 );
 
-
 CREATE TABLE IF NOT EXISTS SediTerritoriali (
-  P_IVA varchar(11) NOT NULL,
+  P_IVA varchar(31) NOT NULL,
   FOREIGN KEY (P_IVA) REFERENCES Enti (P_IVA)
   ON DELETE CASCADE
   ON UPDATE NO ACTION,
@@ -671,7 +700,7 @@ CREATE TABLE IF NOT EXISTS SediTerritoriali (
 
 
 CREATE TABLE if not exists Distribuzione(
-        P_IVA varchar(11) ,
+        P_IVA varchar(31) ,
         FOREIGN KEY (P_IVA) REFERENCES Enti(P_IVA)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,
@@ -683,31 +712,31 @@ CREATE TABLE if not exists Distribuzione(
     );
 
 
-CREATE TABLE if not exists Incasso(
-        percentualeTrattenute float(3) NOT NULL,
+CREATE TABLE if NOT EXISTS Incasso(
+    dataInizio date NOT NULL,
+    dataFine date NOT NULL,
+    incasso int(11),
     codF INT NOT NULL,
-        FOREIGN KEY (codF) REFERENCES Film(codF)
-        ON DELETE CASCADE
-        ON UPDATE NO ACTION,
+    FOREIGN KEY (codF) REFERENCES Film(codF)
+       ON DELETE CASCADE
+       ON UPDATE NO ACTION,
     codInd INT NOT NULL,
-    FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
-        ON DELETE CASCADE
-        ON UPDATE NO ACTION,
-    primary key(codF, codInd)
-    );
-
--- incasso settimanale non ci piace....
+    FOREIGN KEY (codInd) REFERENCES SediTerritoriali(codInd)
+       ON DELETE CASCADE
+       ON UPDATE NO ACTION,
+    PRIMARY KEY(dataInizio, dataFine, incasso)
+);
 
 CREATE TABLE if not exists Sponsor(
-        P_IVA_SPONSOR varchar(11) primary key,
+        P_IVA_SPONSOR varchar(31) primary key,
         nome varchar(41) NOT NULL
     );
 
 
 CREATE TABLE if not exists Finanziatore(
-        P_IVA_FINANZIATORE varchar(11) primary key,
+    P_IVA_FINANZIATORE varchar(31) primary key,
     nome varchar(41) NOT NULL,
-     codInd INT NOT NULL,
+    codInd INT NOT NULL,
     FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,
@@ -715,22 +744,16 @@ CREATE TABLE if not exists Finanziatore(
     );
 
 
-
-
 CREATE TABLE if not exists Fondo(
-        codFondo varchar(13) primary key,
+    codFondo INT primary key auto_increment,
     dataAccredito date NOT NULL,
     patrimonio float(14) NOT NULL CHECK(patrimonio >= 0),
-    P_IVA_SPONSOR varchar(11) NOT NULL,
+    P_IVA_SPONSOR varchar(31),
     FOREIGN KEY (P_IVA_SPONSOR) REFERENCES Sponsor(P_IVA_SPONSOR)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,
-    P_IVA_FINANZIATORE varchar(11) NOT NULL,
+    P_IVA_FINANZIATORE varchar(31),
     FOREIGN KEY (P_IVA_FINANZIATORE) REFERENCES Finanziatore(P_IVA_FINANZIATORE)
-        ON DELETE CASCADE
-        ON UPDATE NO ACTION,
-    CF varchar(12) NOT NULL,
-        FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,
     codF INT NOT NULL,
@@ -740,48 +763,26 @@ CREATE TABLE if not exists Fondo(
     );
 
 
-
 CREATE TABLE if not exists Film_Membro_Troupe(
         codF INT NOT NULL,
         FOREIGN KEY (codF) REFERENCES Film(codF)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,
-        CF varchar(12) NOT NULL,
+        CF varchar(18) NOT NULL,
         FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,
         PRIMARY KEY(codF, CF)
         );
 
--- CREATE TABLE if not exists Supervisione(
--- supervisore INT NOT NULL,
--- FOREIGN KEY (supervisore) REFERENCES Supervisione(supervisore)
--- ON DELETE CASCADE
--- ON UPDATE NO ACTION,
--- subalterno INT NOT NULL,
---  FOREIGN KEY (subalterno) REFERENCES Supervisione(subalterno)
--- ON DELETE CASCADE
--- ON UPDATE NO ACTION,
--- PRIMARY KEY(subalterno)
--- );
 
 CREATE TABLE if not exists ScenaCiak(
-        -- TODO HO CAMBIATO GLI ATTRIBUTI dataInizio e Fine, trovare un sostituto valido e cambiare il resto nell ER e relazione....
-        --scommentando le date non da errore la query, mahhh .....
         codScena int primary key,
         noteDiProduzione varchar(255),
         rullo int NOT NULL,
         numRiprese int NOT NULL,
-        -- dataInizio date,
-        -- dataFine date, -- CHECK(dataFine >= dataInizio),
-
-        -- sostituiro le date con il numero di ore
-        durataOre float NOT NULL,
+        durataOre float NOT NULL check(durataOre > 0),
         costoAffittoGiornaliero float(5),
-        codInd INT NOT NULL,
-        FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
-        ON DELETE CASCADE
-        ON UPDATE NO ACTION,
         codF INT NOT NULL,
         FOREIGN KEY (codF) REFERENCES Film(codF)
         ON DELETE CASCADE
@@ -793,7 +794,7 @@ CREATE TABLE if not exists MembroTroupeScena(
         FOREIGN KEY (codScena) REFERENCES ScenaCiak(codScena)
         ON DELETE CASCADE
         ON UPDATE NO ACTION ,
-        CF varchar(12) NOT NULL,
+        CF varchar(18) NOT NULL,
         FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,
@@ -821,9 +822,9 @@ CREATE TABLE if not exists PosizioneMagazzino(
 
 CREATE TABLE if not exists Costume(
         codC int Primary Key,
-        tipo varchar(12) NOT NULL CHECK(tipo='epoca' OR tipo='contemporaneo' OR tipo='fantasia'),
+        tipo varchar(22) NOT NULL CHECK(tipo='epoca' OR tipo='contemporaneo' OR tipo='fantasia'),
         descrizione varchar(255) NOT NULL,
-        CF varchar(12) NOT NULL,
+        CF varchar(18) NOT NULL,
         FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,
@@ -835,7 +836,7 @@ CREATE TABLE if not exists Costume(
         );
 
 CREATE TABLE if not exists StilistaCostume(
-        CF varchar(12) NOT NULL,
+        CF varchar(18) NOT NULL,
         FOREIGN KEY (CF) REFERENCES MembroTroupe(CF)
         ON DELETE CASCADE
         ON UPDATE NO ACTION,
@@ -884,7 +885,7 @@ CREATE TABLE if not exists OggettoScena(
         );
 
 CREATE TABLE if not exists Ditta(
-        P_IVA_DITTA varchar(11) Primary Key,
+        P_IVA_DITTA varchar(31) Primary Key,
         nome varchar(41) NOT NULL,
         codInd INT NOT NULL,
         FOREIGN KEY (codInd) REFERENCES Indirizzo(codInd)
@@ -914,6 +915,19 @@ CREATE TABLE if not exists AcquistoCostume(
         prezzo float(8) NOT NULL,
         PRIMARY KEY(codC, idAcquisto)
         );
+
+CREATE TABLE if not exists AcquistoOggetto(
+    codO INT NOT NULL,
+    FOREIGN KEY (codO) REFERENCES OggettiDiScena(codO)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+    idAcquisto INT NOT NULL,
+    FOREIGN KEY (idAcquisto) REFERENCES Acquisto(idAcquisto)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+    prezzo float(8) NOT NULL,
+    PRIMARY KEY(codO, idAcquisto)
+    );
 ```
 
 # 7 Interfaccia grafica
@@ -926,8 +940,8 @@ L'applicativo consentirà all'admin di poter eseguire tutte le operazioni necess
 in database di un film che andrà a comporre quello che sarà il catalogo e visualizzare tutte le informazioni a esso relative.
 
 # 7.2 Interfaccia di inserimento
-L'applicativo si avvierà con quella che è la schermata di inserimento dei dati, che permetterà all'amministratore
-l'inserimento di tutti i dati riguardante un film, oltre ai film stessi.
+L'applicativo si avvierà con quella che è la schermata d'inserimento dei dati, che permetterà all'amministratore
+l'inserimento di tutti i dati riguardante un film, oltre i film stessi.
 In questa schermata sarà possibile inserire:
 
 - Film
@@ -964,7 +978,7 @@ In questa schermata sarà possibile inserire:
 In questa interfaccia sarà possibile per l'amministratore visualizzare tutti i dati contenuti nel database
 per un determinato film 
 Come esempio prenderemo la visualizzazione dei dati riguardanti il film Star wars.
-Qui l'utente sarà in grando di visualizzare i dati relativi a:
+Qui l'utente sarà in grado di visualizzare i dati relativi a:
 
 - Film
 - Enti
@@ -987,7 +1001,7 @@ Qui l'utente sarà in grando di visualizzare i dati relativi a:
 
 # 7.4 Interfaccia per operazioni specifiche
 In questa interfaccia l'amministratore potrà effettuare tutte quelle operazioni specifiche di visualizzazione
-di dati perticolare.
+di dati particolare.
 
 Qui l'utente sarà in grado di visualizzare:
 
