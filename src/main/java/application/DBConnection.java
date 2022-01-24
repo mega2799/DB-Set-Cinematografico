@@ -20,7 +20,7 @@ public class DBConnection {
         System.out.println(OS);
         if(OS.contains("Windows")){
             user = "root";
-            passw = "";
+            passw = "password";
         } else{
             if(OS.contains("Linux")){
                 user = "Matte";

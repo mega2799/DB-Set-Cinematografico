@@ -18,14 +18,16 @@ public class QueryTeller {
     }
 
     public ResultSet guadagnoProduttori(final String codF){
-        String query = "select @Denaro := sum(incasso) as money FROM Incasso;\n";
+        String query = "select @Denaro := sum(incasso) as money FROM Incasso" +
+                "  where codF = ?;\n";
                 String query2 = "select distinct M.nome, M.cognome,M.percentualeContributo, (M.percentualeContributo / 100 * @Denaro ) as guadagno, Rm.nomeRuolo \n" +
                 "from Incasso I, MembroTroupe M, RuoloMembroTroupe Rm join Film_Membro_Troupe flm on (Rm.CF = flm.CF) \n" +
-                "where (M.CF = Rm.CF) and flm.codF = ? and M.percentualeContributo is not null" +
+                "where (M.CF = Rm.CF) and flm.codF =? and M.percentualeContributo is not null " +
                 "order by guadagno DESC;";
         ResultSet result = null;
         try {
             PreparedStatement stmt = this.connection.prepareStatement(query);
+            stmt.setString(1, codF);
             stmt.executeQuery();
             PreparedStatement stmt2 = this.connection.prepareStatement(query2);
             stmt2.setString(1, codF);
@@ -127,7 +129,8 @@ public class QueryTeller {
     }
 
     public ResultSet profittoFinanziatori(final String codF){
-        String query = "select @Denaro := sum(incasso) as money FROM Incasso;\n";
+        String query = "select @Denaro := sum(incasso) as money FROM Incasso " +
+                "where codF= ?;\n";
         String query2 = "    select distinct F.nome, F.percentualeGuadagno, (F.percentualeGuadagno / 100 * @Denaro ) as guadagno\n" +
                 "    from Finanziatore F join Fondo ff on (F.P_IVA_FINANZIATORE = ff.P_IVA_FINANZIATORE)\n" +
                 "    where F.percentualeGuadagno is not null\n" +
@@ -136,6 +139,7 @@ public class QueryTeller {
         ResultSet result = null;
         try {
             PreparedStatement stmt = this.connection.prepareStatement(query);
+            stmt.setString(1, codF);
             stmt.executeQuery();
             PreparedStatement stmt2 = this.connection.prepareStatement(query2);
             stmt2.setString(1, codF);
