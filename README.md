@@ -46,14 +46,19 @@ La presente documentazione tratta nel dettaglio la progettazione e l’implement
     - [4.15 Sponsor, Finanziatori e Fondo](#415-sponsor-finanziatori-e-fondo)
     - [4.16 Retribuzione Membro_Troupe](#416-retribuzione-membro-troupe)
 - [5 Specifiche funzionali](#5-specifiche-funzionali)
-  - [5.1 Stipendio membri della troupe](#51-stipendio-membri-della-troupe)
-- [5.2 Elenco oggetti acquistati in magazzino](#52-elenco-oggetti-acquistati-in-magazzino)
-- [5.3 Profitto finanziatori](#53-profitto-finanziatori)
-- [5.4 Costumi da usare per scena](#54-costumi-da-usare-per-scena)
-- [5.5 Dipendenti in scena](#55-dipendenti-in-scena)
-- [5.6 Oggetti in scena](#56-oggetti-in-scena)
-- [5.7 Stipendio netto dipendente](#57-stipendio-netto-dipendente)
-- [5.8 Profitto Produttori](#57-profitto-produttori)
+  - [5.01 Stipendio membri della troupe](#51-stipendio-membri-della-troupe)
+- [5.02 Elenco oggetti acquistati in magazzino](#52-elenco-oggetti-acquistati-in-magazzino)
+- [5.03 Profitto finanziatori](#53-profitto-finanziatori)
+- [5.04 Costumi da usare per scena](#54-costumi-da-usare-per-scena)
+- [5.05 Dipendenti in scena](#55-dipendenti-in-scena)
+- [5.06 Oggetti in scena](#56-oggetti-in-scena)
+- [5.07 Stipendio netto dipendente](#57-stipendio-netto-dipendente)
+- [5.08 Profitto Produttori](#58-profitto-produttori)
+- [5.09  Costo affitto location per film](#59-costo-affitto-location-per-film)
+- [5.10 Costo stipendi troupe per film](#59.1-costo-stipendi-troupe-per-film)
+- [5.11 Guadagno finanziatori](#59.2-guadagno-finanziatori)
+- [5.12 Fatturato](#59.3-fatturato)
+- [5.13 Ricavo](#59.3-ricavo)
 - [6 Il Progetto Logico](#6-il-progetto-logico)
 - [6.1 Frequenza e costo degli accessi](#61-frequenza-e-costo-degli-accessi)
 - [6.2 Volume dati del database](#62-volume-dati-del-database)
@@ -330,7 +335,7 @@ INSERT IGNORE INTO Retribuzione(CF, CodB)
 # 5 Specifiche funzionali
 Ora andremo a svolgere le seguenti operazioni
 
-## 5.1 Stipendio membri della troupe
+## 5.01 Stipendio membri della troupe
 Query creata per poter calcolare lo stipendio della troupe per un mese, ottenuta collezionando  
 le busta paga dei lavoratori, in altre parole il costo della troupe mensile, il tutto ottenuto 
 selezionando il Film per il quale si desidera conoscere la cifra.
@@ -342,7 +347,7 @@ selezionando il Film per il quale si desidera conoscere la cifra.
         and codF = ?;
 ```
 
-# 5.2 Elenco oggetti acquistati in magazzino
+# 5.02 Elenco oggetti acquistati in magazzino
 Trova la posizione in un dato magazzino di tutti gli oggetti acquistati specificandone
 magazzino.
 
@@ -354,7 +359,7 @@ magazzino.
     and pm.numMagazzino = ?;
 ```
 
-# 5.3 Profitto finanziatori
+# 5.03 Profitto finanziatori
 Query creata poter calcolare il profitto ottenuto dai finanziatori grazie al finanziamento
 di uno specifico film.
 Tale profitto è calcolato anche in base alla percentuale di guadagno stabilita.
@@ -369,7 +374,7 @@ Tale profitto è calcolato anche in base alla percentuale di guadagno stabilita.
     order by guadagno DESC;
 ```
 
-# 5.4 Costumi da usare per scena
+# 5.04 Costumi da usare per scena
 Query creata per definire i costumi che saranno da usare nella realizzazione di una determinate scena
 e che dovrà indossare un attore X
 
@@ -379,7 +384,7 @@ e che dovrà indossare un attore X
    join Costume c on (c.codC = cs.codC)
    where sc.noteDiProduzione = ?;
 ```
-# 5.5 Dipendenti in scena
+# 5.05 Dipendenti in scena
 ```sql
     select mt.*
     from ScenaCiak sc join MembroTroupeScena mts on (sc.codScena = mts.codScena)
@@ -387,14 +392,14 @@ e che dovrà indossare un attore X
     where sc.codScena = ?;
 ```
 
-# 5.6 Oggetti in scena
+# 5.06 Oggetti in scena
 ```sql
     select ods.*
     from ScenaCiak sc join OggettoScena os on (sc.codScena=os.codScena)
     join OggettiDiScena ods on (os.codO=ods.codO)
     where sc.codScena=?;
 ```
-# 5.7 Stipendio netto dipendente
+# 5.07 Stipendio netto dipendente
 Definisce lo stipendio di un determinato membro della troupe in un dato mese, calcolandolo 
 moltiplicando la retribuzione oraria stabilita mediante contratto e le ore lavorate
 ```sql
@@ -403,8 +408,8 @@ moltiplicando la retribuzione oraria stabilita mediante contratto e le ore lavor
   where r.CF = ?; 
 ```
 
-# 5.8 Profitto produttori 
-Server per poter calcolare quanti soldi riescono a ricavare dalla produzione di un film i produttori  
+# 5.08 Profitto produttori 
+Serve per poter calcolare quanti soldi riescono a ricavare dalla produzione di un film i produttori  
 e chiunque lavori all'interno e riceva una percentuale dagli incassi.
 ```sql
   select @Denaro := sum(incasso) as money FROM Incasso;
@@ -413,6 +418,64 @@ e chiunque lavori all'interno e riceva una percentuale dagli incassi.
   where (M.CF = Rm.CF) and flm.codF = ? and M.percentualeContributo is not null
   order by guadagno DESC; 
 ```
+
+
+# 5.09 Costo affitto location per film
+Costo totale di affitto delle location per girare un determinato film
+```sql
+  select @Affitto := sum(costoAffittoGiornaliero * durataOre) as affittoOrario from ScenaCiak where codF = codiceFilm;
+```
+
+#  5.10 Costo stipendi troupe per film
+Calcolo del costo degli stipendi per ogni membro che ha lavorato alla realizzazione di un film
+```sql
+    select @StipendiTot := sum(retribuzioneOraria * oreLavorate) as stipendio_membro from
+    BustaPaga b join Retribuzione r on (b.codB = r.codB )
+	join Film_Membro_Troupe flm on (r.CF = flm.CF)
+	and codF = codiceFilm;
+```
+
+# 5.11 Guadagno finanziatori
+Guadagno totale dei finanziatori per l'investimento in un film
+```sql
+    select @Guadagno := sum(F.percentualeGuadagno / 100 * @fatturato ) as guadFinanziatore
+	from Finanziatore F join Fondo ff on (F.P_IVA_FINANZIATORE = ff.P_IVA_FINANZIATORE)
+	where F.percentualeGuadagno is not null
+    and codF = codiceFilm;
+```
+
+# 5.12 Fatturato
+Fatturato totale del film
+```sql
+    select @fatturato := sum(incasso) as Fatturato from Incasso
+    where codF = codiceFilm;
+```
+
+# 5.13 Ricavo
+Ricavo totale di un determinato film -> Ricavo = Guadagno - Spese
+```sql
+    select (
+    (select @fatturato := sum(incasso) as Fatturato from Incasso
+	where codF = codiceFilm) -
+    (SELECT SUM(ricavo) ricavo
+	from
+	(
+		select sum(costoAffittoGiornaliero * durataOre) ricavo from ScenaCiak where codF = codiceFilm
+    	UNION
+    	select sum(retribuzioneOraria * oreLavorate) ricavo from
+		BustaPaga b join Retribuzione r on (b.codB = r.codB )
+		join Film_Membro_Troupe flm on (r.CF = flm.CF)
+		and codF = codiceFilm
+    	UNION
+    	select sum(F.percentualeGuadagno / 100 * @fatturato ) ricavo
+		from Finanziatore F join Fondo ff on (F.P_IVA_FINANZIATORE = ff.P_IVA_FINANZIATORE)
+		where F.percentualeGuadagno is not null
+		and codF = codiceFilm
+	) s)
+) as ricavo;
+```
+
+
 # 6 Il Progetto Logico
 
 # 6.1 Frequenza e costo degli accessi
