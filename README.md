@@ -930,34 +930,34 @@ L'applicativo si avvierà con quella che è la schermata di inserimento dei dati
 l'inserimento di tutti i dati riguardante un film, oltre ai film stessi.
 In questa schermata sarà possibile inserire:
 
--Film
--Enti
--Finanziatori
--Incassi
--Indirizzi
--MembriTroupe
--Sponsor
+- Film
+- Enti
+- Finanziatori
+- Incassi
+- Indirizzi
+- MembriTroupe
+- Sponsor
 
 
-Schermata inserimento di un film
+- Schermata inserimento di un film
 ![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/InserimentoFilm.PNG)
 
-Schermata inserimento di un ente
+- Schermata inserimento di un ente
 ![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/InserimentoEnti.PNG)
 
-Schermata inserimento di un finanziatore
+- Schermata inserimento di un finanziatore
 ![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/InserimentoFinanziatore.PNG)
 
-Schermata inserimento di un incasso
+- Schermata inserimento di un incasso
 ![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/InserimentoIncasso.PNG)
 
-Schermata inserimento di un indirizzo
+- Schermata inserimento di un indirizzo
 ![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/InserimentoIndirizzo.PNG)
 
-Schermata inserimento di un operatore
+- Schermata inserimento di un operatore
 ![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/InserimentoOperatore.PNG)
 
-Schermata inserimento di uno sponsor
+- Schermata inserimento di uno sponsor
 ![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/InserimentoSponsor.PNG)
 
 # 7.3 Interfaccia di visualizzazione
@@ -966,19 +966,19 @@ per un determinato film
 Come esempio prenderemo la visualizzazione dei dati riguardanti il film Star wars.
 Qui l'utente sarà in grando di visualizzare i dati relativi a:
 
--Film
--Enti
--Finanziatori
--Incassi
--Indirizzi
--MembriTroupe
--Sponsor
--Attori
--Ditte
--Costumi
--Oggetti
--Magazzini
--Scene
+- Film
+- Enti
+- Finanziatori
+- Incassi
+- Indirizzi
+- MembriTroupe
+- Sponsor
+- Attori
+- Ditte
+- Costumi
+- Oggetti
+- Magazzini
+- Scene
 
 Schermata di visualizzazione
 ![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/visualizzazione.PNG)
@@ -990,20 +990,23 @@ di dati perticolare.
 
 Qui l'utente sarà in grado di visualizzare:
 
--Stipendio totale mensile dei membri della troupe per un determinato film
+- Stipendio totale mensile dei membri della troupe per un determinato film
 ![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/queryStipendio.PNG)
--Incasso di film
+- Incasso di film
 ![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/queryIncasso.PNG)
--Profitto finanziatori per un film
--Profitto produttori per un film
--Ricavi di un film
--Dipendenti che hanno partecipato scena di un film
+- Profitto finanziatori per un film
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/guadagnoFinanziatori.png)
+- Profitto produttori per un film
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/guadagnoProduttori.png)
+- Ricavi di un film
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/ricavi.png)
+- Dipendenti che hanno partecipato scena di un film
 ![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/queryDipScena.PNG)
--Oggetti presenti in una scena
+- Oggetti presenti in una scena
 ![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/queryOggetti.PNG)
--Costumi presenti in una scena
+- Costumi presenti in una scena
 ![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/queryCostumiScena.PNG)
--Oggetti presenti in magazzino
+- Oggetti presenti in magazzino
 ![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/magazzino.PNG)
 
 
