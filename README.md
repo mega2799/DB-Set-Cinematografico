@@ -65,6 +65,7 @@ La presente documentazione tratta nel dettaglio la progettazione e l’implement
 - [6.3 Tabella degli accessi](#63-tabella-degli-accessi)
 - [6.4 Traduzione delle entita](#64-traduzione-delle-entita)
 - [6.5 Creazione delle tables](#65-creazione-delle-tables)
+- [7 Interfaccia grafica](#65-interfaccia-grafica)
   - [# Special thanks](#-special-thanks)
   - [possibili query per noi](#possibili-query-per-noi)
 
@@ -212,7 +213,7 @@ calcolato un vero e proprio stipendio.
 
 Schema Completo
 ----------
-![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/schemaCompleto.png)
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/schemaCompleto2.png)
 
 4 Il progetto Logico
 ---------------
@@ -542,10 +543,6 @@ tutte le entità, le relazioni e i relativi volumi.
 * FilmMembroTroupe(__*codF*__, __*CF*__)
     + FK: codF REFERENCES __Film__
     + FK: CF REFERENCES __Membro_troupe__
-
-* Supervisione(Supervisore, __*Subalterno*__)
-    + FK: Supervisore REFERENCES __Membro_troupe__
-    + FK: Subalterno REFERENCES __Membro_troupe__
 
 * ScenaCiak(__*codScena*__, noteDiProduzione, rullo, numRiprese, durataOre, costoAffittoGiornaliero[0-1], codF)
     + FK: codF REFERENCES __Film__
@@ -915,6 +912,39 @@ CREATE TABLE if not exists AcquistoCostume(
         );
 ```
 
+# 7 Interfaccia grafica
+
+# 7.1 Descrizione dell'architettura utilizzata
+Si sviluppa una applicazione molto semplice per la gestione del database in linguaggio Java, che renda
+possibile la messa in pratica delle operazioni richieste dalle varie viste. L’approccio verso il DB è gestito
+tramite JDBC. Il DB risiede in locale e usa MySQL come DBMS.
+L'applicativo consentirà all'admin di poter eseguire tutte le operazioni necessarie per l'inserimento
+in database di un film che andrà a comporre quello che sarà il catalogo e visualizzare tutte le informazioni a esso relative.
+
+# 7.2 Interfaccia di inserimento
+L'applicativo si avvierà con quella che è la schermata di inserimento dei dati, che permetterà all'amministratore
+l'inserimento di tutti i dati riguardante un film, oltre ai film stessi.
+
+Schermata inserimento di un film
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/InserimentoFilm.PNG)
+
+Schermata inserimento di un ente
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/InserimentoEnti.PNG)
+
+Schermata inserimento di un finanziatore
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/InserimentoFinanziatore.PNG)
+
+Schermata inserimento di un incasso
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/InserimentoIncasso.PNG)
+
+Schermata inserimento di un indirizzo
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/InserimentoIndirizzo.PNG)
+
+Schermata inserimento di un operatore
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/InserimentoOperatore.PNG)
+
+Schermata inserimento di uno sponsor
+![](https://raw.githubusercontent.com/mega2799/DB-Set-Cinematografico/main/res/InserimentoSponsor.PNG)
 
 
 # Special thanks 
