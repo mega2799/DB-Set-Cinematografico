@@ -179,7 +179,7 @@ public class Visualization1Controller {
         }
         rs = tell.sponsors(CODFILM);
         setLastQuery("sponsors");
-        this.deleteRowButton.setVisible(true);
+        this.deleteRowButton.setVisible(false);
         refreshTable();
     }
 
@@ -191,7 +191,7 @@ public class Visualization1Controller {
         }
         rs = tell.troupe(CODFILM);
         setLastQuery("troupe");
-        this.deleteRowButton.setVisible(true);
+        this.deleteRowButton.setVisible(false);
         refreshTable();
     }
 
@@ -224,7 +224,7 @@ public class Visualization1Controller {
         }
         rs = tell.costumi(CODFILM);
         setLastQuery("costumi");
-        this.deleteRowButton.setVisible(true);
+        this.deleteRowButton.setVisible(false);
         refreshTable();
     }
 
@@ -236,7 +236,7 @@ public class Visualization1Controller {
         }
         rs = tell.finanziatori(CODFILM);
         setLastQuery("finanziatori");
-        this.deleteRowButton.setVisible(true);
+        this.deleteRowButton.setVisible(false);
         refreshTable();
     }
 
@@ -248,7 +248,7 @@ public class Visualization1Controller {
         }
         rs = tell.fondi(CODFILM);
         setLastQuery("fondi");
-        this.deleteRowButton.setVisible(true);
+        this.deleteRowButton.setVisible(false);
         refreshTable();
     }
 
@@ -260,7 +260,7 @@ public class Visualization1Controller {
         }
         rs = tell.incassi(CODFILM);
         setLastQuery("incassi");
-        this.deleteRowButton.setVisible(true);
+        this.deleteRowButton.setVisible(false);
         refreshTable();
     }
 
@@ -288,7 +288,7 @@ public class Visualization1Controller {
         }
         rs = tell.oggettiDiScena(CODFILM);
         setLastQuery("oggettiDiScena");
-        this.deleteRowButton.setVisible(true);
+        this.deleteRowButton.setVisible(false);
         refreshTable();
     }
 
@@ -300,7 +300,7 @@ public class Visualization1Controller {
         }
         rs = tell.scene(CODFILM);
         setLastQuery("scene");
-        this.deleteRowButton.setVisible(true);
+        this.deleteRowButton.setVisible(false);
         refreshTable();
     }
 
