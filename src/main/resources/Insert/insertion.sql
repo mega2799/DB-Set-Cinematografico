@@ -1357,7 +1357,7 @@ INSERT IGNORE INTO Retribuzione(CF, CodB) VALUES
 
 
 INSERT IGNORE INTO Film(codF, titolo, genere, durata, dataUscita, idSerie)
-	VALUES (4, 'ritorno al futuro II','fantascienza', 108, '1989/10/5'  , NULL); 
+	VALUES (4, 'Ritorno al futuro II','fantascienza', 108, '1989/10/5'  , NULL);
 
 INSERT IGNORE INTO Indirizzo(codInd, citta, via, civico, CAP) VALUES
 (98327, "Vigorelli nell'emilia", 'Stretto Dionigi', '7', 39359),
