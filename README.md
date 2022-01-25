@@ -84,7 +84,6 @@ la gestione delle scene e dei ciak quindi gli stipendi e gli incassi.
 
 2.11 Intervista
 ----
-/* SERVE AGGIUNGERE LE QUERY IN QUESTA ROBA /
 
 Netflix Italia possiede un sistema informatico per la gestione del personale e delle risorse
 coinvolte della realizzazione di serie Tv e film che necessita di essere riadattato alle esigenze
