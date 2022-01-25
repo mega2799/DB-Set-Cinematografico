@@ -43,7 +43,11 @@ VALUES (24673, 'nicasio', 'lucas valley rid', 5858, 94946),
     -- indirizzo etsy
         (13859,'New York', 'Adams Street', 117, 11201),
     -- indirizzo star wars industries
-        (16957, 'New York', 'Empire State', 23, 34534);
+        (16957, 'New York', 'Empire State', 23, 34534),
+        (12121,'Roma','Napoleone',15,34534),
+        (84625,'Napoli','Brombeis',11,80100),
+        (87988,'Perugia','Sestino',96,78454),
+        (66666,'Cesena','dell\'università',50,47951);
 
 
 
@@ -161,13 +165,19 @@ INSERT IGNORE INTO Sponsor(P_IVA_SPONSOR, nome)
     -- Bose
     ('29218600871', 'Bose'),
     -- Samsung
-    ('53179880082', 'Samsung Galaxy');
+    ('53179880082', 'Samsung Galaxy'),
+    ('11122275486','Sammarinesi uniti spa');
 
 INSERT IGNORE INTO Finanziatore(P_IVA_FINANZIATORE, nome,codInd ,percentualeGuadagno)
     -- Finanziatore 1
     VALUES('31562270996', 'Micheal Barnaby', 49429, 1.8),
     -- La starbucks che investe in starWars !
-    ('40211260761', 'Starbucks',  15293 , 0.19);
+    ('40211260761', 'Starbucks',  15293 , 0.19),
+    ('11228877946', 'ArmadiArmadiArmadi and Co.', 12121,0.15),
+    ('14145868677','Tartufi da Magi',84625,2),
+    ('84621537941','Birra Peroni srl',87988,0.05),
+    ('45612396574','EVILCORP',66666,0.9);
+
 
 INSERT IGNORE INTO Magazzino(numMagazzino, codInd)
     -- magazzino principale
@@ -213,7 +223,11 @@ VALUES ('1977-10-21', '1977-10-28', 53011203, 1, 16395),
 
 INSERT IGNORE INTO Fondo(codFondo, dataAccredito, patrimonio, P_IVA_SPONSOR, P_IVA_FINANZIATORE,codF)
     -- george lucas ha contribuito al fondo
-VALUES (1, '1977-01-05', 2000000, '53179880082', null, 1);
+VALUES (1, '1977-01-05', 2000000, '53179880082', null, 1),
+        (2,'1977-2-06',1000000,'29218600871',11228877946,1),
+        (3,'19-03-02',1000500,'21708660770',84621537941,1),
+        (4,'1977-02-06',500000,'77072550757','14145868677',1),
+        (5,'1977-02-02',4000000,'11122275486','45612396574',1);
 
 
 INSERT IGNORE INTO ScenaCiak(codScena, noteDiProduzione, rullo, numRiprese, durataOre, costoAffittoGiornaliero, codF)
@@ -679,7 +693,8 @@ INSERT IGNORE INTO Fondo(codFondo, dataAccredito, patrimonio, P_IVA_SPONSOR, P_I
  (67856, '1987-03-14', 913045, null, 'IT28C5691061322926646213631', 2),
  (54583, '2006-06-22', 389257, null, 'IT26T1896812335575376603094', 2),
  (29463, '2007-03-11', 799200, null, 'IT45L1848278153874223172987', 2),
- (64546, '1973-07-21', 971189, null, 'IT32C1939957617651498822468', 2);
+ (64546, '1973-07-21', 971189, null, 'IT32C1939957617651498822468', 2)
+ ;
 INSERT IGNORE INTO Fondo(codFondo, dataAccredito, patrimonio, P_IVA_SPONSOR, P_IVA_FINANZIATORE, codF) VALUES 
  (29694, '1997-10-22', 880389, 'IT64A3586692220111081233032', null, 2);
 INSERT IGNORE INTO MembroTroupeScena(codScena ,CF) VALUES 
